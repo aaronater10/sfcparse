@@ -22,7 +22,7 @@ It simply sends string data to a file. It may be used for any string data file o
 ___
 
 # Tutorial: Importing
-###### Imports Pythonic Data Types from a Text File
+#### Imports Pythonic Data Types from a Text File
 
 **Example test file**
 Python data inside a file called **"settings.config"**.
@@ -79,12 +79,13 @@ settings_file.saved_float
 ### That's it!
 ___
 # Tutorial: Exporting
-###### Writes/Overwrites a New File
+#### Writes/Overwrites a New File
 Exporting data to example file **"settings.config"**.
 
 
 **Note** these are just examples to build your data to export.
-**Also** Sinlge line values may be a lot simpler than multiline, but multiline is possible as shown!
+
+**Also** Single line values may be a lot simpler than multiline, but multiline is possible as shown!
 ```python
 import sfconfig
 
@@ -158,11 +159,12 @@ dict_to_save_vars = {
 ### That's it!
 ___
 # Tutorial Appending:
-###### Writes New Data to a File if it Exists
+#### Writes New Data to a File if it Exists
 
 It is the same syntax as exporting, but here is an example using the same exported output from Exporting **"settings.config"**.
 
 **Note** these are just examples to build your data to append.
+
 **Also** Sinlge line appending may be more tedious than multiline, so it is recommended to build your data with multiple lines as shown!
 ```python
 import sfconfig
