@@ -165,7 +165,7 @@ It is the same syntax as exporting, but here is an example using the same export
 
 **Note** these are just examples to build your data to append.
 
-**Also** Sinlge line appending may be more tedious than multiline, so it is recommended to build your data with multiple lines as shown!
+**Also** Single line appending may be more tedious than multiline, so it is recommended to build your data with multiple lines as shown!
 ```python
 import sfconfig
 
