@@ -21,11 +21,11 @@ str, int, float, bool, list, dict, tuple, set, nonetype, bytes
 It simply sends string data to a file. It may be used for any string data file output.
 ___
 
-# Tutorial: Importing
+## Tutorial: Importing
 #### Imports Pythonic Data Types from a Text File
 
 **Example test file**
-Python data inside a file called **"settings.config"**.
+Python data inside a file called **settings.config**.
 ```ini
 # Comment for Single Line Data
 saved_str = 'John Doe'
@@ -36,16 +36,9 @@ saved_list = [1, 2, 3]
 saved_dict = {'key1': 1, 'key2': 2}
 saved_tuple = (1,2,3)
 saved_set = { 1, 2, 3 }
-saved_none = None
-saved_bytes = b"data"
+
 
 # Comment for Multiline Data Sets
-saved_data_multiline_list = [
-    1,
-    2,
-    3
-]
-
 saved_data_multiline_dict = {
     'key1' : 'value 1',
     'key2' : 'value 2',
@@ -57,12 +50,6 @@ saved_data_multiline_tuple = (
     2,
     3
 )
-
-saved_data_multiline_set = {
-    'value 1',
-    'value 2',
-    'value 3'
-}
 ```
 ### Importing the above file into your python project and accessing the data
 ```python
@@ -71,21 +58,19 @@ import sfconfig
 settings_file = sfconfig.importfile('settings.config')
 
 # Access any values imported
-settings_file.saved_int
-settings_file.saved_dict
-settings_file.saved_float
+settings_file.saved_str
+settings_file.saved_list
+settings_file.saved_data_multiline_dict
 ...
 ```
 ### That's it!
 ___
-# Tutorial: Exporting
+## Tutorial: Exporting - Single Line Values
 #### Writes/Overwrites a New File
-Exporting data to example file **"settings.config"**.
 
+Exporting data to example file **settings.config**.
 
 **Note** these are just examples to build your data to export.
-
-**Also** Single line values may be a lot simpler than multiline, but multiline is possible as shown!
 ```python
 import sfconfig
 
@@ -95,6 +80,40 @@ export_file = sfconfig.exportfile
 string_to_save = 'John Doe'
 number_to_save = 64
 tuple_to_save = (1,2,3)
+
+
+# Final Data to Export
+data_to_save = f'''
+# Comment Line
+string_to_save = '{string_to_save}'
+number_to_save = {number_to_save}
+tuple_to_save = {tuple_to_save}
+'''
+
+export_file('settings.config', data_to_save)
+```
+### This will be the expected output stored to the file
+```ini
+# Comment Line
+string_to_save = 'John Doe'
+number_to_save = 64
+tuple_to_save = (1,2,3)
+```
+### That's it!
+___
+## Tutorial: Exporting - Multiline Values
+#### Writes/Overwrites a New File
+
+Exporting data to example file **settings.config**.
+
+**Note** these are just examples to build your data to export.
+```python
+import sfconfig
+
+export_file = sfconfig.exportfile
+
+string_to_save = 'John Doe'
+number_to_save = 64
 
 # Multiline Values
 dict_to_save = """{
@@ -116,15 +135,14 @@ list_to_save = """[
 dict_to_save_vars = f"""{{
 
     'key1' : '{string_to_save}',
-    'key2' : {numer_to_save}
+    'key2' : {number_to_save}
 }}
 """
 
+
 # Final Data to Export
 data_to_save = f'''
-string_to_save = {string_to_save}
-number_to_save = {number_to_save}
-tuple_to_save = {tuple_to_save}
+# Comment Line
 dict_to_save = {dict_to_save}
 list_to_save = {list_to_save}
 dict_to_save_vars = {dict_to_save_vars}
@@ -134,9 +152,7 @@ export_file('settings.config', data_to_save)
 ```
 ### This will be the expected output stored to the file
 ```ini
-string_to_save = 'John Doe'
-number_to_save = 64
-tuple_to_save = (1,2,3)
+# Comment Line
 dict_to_save = {
 
     'key1' : 'value1',
@@ -158,10 +174,10 @@ dict_to_save_vars = {
 ```
 ### That's it!
 ___
-# Tutorial Appending:
+## Tutorial Appending:
 #### Writes New Data to a File if it Exists
 
-It is the same syntax as exporting, but here is an example using the same exported output from Exporting **"settings.config"**.
+It is the same syntax as exporting, but here is an example using the same exported output from "Exporting - Single Line" **settings.config**.
 
 **Note** these are just examples to build your data to append.
 
@@ -185,39 +201,21 @@ data_to_append2 = {data_to_append2}
 
 append_file('settings.config', f"data_to_append = {final_save_data}")
 ```
-### This will be the expected output appended to the file if using the multiline
+### This will be the expected output appended to the file if using the multiline append method
 ```ini
+# Comment Line
 string_to_save = 'John Doe'
 number_to_save = 64
 tuple_to_save = (1,2,3)
-dict_to_save = {
-
-    'key1' : 'value1',
-    'key2' : 'value2'    
-}
-
-list_to_save = [  
-
-    1,
-    2,
-    3
-]
-
-dict_to_save_vars = {
-
-    'key1' : 'John Doe',
-    'key2' : 64
-}
-
 data_to_append = ['item1', 'item2', 'item3']
 data_to_append2 = [1,2,3]
 ```
 ### That's it!
 ___
-# Tutorial Video
+## Tutorial Video
 Coming soon.
 ___
-# Module Performance
+## Module Performance
 ### Importing
 Imported a file 1000 times with 100 lines of data in 0.6s.
 
@@ -243,13 +241,13 @@ print(elapsed_time)
 ##### System: Tested on a 4th-Gen Intel Core i7-4790 at 3.6GHz
 ___
 
-# Known Limitations
+## Known Limitations
 **Importing**
  - Does not support importing unpacked variables and values
  - Does not support importing values with a variable stored inside
  - Does not ignore comments at the end of a value imported
 
-# Future Upgrades
+## Future Upgrades
 **Importing**
 - Add support for importing values with variables inside
 - Add support for unpacked variables and values
