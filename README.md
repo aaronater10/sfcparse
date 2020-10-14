@@ -21,7 +21,7 @@ str, int, float, bool, list, dict, tuple, set, nonetype, bytes
 It simply sends string data to a file. It may be used for any string data file output.
 ___
 
-## Tutorial: Importing
+# Tutorial: Importing
 #### Imports Pythonic Data Types from a Text File
 
 **Example test file**
@@ -65,7 +65,7 @@ settings_file.saved_data_multiline_dict
 ```
 ### That's it!
 ___
-## Tutorial: Exporting - Single Line Values
+# Tutorial: Exporting - Single Line Values
 #### Writes/Overwrites a New File
 
 Exporting data to example file **settings.config**.
@@ -101,7 +101,7 @@ tuple_to_save = (1,2,3)
 ```
 ### That's it!
 ___
-## Tutorial: Exporting - Multiline Values
+# Tutorial: Exporting - Multiline Values
 #### Writes/Overwrites a New File
 
 Exporting data to example file **settings.config**.
@@ -174,7 +174,7 @@ dict_to_save_vars = {
 ```
 ### That's it!
 ___
-## Tutorial Appending:
+# Tutorial Appending:
 #### Writes New Data to a File if it Exists
 
 It is the same syntax as exporting, but here is an example using the same exported output from "Exporting - Single Line" **settings.config**.
@@ -212,10 +212,10 @@ data_to_append2 = [1,2,3]
 ```
 ### That's it!
 ___
-## Tutorial Video
+# Tutorial Video
 Coming soon.
 ___
-## Module Performance
+# Module Performance
 ### Importing
 Imported a file 1000 times with 100 lines of data in 0.6s.
 
@@ -241,13 +241,13 @@ print(elapsed_time)
 ##### System: Tested on a 4th-Gen Intel Core i7-4790 at 3.6GHz
 ___
 
-## Known Limitations
+# Known Limitations
 **Importing**
  - Does not support importing unpacked variables and values
  - Does not support importing values with a variable stored inside
  - Does not ignore comments at the end of a value imported
 
-## Future Upgrades
+# Future Upgrades
 **Importing**
 - Add support for importing values with variables inside
 - Add support for unpacked variables and values
