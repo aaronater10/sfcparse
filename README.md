@@ -1,6 +1,6 @@
 # sfconfig Module for Python
 ### sfconfig = Simple File Configuration
-### Current Version 0.6.3
+### Current Version 0.6.4
 ___
 ### Introduction
 This module allows you to easily import, export, and append configuration data for your python program or script

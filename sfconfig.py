@@ -1,7 +1,7 @@
 """
 Simple File Configuration - by aaronater10
 
-Version 0.6.3
+Version 0.6.4
 
 This module allows you to import, export, and append configuration data for your python program or script
 in a plain text file. It can be used to export any str data to a file as well.
@@ -34,102 +34,105 @@ def importfile(filename=str):
     importfile('filename.test' or 'path\\to\\filename.test')
     """
 
-    # Open and Import Config File into Class Object then return the object
+    # Validate File Exists
     try:
-        with open(filename, 'r') as f:            
-            class file_data:
-                
-                # Data Build Switches
-                __start_data_build_sw = False
-                __build_data_sw = False
-                __end_data_build_sw = False
-
-                # Markers
-                __start_markers = {'[','{','('}
-                __end_markers = {']','}',')'}
-                __skip_markers = {'',' ','#','\n'}
-
-                # Main File Loop
-                for __import_file_data in f.readlines():
-                    __skip_data = __import_file_data
-
-                    # Skip Comments, Blank Lines, and New Lines
-                    if (__start_data_build_sw == False) and (__skip_data[0] in __skip_markers):
-                        continue
-                    
-                    # Verify Basic File Syntax, then Import Lines of Data
-                    try:
-                        __syntax_check = __import_file_data.split()[1]
-                    except:
-                        __syntax_check = ''
-
-                    if (__syntax_check == '=') or (__start_data_build_sw == True):
-
-                        
-                        # Set Data Build Markers
-
-                        # Read/Set START Marker from File
-                        try:
-                            __start_data_build_marker = __import_file_data.split()[2]
-                        except:
-                            __start_data_build_marker = ''
-
-                        # Check if a Character is After the Start Marker
-                        try:
-                            __start_data_build_marker_post_check = __import_file_data.split()[3]
-                            __start_data_build_marker_post_check = True
-                        except:
-                            __start_data_build_marker_post_check = False
-                        
-                        # Read/Set END Marker from File
-                        try:
-                            __end_data_build_marker = __import_file_data.strip()
-                        except:
-                            __end_data_build_marker = ''
-
-                        # Set Data Build Marker Checks
-                        __start_data_build_marker_check = (__start_data_build_marker in __start_markers)
-                        __end_data_build_marker_check = (__end_data_build_marker in __end_markers)
-
-
-                        # START DATA BUILD: Check if line of file is a Start Data Build Section
-                        if (__start_data_build_marker_check == True) and (__start_data_build_marker_post_check == False):
-                            __key_stream = __import_file_data.split()[0]
-                            __build_data = __import_file_data.split('=')[1].strip()
-
-                            # Turn ON Data Build Switches
-                            __start_data_build_sw = True
-                            __build_data_sw = True
-                            __end_data_build_sw = True                        
-                            continue
-
-                        # END DATA BUILD: Check if line of file is an End Data Build Section, then Import Built Data Type if Valid
-                        elif (__end_data_build_sw == True) and (__end_data_build_marker_check == True):
-                            __build_data += __import_file_data.strip()
-                            locals()[__key_stream] = __literal_eval__(__build_data)
-
-                            # Turn OFF Data Build Swiches
-                            __build_data_sw = False
-                            __end_data_build_sw = False
-                            __start_data_build_sw = False
-                            continue
-
-                        # CONT DATA BUILD: Continue to Build Data if Switch is ON    
-                        elif __build_data_sw == True:
-                            __build_data += __import_file_data
-
-
-                        # IMPORT SINLGE LINE TYPES: Import Valid Data Types on Lines of File
-                        else:
-                            __key = __import_file_data.split()[0].strip()
-                            __value = __import_file_data.split('=')[1].strip()                            
-                            locals()[__key] = __literal_eval__(__value)                            
-            
-            # Return Final Import
-            return file_data()
-            
+        with open(filename, 'r'):
+            pass        
     except FileNotFoundError as __err:
-        print(__err)
+        return print(__err)
+
+    # Open and Import Config File into Class Object then return the object
+    with open(filename, 'r') as f:            
+        class file_data:
+            
+            # Data Build Switches
+            __start_data_build_sw = False
+            __build_data_sw = False
+            __end_data_build_sw = False
+
+            # Markers
+            __start_markers = {'[','{','('}
+            __end_markers = {']','}',')'}
+            __skip_markers = {'',' ','#','\n'}
+
+            # Main File Loop
+            for __import_file_data in f.readlines():
+                __skip_data = __import_file_data
+
+                # Skip Comments, Blank Lines, and New Lines
+                if (__start_data_build_sw == False) and (__skip_data[0] in __skip_markers):
+                    continue
+                
+                # Verify Basic File Syntax, then Import Lines of Data
+                try:
+                    __syntax_check = __import_file_data.split()[1]
+                except:
+                    __syntax_check = ''
+
+                if (__syntax_check == '=') or (__start_data_build_sw == True):
+
+                    
+                    # Set Data Build Markers
+
+                    # Read/Set START Marker from File
+                    try:
+                        __start_data_build_marker = __import_file_data.split()[2]
+                    except:
+                        __start_data_build_marker = ''
+
+                    # Check if a Character is After the Start Marker
+                    try:
+                        __start_data_build_marker_post_check = __import_file_data.split()[3]
+                        __start_data_build_marker_post_check = True
+                    except:
+                        __start_data_build_marker_post_check = False
+                    
+                    # Read/Set END Marker from File
+                    try:
+                        __end_data_build_marker = __import_file_data.strip()
+                    except:
+                        __end_data_build_marker = ''
+
+                    # Set Data Build Marker Checks
+                    __start_data_build_marker_check = (__start_data_build_marker in __start_markers)
+                    __end_data_build_marker_check = (__end_data_build_marker in __end_markers)
+
+
+                    # START DATA BUILD: Check if line of file is a Start Data Build Section
+                    if (__start_data_build_marker_check == True) and (__start_data_build_marker_post_check == False):
+                        __key_stream = __import_file_data.split()[0]
+                        __build_data = __import_file_data.split('=')[1].strip()
+
+                        # Turn ON Data Build Switches
+                        __start_data_build_sw = True
+                        __build_data_sw = True
+                        __end_data_build_sw = True                        
+                        continue
+
+                    # END DATA BUILD: Check if line of file is an End Data Build Section, then Import Built Data Type if Valid
+                    elif (__end_data_build_sw == True) and (__end_data_build_marker_check == True):
+                        __build_data += __import_file_data.strip()
+                        locals()[__key_stream] = __literal_eval__(__build_data)
+
+                        # Turn OFF Data Build Swiches
+                        __build_data_sw = False
+                        __end_data_build_sw = False
+                        __start_data_build_sw = False
+                        continue
+
+                    # CONT DATA BUILD: Continue to Build Data if Switch is ON    
+                    elif __build_data_sw == True:
+                        __build_data += __import_file_data
+
+
+                    # IMPORT SINLGE LINE TYPES: Import Valid Data Types on Lines of File
+                    else:
+                        __key = __import_file_data.split()[0].strip()
+                        __value = __import_file_data.split('=')[1].strip()                            
+                        locals()[__key] = __literal_eval__(__value)                            
+        
+        # Return Final Import
+        return file_data()
 
 
 #########################################################################################################
