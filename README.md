@@ -1,6 +1,6 @@
-# sfconfig Module for Python
-### sfconfig = Simple File Configuration
-### Current Version 0.6.4
+# sfcparse Module for Python
+### sfcparse = Simple File Configuration
+### Current Version 0.7.0
 ___
 ### Introduction
 This module allows you to easily import, export, and append configuration data for your python program or script
@@ -53,9 +53,9 @@ saved_data_multiline_tuple = (
 ```
 ### Importing the above file into your python project and accessing the data
 ```python
-import sfconfig
+import sfcparse
 
-settings_file = sfconfig.importfile('settings.config')
+settings_file = sfcparse.importfile('settings.config')
 
 # Access any values imported
 settings_file.saved_str
@@ -72,9 +72,9 @@ Exporting data to example file **settings.config**.
 
 **Note** these are just examples to build your data to export.
 ```python
-import sfconfig
+import sfcparse
 
-export_file = sfconfig.exportfile
+export_file = sfcparse.exportfile
 
 # Single Line Values
 string_to_save = 'John Doe'
@@ -108,9 +108,9 @@ Exporting data to example file **settings.config**.
 
 **Note** these are just examples to build your data to export.
 ```python
-import sfconfig
+import sfcparse
 
-export_file = sfconfig.exportfile
+export_file = sfcparse.exportfile
 
 string_to_save = 'John Doe'
 number_to_save = 64
@@ -183,9 +183,9 @@ It is the same syntax as exporting, but here is an example using the same export
 
 **Also** Single line appending may be more tedious than multiline, so it is recommended to build your data with multiple lines as shown!
 ```python
-import sfconfig
+import sfcparse
 
-append_file = sfconfig.appendfile
+append_file = sfcparse.appendfile
 
 data_to_append = ['item1', 'item2', 'item3']
 data_to_append2 = [1,2,3]
@@ -222,7 +222,7 @@ Imported a file 1000 times with 100 lines of data in 0.6s.
 ##### Lab Test Conducted:
 
 ```python
-from sfconfig import importfile
+from sfcparse import importfile
 import time
 
 file_to_import = 'data.test'
