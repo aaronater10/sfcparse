@@ -1,10 +1,11 @@
 """
-Simple File Configuration - by aaronater10
+Simple File Configuration Parse - by aaronater10
 
-Version 0.6.4
+Version 0.7.0
 
 This module allows you to import, export, and append configuration data for your python program or script
-in a plain text file. It can be used to export any str data to a file as well.
+in a plain text file. It can be used to export any str data to a file as well. Also conains features for
+easily formatting data types for clean file export.
 
 Importing [Python only]: returns a class with attributes from the file keeping python's natural recognition
 of data types, including comments being ignored.
@@ -30,7 +31,7 @@ def importfile(filename=str):
 
     Enter file location as str to import.
 
-    [Example]   
+    [Example Use]
     importfile('filename.test' or 'path\\to\\filename.test')
     """
 
@@ -143,7 +144,7 @@ def exportfile(filename=str, *args):
     
     Enter new filname as str, Pass any data to file as str.
     
-    [Example]   
+    [Example Use]
     exportfile('filename.test' or 'path\\to\\filename.test', 'data1', 'data2')
     """
 
@@ -161,7 +162,7 @@ def appendfile(filename=str, *args):
 
     Enter existing filname as str, Pass any data to file as str.
 
-    [Example]  
+    [Example Use]
     appendfile('filename.test' or 'path\\to\\filename.test', 'data1', 'data2')
     """
 
@@ -173,3 +174,139 @@ def appendfile(filename=str, *args):
                     f.writelines("\n" + str(data_to_write))            
     except FileNotFoundError as __err:
         print(__err)
+
+
+#########################################################################################################
+# Format/Prep Dictionary Data for Export
+def cleandict(_dict_):
+    """
+    Formats a single dictionary to have a clean multiline output for exporting to a file.
+
+    Returned output will be a str.
+
+    Note: Will not work properly if keys/values contain commas
+
+    [Example Use]
+    var = cleandict(dict)
+    """
+
+    # Convert dict to str
+    _dict_ = str(_dict_)
+
+    # Set returned data to type
+    __build_data = ""
+
+    # Format Dictionary Data and Return as str
+    for data_to_build in _dict_.split(','):
+        if data_to_build[0] == '{':
+            __build_data += data_to_build[0] + '\n ' + data_to_build[1:] + ',' + '\n'
+            continue    
+        if data_to_build[-1] == '}':
+            __build_data += data_to_build[:-1] + '\n' + data_to_build[-1]
+        else:
+            __build_data += data_to_build + ',' + '\n'
+    
+    # Return final built data as str
+    return __build_data
+
+
+#########################################################################################################
+# Format/Prep List Data for Export
+def cleanlist(_list_):
+    """
+    Formats a single list to have a clean multiline output for exporting to a file.
+
+    Returned output will be a str.
+
+    Note: Will not work properly if values contain commas
+
+    [Example Use]
+    var = cleanlist(list)
+    """
+
+    # Convert list to str
+    _list_ = str(_list_)
+
+    # Set returned data to type
+    __build_data = ""
+
+    # Format List Data and Return as str
+    for data_to_build in _list_.split(','):
+        if data_to_build[0] == '[':
+            __build_data += data_to_build[0] + '\n ' + data_to_build[1:] + ',' + '\n'
+            continue    
+        if data_to_build[-1] == ']':
+            __build_data += data_to_build[:-1] + '\n' + data_to_build[-1]
+        else:
+            __build_data += data_to_build + ',' + '\n'
+    
+    # Return final built data as str
+    return __build_data
+
+
+#########################################################################################################
+# Format/Prep Tuple Data for Export
+def cleantuple(_tuple_):
+    """
+    Formats a single tuple to have a clean multiline output for exporting to a file.
+
+    Returned output will be a str.
+
+    Note: Will not work properly if values contain commas
+
+    [Example Use]
+    var = cleantuple(tuple)
+    """
+
+    # Convert tuple to str
+    _tuple_ = str(_tuple_)
+
+    # Set returned data to type
+    __build_data = ""
+
+    # Format Tuple Data and Return as str
+    for data_to_build in _tuple_.split(','):
+        if data_to_build[0] == '(':
+            __build_data += data_to_build[0] + '\n ' + data_to_build[1:] + ',' + '\n'
+            continue    
+        if data_to_build[-1] == ')':
+            __build_data += data_to_build[:-1] + '\n' + data_to_build[-1]
+        else:
+            __build_data += data_to_build + ',' + '\n'
+    
+    # Return final built data as str
+    return __build_data
+
+
+#########################################################################################################
+# Format/Prep Set Data for Export
+def cleanset(_set_):
+    """
+    Formats a single set to have a clean multiline output for exporting to a file.
+
+    Returned output will be a str.
+
+    Note: Will not work properly if values contain commas
+
+    [Example Use]
+    var = cleanset(set)
+    """
+
+    # Convert set to str
+    _set_ = str(_set_)
+
+    # Set returned data to type
+    __build_data = ""
+
+    # Format Set Data and Return as str
+    for data_to_build in _set_.split(','):
+        if data_to_build[0] == '{':
+            __build_data += data_to_build[0] + '\n ' + data_to_build[1:] + ',' + '\n'
+            continue    
+        if data_to_build[-1] == '}':
+            __build_data += data_to_build[:-1] + '\n' + data_to_build[-1]
+        else:
+            __build_data += data_to_build + ',' + '\n'
+    
+    # Return final built data as str
+    return __build_data
