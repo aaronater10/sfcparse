@@ -1,7 +1,7 @@
 """
 Simple File Configuration Parse - by aaronater10
 
-Version 0.7.1
+Version 0.7.2
 
 This module allows you to import, export, and append configuration data for your python program or script
 in a plain text file. It can be used to export any str data to a file as well. Also conains features for
@@ -196,7 +196,8 @@ def cleanformat(_datatype_):
     MARKERS_START = ['{','[','(']
     MARKERS_END = ['}',']',')']
 
-    # Convert data type to str
+    # Grab data type, Convert data type to str
+    __checktype = _datatype_
     _datatype_ = str(_datatype_)
 
     # Create return data var and set to str
@@ -204,6 +205,15 @@ def cleanformat(_datatype_):
 
     # Format Data Type and Return as str
     for data_to_build in _datatype_.split(','):
+        # Check if data type is empty or has 1 element, if so format and break
+        if not any(__checktype):
+            __build_data = _datatype_[0] + '\n'*2 + _datatype_[-1]
+            break
+        elif len(__checktype) == 1:
+            __build_data = data_to_build[0] + '\n ' + data_to_build[1:-1] + '\n' + data_to_build[-1]
+            break
+
+        # Format data type with more than 2 elements
         if data_to_build[0] in MARKERS_START:
             __build_data += data_to_build[0] + '\n ' + data_to_build[1:] + ',' + '\n'
             continue    
