@@ -1,5 +1,5 @@
 # sfcparse Module for Python
-### sfcparse = Simple File Configuration
+### sfcparse = Simple File Configuration Parse
 ### Current Version 0.7.1
 ___
 ### Introduction
