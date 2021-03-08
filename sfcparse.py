@@ -1,7 +1,7 @@
 """
 Simple File Configuration Parse - by aaronater10
 
-Version 0.7.0
+Version 0.7.1
 
 This module allows you to import, export, and append configuration data for your python program or script
 in a plain text file. It can be used to export any str data to a file as well. Also conains features for
@@ -177,133 +177,37 @@ def appendfile(filename=str, *args):
 
 
 #########################################################################################################
-# Format/Prep Dictionary Data for Export
-def cleandict(_dict_):
+# Format/Prep Dictionary, List, Tuple, or Set Data for Export
+def cleanformat(_datatype_):
     """
-    Formats a single dictionary to have a clean multiline output for exporting to a file.
+    Formats a (single) dictionary, list, tuple, or set to have a clean multiline output for exporting to a file.
 
     Returned output will be a str.
 
-    Note: Will not work properly if keys/values contain commas
+    Note: Will not work properly if keys or values contain commas
+
+    Accepted data types: dict, list, tuple, set 
 
     [Example Use]
-    var = cleandict(dict)
+    var = cleanformat(_datatype_)
     """
 
-    # Convert dict to str
-    _dict_ = str(_dict_)
+    # Data Type Markers
+    MARKERS_START = ['{','[','(']
+    MARKERS_END = ['}',']',')']
 
-    # Set returned data to type
+    # Convert data type to str
+    _datatype_ = str(_datatype_)
+
+    # Create return data var and set to str
     __build_data = ""
 
-    # Format Dictionary Data and Return as str
-    for data_to_build in _dict_.split(','):
-        if data_to_build[0] == '{':
+    # Format Data Type and Return as str
+    for data_to_build in _datatype_.split(','):
+        if data_to_build[0] in MARKERS_START:
             __build_data += data_to_build[0] + '\n ' + data_to_build[1:] + ',' + '\n'
             continue    
-        if data_to_build[-1] == '}':
-            __build_data += data_to_build[:-1] + '\n' + data_to_build[-1]
-        else:
-            __build_data += data_to_build + ',' + '\n'
-    
-    # Return final built data as str
-    return __build_data
-
-
-#########################################################################################################
-# Format/Prep List Data for Export
-def cleanlist(_list_):
-    """
-    Formats a single list to have a clean multiline output for exporting to a file.
-
-    Returned output will be a str.
-
-    Note: Will not work properly if values contain commas
-
-    [Example Use]
-    var = cleanlist(list)
-    """
-
-    # Convert list to str
-    _list_ = str(_list_)
-
-    # Set returned data to type
-    __build_data = ""
-
-    # Format List Data and Return as str
-    for data_to_build in _list_.split(','):
-        if data_to_build[0] == '[':
-            __build_data += data_to_build[0] + '\n ' + data_to_build[1:] + ',' + '\n'
-            continue    
-        if data_to_build[-1] == ']':
-            __build_data += data_to_build[:-1] + '\n' + data_to_build[-1]
-        else:
-            __build_data += data_to_build + ',' + '\n'
-    
-    # Return final built data as str
-    return __build_data
-
-
-#########################################################################################################
-# Format/Prep Tuple Data for Export
-def cleantuple(_tuple_):
-    """
-    Formats a single tuple to have a clean multiline output for exporting to a file.
-
-    Returned output will be a str.
-
-    Note: Will not work properly if values contain commas
-
-    [Example Use]
-    var = cleantuple(tuple)
-    """
-
-    # Convert tuple to str
-    _tuple_ = str(_tuple_)
-
-    # Set returned data to type
-    __build_data = ""
-
-    # Format Tuple Data and Return as str
-    for data_to_build in _tuple_.split(','):
-        if data_to_build[0] == '(':
-            __build_data += data_to_build[0] + '\n ' + data_to_build[1:] + ',' + '\n'
-            continue    
-        if data_to_build[-1] == ')':
-            __build_data += data_to_build[:-1] + '\n' + data_to_build[-1]
-        else:
-            __build_data += data_to_build + ',' + '\n'
-    
-    # Return final built data as str
-    return __build_data
-
-
-#########################################################################################################
-# Format/Prep Set Data for Export
-def cleanset(_set_):
-    """
-    Formats a single set to have a clean multiline output for exporting to a file.
-
-    Returned output will be a str.
-
-    Note: Will not work properly if values contain commas
-
-    [Example Use]
-    var = cleanset(set)
-    """
-
-    # Convert set to str
-    _set_ = str(_set_)
-
-    # Set returned data to type
-    __build_data = ""
-
-    # Format Set Data and Return as str
-    for data_to_build in _set_.split(','):
-        if data_to_build[0] == '{':
-            __build_data += data_to_build[0] + '\n ' + data_to_build[1:] + ',' + '\n'
-            continue    
-        if data_to_build[-1] == '}':
+        if data_to_build[-1] in MARKERS_END:
             __build_data += data_to_build[:-1] + '\n' + data_to_build[-1]
         else:
             __build_data += data_to_build + ',' + '\n'
