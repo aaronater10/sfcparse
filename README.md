@@ -1,10 +1,10 @@
 # sfcparse Module for Python
 ### sfcparse = Simple File Configuration Parse
-### Current Version 0.7.3
+### Current Version 0.7.4
 ___
 ### Introduction
 This module allows you to easily import, export, and append configuration data for your python program or script
-in any plain text file with any file extension. **It can be used to easily export any string data to a file as well**.
+in any plain text file with any file extension. **It can be used to easily export any string data to a file as well**. Also conains a feature for easily formatting data types for clean multiline output when exporting data to files. 
 
 ### Goal for the Project:
 To provide an easy alternative to using .ini files in an attempt to make importing python data and saving any data to files for your projects simple. This also gives you the universal freedom to use any file extension or any made up file type you want.
@@ -21,8 +21,14 @@ str, int, float, bool, list, dict, tuple, set, nonetype, bytes
 It simply sends string data to a file. It may be used for any string data file output.
 ___
 
-# Tutorial: Importing
-#### Imports Pythonic Data Types from a Text File
+# Tutorial: Install
+```python
+pip install sfcparse
+```
+___
+
+# Usage: Importing
+#### Imports Pythonic Data Types from your Text File
 
 **Example test file**
 Python data inside a file called **settings.config**.
@@ -60,12 +66,12 @@ settings_file = sfcparse.importfile('settings.config')
 # Access any values imported
 settings_file.saved_str
 settings_file.saved_list
-settings_file.saved_data_multiline_dict
+settings_file.saved_data_multiline_dict['key1']
 ...
 ```
 ### That's it!
 ___
-# Tutorial: Exporting - Single Line Values
+# Usage: Exporting - Single Line Values
 #### Writes/Overwrites a New File
 
 Exporting data to example file **settings.config**.
@@ -101,7 +107,7 @@ tuple_to_save = (1,2,3)
 ```
 ### That's it!
 ___
-# Tutorial: Exporting - Multiline Values
+# Usage: Exporting - Multiline Values
 #### Writes/Overwrites a New File
 
 Exporting data to example file **settings.config**.
@@ -172,9 +178,27 @@ dict_to_save_vars = {
     'key2' : 64
 }
 ```
+### You can also use the "cleanformat" to build multiline output faster
+```python
+
+data_to_save_clean = {'key1':'value1', 'key2':'value2', 'key3':'value3'}
+
+clean_output = sfcparse.cleanformat(data_to_save_clean)
+
+export_file('settings.config', f"data_to_save_clean = {clean_output}")
+```
+### This will be the clean expected output stored to the file
+```ini
+data_to_save_clean = {
+    'key1' : 'value1',
+    'key2' : 'value2',
+    'key3' : 'value3'
+}
+```
+
 ### That's it!
 ___
-# Tutorial Appending:
+# Usage: Appending:
 #### Writes New Data to a File if it Exists
 
 It is the same syntax as exporting, but here is an example using the same exported output from "Exporting - Single Line" **settings.config**.

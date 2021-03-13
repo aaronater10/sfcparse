@@ -1,11 +1,11 @@
 """
 Simple File Configuration Parse - by aaronater10
 
-Version 0.7.3
+Version 0.7.4
 
 This module allows you to import, export, and append configuration data for your python program or script
-in a plain text file. It can be used to export any str data to a file as well. Also conains features for
-easily formatting data types for clean file export.
+in a plain text file. It can be used to export any str data to a file as well. Also conains a feature for
+easily formatting data types for clean multiline output when exporting data to files.
 
 Importing [Python only]: returns a class with attributes from the file keeping python's natural recognition
 of data types, including comments being ignored.
@@ -203,7 +203,6 @@ def cleanformat(_datatype_):
     # Create return data var and set to str
     __build_data = ""
 
-
     # Format Data Type and Return as str
     try:
         for data_to_build in _datatype_.split(','):
@@ -227,6 +226,7 @@ def cleanformat(_datatype_):
                 __build_data += data_to_build[:-1] + '\n' + data_to_build[-1]
             else:
                 __build_data += data_to_build + ',' + '\n'
+    
     except TypeError as __err:
         print('Passed in an invalid data type:', __err)
 
