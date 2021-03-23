@@ -1,7 +1,7 @@
 """
 Simple File Configuration Parse - by aaronater10
 
-Version 0.7.4
+Version 0.7.5
 
 This module allows you to import, export, and append configuration data for your python program or script
 in a plain text file. It can be used to export any str data to a file as well. Also conains a feature for

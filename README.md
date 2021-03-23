@@ -1,6 +1,6 @@
 # sfcparse Module for Python
 ### sfcparse = Simple File Configuration Parse
-### Current Version 0.7.4
+### Current Version 0.7.5
 ___
 ### Introduction
 This module allows you to easily import, export, and append configuration data for your python program or script
