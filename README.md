@@ -1,6 +1,6 @@
 # sfcparse Module for Python
 ### sfcparse = Simple File Configuration Parse
-### Current Version 0.7.5
+### Current Version 0.7.6
 ___
 ### Introduction
 This module allows you to easily import, export, and append configuration data for your python program or script
@@ -21,11 +21,15 @@ str, int, float, bool, list, dict, tuple, set, nonetype, bytes
 It simply sends string data to a file. It may be used for any string data file output.
 ___
 
-# Tutorial: Install
+# Tutorial Videos (New):
+New tutorial training series on [YouTube](https://www.youtube.com/watch?v=yW5bBAQaIig&list=PLaVLtZTXV5i2Zkj704h-Cxl3uDqrFpohU&index=1) now available!
+
+___
+
+# Tutorial: Install & Usage
 ```python
 pip install sfcparse
 ```
-___
 
 # Usage: Importing
 #### Imports Pythonic Data Types from your Text File
@@ -235,9 +239,7 @@ data_to_append = ['item1', 'item2', 'item3']
 data_to_append2 = [1,2,3]
 ```
 ### That's it!
-___
-# Tutorial Video
-Coming soon.
+
 ___
 # Module Performance
 ### Importing
