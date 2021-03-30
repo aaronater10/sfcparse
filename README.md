@@ -22,7 +22,7 @@ It simply sends string data to a file. It may be used for any string data file o
 ___
 
 # Tutorial Videos (New):
-New tutorial training series on [YouTube](https://www.youtube.com/watch?v=yW5bBAQaIig&list=PLaVLtZTXV5i2Zkj704h-Cxl3uDqrFpohU&index=1) now available!
+New tutorial training series on [YouTube](https://www.youtube.com/watch?v=7-_iRNAQkno&list=PLaVLtZTXV5i2Zkj704h-Cxl3uDqrFpohU&index=1) now available!
 
 ___
 
