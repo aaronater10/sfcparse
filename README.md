@@ -1,6 +1,6 @@
 # sfcparse Module for Python
 ### sfcparse = Simple File Configuration Parse
-### Current Version 0.7.6
+### Current Version 0.7.7
 ___
 ### Introduction
 This module allows you to easily import, export, and append configuration data for your python program or script
@@ -182,7 +182,7 @@ dict_to_save_vars = {
     'key2' : 64
 }
 ```
-### You can also use the "cleanformat" to build multiline output faster
+## Clean Format: You can also use "cleanformat" to easily organize your multiline output
 ```python
 
 data_to_save_clean = {'key1':'value1', 'key2':'value2', 'key3':'value3'}

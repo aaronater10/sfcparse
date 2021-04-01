@@ -1,7 +1,7 @@
 """
 Simple File Configuration Parse - by aaronater10
 
-Version 0.7.6
+Version 0.7.7
 
 This module allows you to import, export, and append configuration data for your python program or script
 in a plain text file. It can be used to export any str data to a file as well. Also conains a feature for
@@ -203,6 +203,7 @@ def cleanformat(_datatype_):
     # Create return data var and set to str
     __build_data = ""
 
+
     # Format Data Type and Return as str
     try:
         for data_to_build in _datatype_.split(','):
@@ -212,20 +213,21 @@ def cleanformat(_datatype_):
                 break
             # Tuple Fix: Tuple End Bracket Gets Cut off with single value. Other types do not.
             elif (len(__checktype) == 1) and (type(__checktype) == type(())):
-                __build_data = MARKERS_START[2] + '\n ' + data_to_build[1:] + '\n' + MARKERS_END[2]
+                __build_data = MARKERS_START[2] + '\n ' + ' '*3 + data_to_build[1:] + '\n' + MARKERS_END[2]
                 break
             elif len(__checktype) == 1:                
-                __build_data = data_to_build[0] + '\n ' + data_to_build[1:-1] + '\n' + data_to_build[-1]
+                __build_data = data_to_build[0] + '\n' + ' '*4 + data_to_build[1:-1] + '\n' + data_to_build[-1]
                 break
 
             # Format data type with more than 2 elements
             if data_to_build[0] in MARKERS_START:
-                __build_data += data_to_build[0] + '\n ' + data_to_build[1:] + ',' + '\n'
-                continue    
+                __build_data += data_to_build[0] + '\n' + ' '*4 + data_to_build[1:] + ','
+                continue
             if data_to_build[-1] in MARKERS_END:
-                __build_data += data_to_build[:-1] + '\n' + data_to_build[-1]
+                __build_data += '\n' + ' '*3 + data_to_build[:-1] + '\n' + data_to_build[-1]
             else:
-                __build_data += data_to_build + ',' + '\n'
+                __build_data += '\n' + ' '*3 + data_to_build + ','
+            
     
     except TypeError as __err:
         print('Passed in an invalid data type:', __err)
