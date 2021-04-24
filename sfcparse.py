@@ -1,7 +1,7 @@
 """
 Simple File Configuration Parse - by aaronater10
 
-Version 0.7.7
+Version 0.8.0
 
 This module allows you to import, export, and append configuration data for your python program or script
 in a plain text file. It can be used to export any str data to a file as well. Also conains a feature for
@@ -35,105 +35,93 @@ def importfile(filename=str):
     importfile('filename.test' or 'path\\to\\filename.test')
     """
 
-    # Validate File Exists
+    # Validate file exists. Open and Import Config File into Class Object then return the object    
     try:
-        with open(filename, 'r'):
-            pass        
+        with open(filename, 'r') as f:
+            f = f.read().splitlines()
     except FileNotFoundError as __err:
         return print(__err)
 
-    # Open and Import Config File into Class Object then return the object
-    with open(filename, 'r') as f:            
-        class file_data:
+    class file_data:
+
+        # Syntax Error Message
+        __py_syntax_err_msg = "importfile - Must have valid Python data types to import, or file is not formatted correctly"
+        
+        # Data Build Setup and Switches        
+        __is_building_data_sw = False
+        __body_build_data_sw = False
+        __end_data_build_sw = False
+        __build_data = ''
+
+        # Markers
+        __start_markers = {'[','{','('}
+        __end_markers = {']','}',')'}
+        __skip_markers = {'',' ','#','\n'}
+
+        # Main File Loop
+        for __file_data_line in f:
+
+            # Set Skip Marker
+            try:
+                __skip_marker = __file_data_line[0]
+            except:
+                __skip_marker = ''
+
+            # Skip Comments, Blank Lines, and potential New Lines
+            if (__is_building_data_sw == False) and (__skip_marker in __skip_markers):
+                continue
+
+            # Set Syntax Check
+            try:
+                __syntax_check = __file_data_line.split()[1]
+            except:
+                __syntax_check = ''
             
-            # Data Build Switches
-            __start_data_build_sw = False
-            __build_data_sw = False
-            __end_data_build_sw = False
+            # Basic Syntax Check
+            if (__syntax_check == '=') or (__is_building_data_sw):
 
-            # Markers
-            __start_markers = {'[','{','('}
-            __end_markers = {']','}',')'}
-            __skip_markers = {'',' ','#','\n'}
-
-            # Main File Loop
-            for __import_file_data in f.readlines():
-                __skip_data = __import_file_data
-
-                # Skip Comments, Blank Lines, and New Lines
-                if (__start_data_build_sw == False) and (__skip_data[0] in __skip_markers):
+                if not __is_building_data_sw:
+                    __var_token = __file_data_line.split('=')[0].strip()
+                    __value_token = __file_data_line.split('=')[1].strip()
+                    __last_token = __file_data_line.split('=')[-1].strip()
+            
+                # START BUILD: Check if value in file line is only Start Marker. Check if Multline or Single Line
+                if (__value_token in __start_markers) and (__last_token in __start_markers) and (__is_building_data_sw == False):
+                    __build_data = __value_token
+                    
+                    # Turn ON Data Build Switches
+                    __is_building_data_sw = True
+                    __body_build_data_sw = True
+                    __end_data_build_sw = True
                     continue
                 
-                # Verify Basic File Syntax, then Import Lines of Data
-                try:
-                    __syntax_check = __import_file_data.split()[1]
-                except:
-                    __syntax_check = ''
+                # END BUILD: Check if line of file is an End Data Build Marker. Import Built Data Type if Valid
+                elif (__end_data_build_sw) and (__file_data_line.strip() in __end_markers):
+                    __build_data += __file_data_line
 
-                if (__syntax_check == '=') or (__start_data_build_sw == True):
+                    try: locals()[__var_token] = __literal_eval__(__build_data)
+                    except: raise ValueError(__py_syntax_err_msg) from None
 
+                    # Turn OFF Data Build Swiches
+                    __is_building_data_sw = False
+                    __body_build_data_sw = False
+                    __end_data_build_sw = False
+                    __build_data = ''
+                    continue
+
+                # CONT BUILD: Continue to Build Data
+                elif __body_build_data_sw:
+                    __build_data += __file_data_line
                     
-                    # Set Data Build Markers
+                # IMPORT SINLGE LINE VALUES: If not multiline, assume single
+                else:
+                    try: locals()[__var_token] = __literal_eval__(__value_token)
+                    except: raise ValueError(__py_syntax_err_msg) from None
+            
+            else: raise SyntaxError(__py_syntax_err_msg)
 
-                    # Read/Set START Marker from File
-                    try:
-                        __start_data_build_marker = __import_file_data.split()[2]
-                    except:
-                        __start_data_build_marker = ''
-
-                    # Check if a Character is After the Start Marker
-                    try:
-                        __start_data_build_marker_post_check = __import_file_data.split()[3]
-                        __start_data_build_marker_post_check = True
-                    except:
-                        __start_data_build_marker_post_check = False
-                    
-                    # Read/Set END Marker from File
-                    try:
-                        __end_data_build_marker = __import_file_data.strip()
-                    except:
-                        __end_data_build_marker = ''
-
-                    # Set Data Build Marker Checks
-                    __start_data_build_marker_check = (__start_data_build_marker in __start_markers)
-                    __end_data_build_marker_check = (__end_data_build_marker in __end_markers)
-
-
-                    # START DATA BUILD: Check if line of file is a Start Data Build Section
-                    if (__start_data_build_marker_check == True) and (__start_data_build_marker_post_check == False):
-                        __key_stream = __import_file_data.split()[0]
-                        __build_data = __import_file_data.split('=')[1].strip()
-
-                        # Turn ON Data Build Switches
-                        __start_data_build_sw = True
-                        __build_data_sw = True
-                        __end_data_build_sw = True                        
-                        continue
-
-                    # END DATA BUILD: Check if line of file is an End Data Build Section, then Import Built Data Type if Valid
-                    elif (__end_data_build_sw == True) and (__end_data_build_marker_check == True):
-                        __build_data += __import_file_data.strip()
-                        locals()[__key_stream] = __literal_eval__(__build_data)
-
-                        # Turn OFF Data Build Swiches
-                        __build_data_sw = False
-                        __end_data_build_sw = False
-                        __start_data_build_sw = False
-                        continue
-
-                    # CONT DATA BUILD: Continue to Build Data if Switch is ON    
-                    elif __build_data_sw == True:
-                        __build_data += __import_file_data
-
-
-                    # IMPORT SINLGE LINE TYPES: Import Valid Data Types on Lines of File
-                    else:
-                        __key = __import_file_data.split()[0].strip()
-                        __value = __import_file_data.split('=')[1].strip()                            
-                        locals()[__key] = __literal_eval__(__value)                            
-        
-        # Return Final Import
-        return file_data()
+    # Return Final Import
+    return file_data()
 
 
 #########################################################################################################
@@ -178,59 +166,61 @@ def appendfile(filename=str, *args):
 
 #########################################################################################################
 # Format/Prep Dictionary, List, Tuple, or Set Data for Export
-def cleanformat(_datatype_):
+def cleanformat(datatype, indent_level=1):
     """
     Formats a (single) dictionary, list, tuple, or set to have a clean multiline output for exporting to a file.
 
     Returned output will be a str.
 
-    Note: Will not work properly if keys or values contain commas
+    Note: Higher indent levels will decrease performance. Indentation is applied to the main data set only.
+
+    Tip: Changing indent level to 0 increases cleaning performance by 5%, but output will have no indentation (Default = 1).
 
     Accepted data types: dict, list, tuple, set 
 
     [Example Use]
-    var = cleanformat(_datatype_)
+    var = cleanformat(datatype)
     """
-
-    # Data Type Markers
-    MARKERS_START = ['{','[','(']
-    MARKERS_END = ['}',']',')']
-
-    # Grab data type, Convert data type to str
-    __checktype = _datatype_
-    _datatype_ = str(_datatype_)
-
-    # Create return data var and set to str
-    __build_data = ""
-
+    # Set indent level
+    if not type(indent_level) == type(1):
+        raise TypeError('cleanformat - Only int is allowed for indent level.')
+    indent_level = '\t'*indent_level
 
     # Format Data Type and Return as str
-    try:
-        for data_to_build in _datatype_.split(','):
-            # Check if data type is empty or has 1 element, if so format and break
-            if not any(__checktype):
-                __build_data = _datatype_[0] + '\n'*2 + _datatype_[-1]
-                break
-            # Tuple Fix: Tuple End Bracket Gets Cut off with single value. Other types do not.
-            elif (len(__checktype) == 1) and (type(__checktype) == type(())):
-                __build_data = MARKERS_START[2] + '\n ' + ' '*3 + data_to_build[1:] + '\n' + MARKERS_END[2]
-                break
-            elif len(__checktype) == 1:                
-                __build_data = data_to_build[0] + '\n' + ' '*4 + data_to_build[1:-1] + '\n' + data_to_build[-1]
-                break
+    __build_data = ""
 
-            # Format data type with more than 2 elements
-            if data_to_build[0] in MARKERS_START:
-                __build_data += data_to_build[0] + '\n' + ' '*4 + data_to_build[1:] + ','
-                continue
-            if data_to_build[-1] in MARKERS_END:
-                __build_data += '\n' + ' '*3 + data_to_build[:-1] + '\n' + data_to_build[-1]
-            else:
-                __build_data += '\n' + ' '*3 + data_to_build + ','
-            
-    
-    except TypeError as __err:
-        print('Passed in an invalid data type:', __err)
+    # Dict
+    if isinstance(datatype, dict):
+        for key,value in datatype.items():
+            __build_data += f"\n{indent_level}{repr(key)}: {repr(value)},"
+        __build_data = f"{{{__build_data}\n}}"
+        return __build_data
 
-    # Return final built data as str
-    return __build_data
+    # List
+    elif isinstance(datatype, list):
+        for value in datatype:
+            __build_data += f"\n{indent_level}{repr(value)},"
+        __build_data = f"[{__build_data}\n]"
+        return __build_data
+
+    # Tuple
+    elif isinstance(datatype, tuple):
+        for value in datatype:
+            __build_data += f"\n{indent_level}{repr(value)},"
+        __build_data = f"({__build_data}\n)"
+        return __build_data
+
+    # Set
+    elif isinstance(datatype, set):
+        for value in datatype:
+            __build_data += f"\n{indent_level}{repr(value)},"
+        __build_data = f"{{{__build_data}\n}}"
+        return __build_data
+
+    # Raise Error
+    else:
+        raise TypeError(
+            """cleanformat - Only dict, list, tuple, or set are allowed.
+           If tuple, it must be empty, have a single value with a "," [e.g. (1,)], or have >= 2 values
+            """
+        )

@@ -1,10 +1,11 @@
 # sfcparse Module for Python
 ### sfcparse = Simple File Configuration Parse
-### Current Version 0.7.7
+### Current Version 0.8.0
+See "Updates" section on bottom for the latest version information
 ___
 ### Introduction
 This module allows you to easily import, export, and append configuration data for your python program or script
-in any plain text file with any file extension. **It can be used to easily export any string data to a file as well**. Also conains a feature for easily formatting data types for clean multiline output when exporting data to files. 
+in any plain text file with any file extension. **It can be used to easily export any string data to a file as well**. Also contains a feature for easily formatting data types for clean multiline output when exporting data to files. 
 
 ### Goal for the Project:
 To provide an easy alternative to using .ini files in an attempt to make importing python data and saving any data to files for your projects simple. This also gives you the universal freedom to use any file extension or any made up file type you want.
@@ -267,15 +268,39 @@ print(elapsed_time)
 ##### System: Tested on a 4th-Gen Intel Core i7-4790 at 3.6GHz
 ___
 
+# Updates - sfcparse v0.8.0
+
+**API change:**
+- **NEW: v0.8.0** - Compatible only on Python version 3.6+
+- **PREVIOUS: v0.7.7** - Compatible only on Python version 3.0+
+
+**Performance changes:**
+- cleanformat:
+    - code improvement has a 23% performance gain
+- importfile:
+    - code improvement has a 10% performance gain
+
+**Feature Additions:**
+- cleanformat:
+    -  Has a new indentation level feature to add custom indent levels for exporting to a file
+    **NOTE**: formatting performance will **gain 5% boost if you set indent level to 0 (Default 1)**.
+    **Performance will decrease** with more levels of indentation added.
+    - Now supports nested data sets, but will not apply indentation to sub-level data sets
+    - Now does not parse commas in values or keys and retains its original representation
+- importfile:
+    - Now supports importing nested data sets even when subsets are on multiple lines in the file
+    - Comments can now be added after a value
+
+**General:**
+- Updated comments in module/functions
+
 # Known Limitations
 **Importing**
  - Does not support importing unpacked variables and values
- - Does not support importing values with a variable stored inside
- - Does not ignore comments at the end of a value imported
+ - Does not support importing variables as values
+
 
 # Future Upgrades
 **Importing**
-- Add support for importing values with variables inside
+- Add support for importing variables as values
 - Add support for unpacked variables and values
-- Add ability to ignore comments at end of a value
-- Add ability to have Sections like a .ini file
