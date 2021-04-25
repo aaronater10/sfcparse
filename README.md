@@ -4,10 +4,10 @@
 See "Updates" section on bottom for the latest version information
 ___
 ### Introduction
-This module allows you to import and create custom python style save/config files for your program or script on a plain text file with any file extension. **It can be used to easily export any data to a file as well**. Also contains a feature for easily formatting data types for clean multiline output when exporting data to files. 
+This module allows you to import and create custom python style save/config files for your program or script on a plain text file with any file extension. **It can be used to easily export any data to a file as well**. Also contains a feature for easily formatting data types for clean multiline output when exporting data to files, **and importing is more secure than importing your values from .py files**. 
 
 ### Goal for the Project:
-To provide an easy alternative to using save/config files in an attempt to make importing python data and saving any data to files for your projects simple. This also gives you the universal freedom to use any file extension or any made up file type you want.
+To provide an easy alternative to using save/config files in an attempt to customize importing python data and saving any data to files for your projects simple. This also gives you the universal freedom to use any file extension or any made up file type you want, and ensures importing from your file to retrieve values is more secure than importing your values from .py files.
 
 ### Importing (Python only):
 Imports stored variable names and their assigned values from any text file.
