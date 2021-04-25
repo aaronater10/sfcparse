@@ -1,6 +1,6 @@
 # sfcparse Module for Python
 ### sfcparse = Simple File Configuration Parse
-#### Current version 0.8.1
+### Current version 0.8.1
 See "Updates" section on bottom for the latest version information
 ___
 ### Introduction
