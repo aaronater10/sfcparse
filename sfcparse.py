@@ -1,16 +1,18 @@
 """
 Simple File Configuration Parse - by aaronater10
 
-Version 0.8.0
+Version 0.8.1
 
-This module allows you to import, export, and append configuration data for your python program or script
-in a plain text file. It can be used to export any str data to a file as well. Also conains a feature for
+This module allows you to import and create custom python style save/config files for your program or script
+on a plain text file. It can be used to export any data to a file as well. Also conains a feature for
 easily formatting data types for clean multiline output when exporting data to files.
 
 Importing [Python only]: returns a class with attributes from the file keeping python's natural recognition
 of data types, including comments being ignored.
 
 Exporting/Appending: it simply sends str data to a file. It may be used for any str data file output.
+
+CleanFormat: simply formats any dict, list, set, or tuple to a clean multiline structure, and returned as str
 
 Accepted Imported Data Types: str, int, float, bool, list, dict, tuple, set, nonetype, bytes
 """
