@@ -19,6 +19,10 @@ str, int, float, bool, list, dict, tuple, set, nonetype, bytes
 
 ### Exporting/Appending:
 It simply sends string data to a file. It may be used for any string data file output.
+
+### Formatting:
+Simply formats any dict, list, set, or tuple to a clean multiline structure, and return it as str. It can be
+exported to a file neatly.
 ___
 
 # Tutorial Videos (New):
