@@ -1,7 +1,8 @@
 """
 Simple File Configuration Parse - by aaronater10
+More info: 'https://github.com/aaronater10/sfcparse'
 
-Version 0.8.1
+Version 0.8.2
 
 This module allows you to import and create custom python style save/config files for your program or script
 on a plain text file. It can be used to export any data to a file as well. Also conains a feature for
