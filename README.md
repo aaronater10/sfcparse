@@ -27,6 +27,7 @@ ___
 
 # Tutorial Videos (New):
 Quick Start Tutorial: [YouTube Video](https://youtu.be/W7TIVFE7epI)
+
 Full Training Series: [YouTube Playlist](https://www.youtube.com/watch?v=7-_iRNAQkno&list=PLaVLtZTXV5i2Zkj704h-Cxl3uDqrFpohU&index=1)
 
 ___
