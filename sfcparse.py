@@ -2,7 +2,7 @@
 Simple File Configuration Parse - by aaronater10
 More info: 'https://github.com/aaronater10/sfcparse'
 
-Version 0.8.2
+Version 0.8.3
 
 This module allows you to import and create custom python style save/config files for your program or script
 on a plain text file. It can be used to export any data to a file as well. Also conains a feature for
@@ -42,8 +42,8 @@ def importfile(filename=str):
     try:
         with open(filename, 'r') as f:
             f = f.read().splitlines()
-    except FileNotFoundError as __err:
-        return print(__err)
+    except FileNotFoundError:
+        raise
 
     class file_data:
 
@@ -163,8 +163,8 @@ def appendfile(filename=str, *args):
             with open(filename, 'a') as f:
                 for data_to_write in args:
                     f.writelines("\n" + str(data_to_write))            
-    except FileNotFoundError as __err:
-        print(__err)
+    except FileNotFoundError:
+        raise
 
 
 #########################################################################################################
