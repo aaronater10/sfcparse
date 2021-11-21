@@ -2,7 +2,7 @@
 Simple File Configuration Parse - by aaronater10
 More info: 'https://github.com/aaronater10/sfcparse'
 
-Version 0.8.3
+Version 0.8.4
 
 This module allows you to import and create custom python style save/config files for your program or script
 on a plain text file. It can be used to export any data to a file as well. Also conains a feature for
@@ -15,24 +15,31 @@ Exporting/Appending: it simply sends str data to a file. It may be used for any 
 
 CleanFormat: simply formats any dict, list, set, or tuple to a clean multiline structure, and returned as str
 
-Accepted Imported Data Types: str, int, float, bool, list, dict, tuple, set, nonetype, bytes
+Accepted Import Data Types: str, int, float, bool, list, dict, tuple, set, nonetype, bytes
 """
 #########################################################################################################
 # Imports
 from ast import literal_eval as __literal_eval__
+from typing import Any as __Any
+from typing import Union as __Union
 
 
 #########################################################################################################
 # MODULE STARTS HERE
 
+# Create hollow reference name for "class" to denote a class returned for hinting on imports
+class __class: pass
+
 # Import File Data
-def importfile(filename=str):
+def importfile(filename: str) -> __class:
     """
     Imports saved python data from any text file.
 
-    Returns a class with attributes. Assign output to var.
+    Returns a class of attributes. Assign the output to var.
 
     Enter file location as str to import.
+
+    Accepted data types: str, int, float, bool, list, dict, tuple, set, nonetype, bytes
 
     [Example Use]
     importfile('filename.test' or 'path\\to\\filename.test')
@@ -129,11 +136,11 @@ def importfile(filename=str):
 
 #########################################################################################################
 # Export Data to File
-def exportfile(filename=str, *args):
+def exportfile(filename: str, *data: __Any):
     """
     Exports a new file with the new data.
     
-    Enter new filname as str, Pass any data to file as str.
+    Enter new filname as str, Pass any data type for output to file
     
     [Example Use]
     exportfile('filename.test' or 'path\\to\\filename.test', 'data1', 'data2')
@@ -141,17 +148,17 @@ def exportfile(filename=str, *args):
 
     # Export data to new file
     with open(filename, 'w') as f:
-        for data_to_write in args:
+        for data_to_write in data:
             f.writelines(str(data_to_write))
 
 
 #########################################################################################################
 # Append Data to File
-def appendfile(filename=str, *args):
+def appendfile(filename: str, *data: __Any):
     """
     Appends new data to a file.
 
-    Enter existing filname as str, Pass any data to file as str.
+    Enter existing filname as str, Pass any data type for output to file
 
     [Example Use]
     appendfile('filename.test' or 'path\\to\\filename.test', 'data1', 'data2')
@@ -161,7 +168,7 @@ def appendfile(filename=str, *args):
     try:
         with open(filename, 'r'):
             with open(filename, 'a') as f:
-                for data_to_write in args:
+                for data_to_write in data:
                     f.writelines("\n" + str(data_to_write))            
     except FileNotFoundError:
         raise
@@ -169,9 +176,9 @@ def appendfile(filename=str, *args):
 
 #########################################################################################################
 # Format/Prep Dictionary, List, Tuple, or Set Data for Export
-def cleanformat(datatype, indent_level=1):
+def cleanformat(datatype: __Union[dict,list,tuple,set], indent_level: int=1) -> str:
     """
-    Formats a (single) dictionary, list, tuple, or set to have a clean multiline output for exporting to a file.
+    Formats a (single) dictionary, list, tuple, or set, to have a clean multiline output for exporting to a file.
 
     Returned output will be a str.
 

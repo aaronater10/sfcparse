@@ -1,6 +1,6 @@
 # sfcparse Module for Python
 ### sfcparse = Simple File Configuration Parse
-### Current version 0.8.3
+### Current version 0.8.4
 See "Updates" section on bottom for the latest version information
 ___
 ### Introduction
@@ -261,10 +261,10 @@ file_to_import = 'data.test'
 num_of_tests = 1000
 
 # Performance Test
-start_time = time.time()
+start_time = time.perf_counter()
 for i in range(num_of_tests):
     importfile(file_to_import)
-end_time = time.time()
+end_time = time.perf_counter()
 
 elapsed_time = (end_time - start_time)
 
@@ -298,8 +298,11 @@ ___
 
 **General:**
 - Updated comments in module/functions
+
 - 0.8.3:
     - Fixed Importing and Appending error exceptions not raising correctly when checking if file exists
+- 0.8.4
+    - Added Type Hinting and Return Hinting to improve readability
 
 # Known Limitations
 **Importing**
