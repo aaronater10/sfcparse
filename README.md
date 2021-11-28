@@ -1,6 +1,6 @@
 # sfcparse Module for Python
 ### sfcparse = Simple File Configuration Parse
-### Current version 0.8.4
+### Current version 0.8.5
 See "Updates" section on bottom for the latest version information
 ___
 ### Introduction
@@ -303,6 +303,9 @@ ___
     - Fixed Importing and Appending error exceptions not raising correctly when checking if file exists
 - 0.8.4
     - Added Type Hinting and Return Hinting to improve readability
+- 0.8.5
+    - Updated Type Hinting on importfile
+    - Updated docstrings
 
 # Known Limitations
 **Importing**

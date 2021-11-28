@@ -1,8 +1,8 @@
 """
 Simple File Configuration Parse - by aaronater10
-More info: 'https://github.com/aaronater10/sfcparse'
+More info: https://github.com/aaronater10/sfcparse
 
-Version 0.8.4
+Version 0.8.5
 
 This module allows you to import and create custom python style save/config files for your program or script
 on a plain text file. It can be used to export any data to a file as well. Also conains a feature for
@@ -28,10 +28,13 @@ from typing import Union as __Union
 # MODULE STARTS HERE
 
 # Create hollow reference name for "class" to denote a class returned for hinting on imports
-class __class: pass
+class __class:
+    """Not meant to be used"""
+    class Class:
+        """Not meant to be used"""
 
 # Import File Data
-def importfile(filename: str) -> __class:
+def importfile(filename: str) -> __class.Class:
     """
     Imports saved python data from any text file.
 
@@ -156,7 +159,7 @@ def exportfile(filename: str, *data: __Any):
 # Append Data to File
 def appendfile(filename: str, *data: __Any):
     """
-    Appends new data to a file.
+    Appends any data to a file.
 
     Enter existing filname as str, Pass any data type for output to file
 
