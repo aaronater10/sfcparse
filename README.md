@@ -2,7 +2,9 @@
 **Simple File Configuration Parse** is a simple library to import custom config/data files for your python program or script, and export any data to disk simply!
 
 See "Updates" section on bottom for the **latest version information**
-___
+
+[![Functionality-QA-Tests](https://github.com/aaronater10/sfcparse/actions/workflows/sfcparse_functionality_testing.yml/badge.svg)](https://github.com/aaronater10/sfcparse/actions/workflows/sfcparse_functionality_testing.yml)
+
 # Tutorial Videos:
 Quick Start Tutorial: [YouTube Video](https://youtu.be/W7TIVFE7epI)
 
@@ -15,7 +17,7 @@ See **Usage sections** below for more detail
 pip install sfcparse
 ```
 
-___
+
 ### Intro
 This module allows you to import and create custom python style save/config files for your program or script on a plain text file with any file extension. **It can be used to easily export any data to a file as well**. Also contains a feature for easily formatting data types for clean multiline output when exporting data to files, **and importing is more secure than importing your values from .py files**. 
 
