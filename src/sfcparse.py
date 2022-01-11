@@ -2,7 +2,7 @@
 Simple File Configuration Parse - by aaronater10
 More info: https://github.com/aaronater10/sfcparse
 
-Version 0.8.5
+Version 0.8.6
 
 This module allows you to import and create custom python style save/config files for your program or script
 on a plain text file. It can be used to export any data to a file as well. Also conains a feature for
@@ -22,6 +22,7 @@ Accepted Import Data Types: str, int, float, bool, list, dict, tuple, set, nonet
 from ast import literal_eval as __literal_eval__
 from typing import Any as __Any
 from typing import Union as __Union
+from os import path
 
 
 #########################################################################################################
@@ -51,9 +52,13 @@ def importfile(filename: str) -> __class.Class:
     # Validate file exists. Open and Import Config File into Class Object then return the object    
     try:
         with open(filename, 'r') as f:
+            # Check if file empty. Returns empty class with same name if empty
+            if path.getsize(filename) == 0:
+                class file_data: pass
+                return file_data()
             f = f.read().splitlines()
-    except FileNotFoundError:
-        raise
+    except FileNotFoundError: raise
+
 
     class file_data:
 
@@ -70,36 +75,39 @@ def importfile(filename: str) -> __class.Class:
         __start_markers = {'[','{','('}
         __end_markers = {']','}',')'}
         __skip_markers = {'',' ','#','\n'}
+        __eof_marker = f[-1]
 
         # Main File Loop
         for __file_data_line in f:
 
             # Set Skip Marker
-            try:
-                __skip_marker = __file_data_line[0]
-            except:
-                __skip_marker = ''
+            try: __skip_marker = __file_data_line[0]
+            except IndexError: __skip_marker = ''
 
             # Skip Comments, Blank Lines, and potential New Lines
-            if (__is_building_data_sw == False) and (__skip_marker in __skip_markers):
-                continue
+            if (__is_building_data_sw == False) and (__skip_marker in __skip_markers): continue
 
             # Set Syntax Check
-            try:
-                __syntax_check = __file_data_line.split()[1]
-            except:
-                __syntax_check = ''
-            
+            try: __syntax_check = __file_data_line.split()[1]
+            except IndexError: __syntax_check = ''
+
             # Basic Syntax Check
             if (__syntax_check == '=') or (__is_building_data_sw):
 
                 if not __is_building_data_sw:
                     __var_token = __file_data_line.split('=')[0].strip()
                     __value_token = __file_data_line.split('=')[1].strip()
+                    __value_token_multi = __file_data_line.split('=')[1].split()[0].strip()
                     __last_token = __file_data_line.split('=')[-1].strip()
-            
+                    try: __start_skip_token = __file_data_line.split('=')[1].split()[1][0].strip()
+                    except IndexError: __start_skip_token = ''
+                    
+                if __is_building_data_sw:
+                    try: __end_token = __file_data_line[0]
+                    except IndexError: pass
+                
                 # START BUILD: Check if value in file line is only Start Marker. Check if Multline or Single Line
-                if (__value_token in __start_markers) and (__last_token in __start_markers) and (__is_building_data_sw == False):
+                if (__value_token_multi in __start_markers) and ((__last_token in __start_markers) or (__start_skip_token[0] in __skip_markers)) and (__is_building_data_sw == False):
                     __build_data = __value_token
                     
                     # Turn ON Data Build Switches
@@ -108,12 +116,12 @@ def importfile(filename: str) -> __class.Class:
                     __end_data_build_sw = True
                     continue
                 
-                # END BUILD: Check if line of file is an End Data Build Marker. Import Built Data Type if Valid
-                elif (__end_data_build_sw) and (__file_data_line.strip() in __end_markers):
-                    __build_data += __file_data_line
-
+                # END BUILD: Check if line of file is an End Data Build Marker. Import Built Data Type if Valid. Check if EOF in case File Missing End Marker.
+                elif (__end_data_build_sw) and ((__end_token in __end_markers) or (f"{__eof_marker}" == f"{__file_data_line}")):
+                    __build_data += f"\n{__file_data_line}"
+                    
                     try: locals()[__var_token] = __literal_eval__(__build_data)
-                    except: raise ValueError(__py_syntax_err_msg) from None
+                    except SyntaxError: raise SyntaxError(__py_syntax_err_msg)
 
                     # Turn OFF Data Build Swiches
                     __is_building_data_sw = False
@@ -124,12 +132,12 @@ def importfile(filename: str) -> __class.Class:
 
                 # CONT BUILD: Continue to Build Data
                 elif __body_build_data_sw:
-                    __build_data += __file_data_line
+                    __build_data += f"\n{__file_data_line}"
                     
                 # IMPORT SINLGE LINE VALUES: If not multiline, assume single
                 else:
                     try: locals()[__var_token] = __literal_eval__(__value_token)
-                    except: raise ValueError(__py_syntax_err_msg) from None
+                    except ValueError: raise ValueError(__py_syntax_err_msg)
             
             else: raise SyntaxError(__py_syntax_err_msg)
 
@@ -168,13 +176,13 @@ def appendfile(filename: str, *data: __Any):
     """
 
     # Append data to file
-    try:
-        with open(filename, 'r'):
-            with open(filename, 'a') as f:
-                for data_to_write in data:
-                    f.writelines("\n" + str(data_to_write))            
-    except FileNotFoundError:
-        raise
+    __new_line = '\n'
+
+    # Check if file empty. Throws error if file not found
+    if path.getsize(filename) == 0: __new_line = ''
+    with open(filename, 'a') as f:
+        for data_to_write in data:
+            f.writelines(f"{__new_line}{data_to_write}")
 
 
 #########################################################################################################

@@ -1,41 +1,43 @@
-# sfcparse Module for Python
-### sfcparse = Simple File Configuration Parse
-### Current version 0.8.5
-See "Updates" section on bottom for the latest version information
+# sfcparse
+**Simple File Configuration Parse** is a simple library to import custom config/data files for your python program or script, and export any data to disk simply!
+
+See "Updates" section on bottom for the **latest version information**
 ___
-### Introduction
+# Tutorial Videos:
+Quick Start Tutorial: [YouTube Video](https://youtu.be/W7TIVFE7epI)
+
+Full Training Series: [YouTube Playlist](https://www.youtube.com/watch?v=7-_iRNAQkno&list=PLaVLtZTXV5i2Zkj704h-Cxl3uDqrFpohU&index=1)
+
+See **Usage sections** below for more detail
+
+# Install
+```python
+pip install sfcparse
+```
+
+___
+### Intro
 This module allows you to import and create custom python style save/config files for your program or script on a plain text file with any file extension. **It can be used to easily export any data to a file as well**. Also contains a feature for easily formatting data types for clean multiline output when exporting data to files, **and importing is more secure than importing your values from .py files**. 
 
 ### Goal for the Project:
 To provide an easy alternative to using save/config files in an attempt to customize importing python data and saving any data to files for your projects simple. This also gives you the universal freedom to use any file extension or any made up file type you want, and ensures importing from your file to retrieve values is more secure than importing your values from .py files.
 
-### Importing (Python only):
+### Functionality:
+#### Importing (python types only)
 Imports stored variable names and their assigned values from any text file.
 
 Returns a class with attributes from the file keeping python's natural recognition of data types, including comment lines being ignored.
 
-**Accepted Imported Data Types:**
+**Accepted Imported Data Types**
 str, int, float, bool, list, dict, tuple, set, nonetype, bytes
 
-### Exporting/Appending:
+#### Exporting/Appending
 It simply sends string data to a file. It may be used for any string data file output.
 
-### Formatting:
+#### Formatting
 Simply formats any dict, list, set, or tuple to a clean multiline structure, and return it as str. It can be
 exported to a file neatly.
 ___
-
-# Tutorial Videos (New):
-Quick Start Tutorial: [YouTube Video](https://youtu.be/W7TIVFE7epI)
-
-Full Training Series: [YouTube Playlist](https://www.youtube.com/watch?v=7-_iRNAQkno&list=PLaVLtZTXV5i2Zkj704h-Cxl3uDqrFpohU&index=1)
-
-___
-
-# Tutorial: Install & Usage
-```python
-pip install sfcparse
-```
 
 # Usage: Importing
 #### Imports Pythonic Data Types from your Text File
@@ -247,7 +249,7 @@ data_to_append2 = [1,2,3]
 ### That's it!
 
 ___
-# Module Performance
+# Performance
 ### Importing
 Imported a file 1000 times with 100 lines of data in 0.6s.
 
@@ -273,7 +275,9 @@ print(elapsed_time)
 ##### System: Tested on a 4th-Gen Intel Core i7-4790 at 3.6GHz
 ___
 
-# Updates - sfcparse v0.8.0
+# Updates - Current v0.8.6
+
+### v0.8.0 - Released
 
 **API change:**
 - **NEW: v0.8.0** - Compatible only on Python version 3.6+
@@ -306,14 +310,26 @@ ___
 - 0.8.5
     - Updated Type Hinting on importfile
     - Updated docstrings
+- 0.8.6
+    - **NEW:** Added functionality test env
+    - importfile: Fixed adding comments on post-start/end brackets
+    - importfile: Fixed exception not being thrown when no end-bracket is found on multiline imports
+    - Updated exceptions to reflect correct types
+    - appendfile: Fixed data starts append on second line if file empty
+
 
 # Known Limitations
 **Importing**
  - Does not support importing unpacked variables and values
- - Does not support importing variables as values
 
 
 # Future Upgrades
-**Importing**
-- Add support for importing variables as values
+**importfile**
 - Add support for unpacked variables and values
+
+**Future Features**
+- Add Support for:
+    - Simple YAML Importing/Exporting
+    - Simple JSON Importing/Exporting
+    - Simple XML Importing/Exporting
+    - Simple INI Importing/Exporting 
