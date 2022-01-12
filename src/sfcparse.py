@@ -2,7 +2,7 @@
 Simple File Configuration Parse - by aaronater10
 More info: https://github.com/aaronater10/sfcparse
 
-Version 0.8.6
+Version 0.8.7
 
 This module allows you to import and create custom python style save/config files for your program or script
 on a plain text file. It can be used to export any data to a file as well. Also conains a feature for
@@ -104,7 +104,7 @@ def importfile(filename: str) -> __class.Class:
                     
                 if __is_building_data_sw:
                     try: __end_token = __file_data_line[0]
-                    except IndexError: pass
+                    except IndexError: __end_token = ''
                 
                 # START BUILD: Check if value in file line is only Start Marker. Check if Multline or Single Line
                 if (__value_token_multi in __start_markers) and ((__last_token in __start_markers) or (__start_skip_token[0] in __skip_markers)) and (__is_building_data_sw == False):

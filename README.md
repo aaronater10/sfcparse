@@ -277,7 +277,7 @@ print(elapsed_time)
 ##### System: Tested on a 4th-Gen Intel Core i7-4790 at 3.6GHz
 ___
 
-# Updates - Current v0.8.6
+# Updates - Current v0.8.7
 
 ### v0.8.0 - Released
 
@@ -318,6 +318,10 @@ ___
     - importfile: Fixed exception not being thrown when no end-bracket is found on multiline imports
     - Updated exceptions to reflect correct types
     - appendfile: Fixed data starts append on second line if file empty
+    - Importing performance as dropped 7% due to theses new changes. However there a plans to bring performance back up, but it's still really fast.
+- 0.8.7
+    - Fixed a major multiline import bug preventing an import when a line preceeding the first line of data was blank/there was no literal chars including a space char on that line
+    - Added new test scenario for the newly fixed bug
 
 
 # Known Limitations

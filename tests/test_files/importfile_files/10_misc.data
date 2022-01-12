@@ -19,8 +19,8 @@ data_dict = { 'k1':1, 'k2':2, 'k3':3 }
 data_tuple = ( 1,2,3 )
 data_set = { 1,2,3 }
 
-data_token1 = [
-    
+# Validate Tokens are parsed correctly
+data_token1 = [    
     "normal value",
 
     "var = 'value'",
@@ -28,3 +28,15 @@ data_token1 = [
     "normal value"
 
 ]    
+
+
+# Validate End Token is parsed correctly with no whitespace on blank lines
+data_end_token1 = [
+
+    "normal value",
+
+    "var = 'value'",
+
+    "normal value"
+
+]   
