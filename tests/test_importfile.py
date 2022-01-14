@@ -200,3 +200,4 @@ def test10_misc_data_import():
     assert (file_import.data_tuple == (1,2,3)) and (type(file_import.data_tuple) == type(tuple()))
     assert (file_import.data_set == {1,2,3}) and (type(file_import.data_set) == type(set()))
     assert (file_import.data_token1 == ['normal value', "var = 'value'", 'normal value']) and (type(file_import.data_token1) == type(list()))
+    assert (file_import.data_end_token1 == ['normal value', "var = 'value'", 'normal value']) and (type(file_import.data_token1) == type(list()))
