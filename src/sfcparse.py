@@ -2,14 +2,14 @@
 Simple File Configuration Parse - by aaronater10
 More info: https://github.com/aaronater10/sfcparse
 
-Version 0.8.7
+Version 1.0.0
 
-This module allows you to import and create custom python style save/config files for your program or script
-on a plain text file. It can be used to export any data to a file as well. Also conains a feature for
-easily formatting data types for clean multiline output when exporting data to files.
+sfcparse is a simple library to import custom config/data files for
+your python program or script, and export any data to disk simply!. Also contains a feature
+for easily formatting data types for clean multiline output when exporting data to files.
 
-Importing [Python only]: returns a class with attributes from the file keeping python's natural recognition
-of data types, including comments being ignored.
+Importing [Python types only]: returns a class with attributes from the file keeping python's natural
+recognition of data types, including comments being ignored.
 
 Exporting/Appending: it simply sends str data to a file. It may be used for any str data file output.
 
@@ -26,7 +26,7 @@ from os import path
 
 
 #########################################################################################################
-# MODULE STARTS HERE
+# sfcparse
 
 # Create hollow reference name for "class" to denote a class returned for hinting on imports
 class __class:
@@ -106,7 +106,7 @@ def importfile(filename: str) -> __class.Class:
                     try: __end_token = __file_data_line[0]
                     except IndexError: __end_token = ''
                 
-                # START BUILD: Check if value in file line is only Start Marker. Check if Multline or Single Line
+                # START BUILD: Check if value in file line is only Start Marker. Check if Multiline or Single Line
                 if (__value_token_multi in __start_markers) and ((__last_token in __start_markers) or (__start_skip_token[0] in __skip_markers)) and (__is_building_data_sw == False):
                     __build_data = __value_token
                     
@@ -123,7 +123,7 @@ def importfile(filename: str) -> __class.Class:
                     try: locals()[__var_token] = __literal_eval__(__build_data)
                     except SyntaxError: raise SyntaxError(__py_syntax_err_msg)
 
-                    # Turn OFF Data Build Swiches
+                    # Turn OFF Data Build Switches
                     __is_building_data_sw = False
                     __body_build_data_sw = False
                     __end_data_build_sw = False
@@ -151,7 +151,7 @@ def exportfile(filename: str, *data: __Any):
     """
     Exports a new file with the new data.
     
-    Enter new filname as str, Pass any data type for output to file
+    Enter new filename as str, Pass any data type for output to file
     
     [Example Use]
     exportfile('filename.test' or 'path\\to\\filename.test', 'data1', 'data2')
@@ -169,7 +169,7 @@ def appendfile(filename: str, *data: __Any):
     """
     Appends any data to a file.
 
-    Enter existing filname as str, Pass any data type for output to file
+    Enter existing filename as str, Pass any data type for output to file
 
     [Example Use]
     appendfile('filename.test' or 'path\\to\\filename.test', 'data1', 'data2')
