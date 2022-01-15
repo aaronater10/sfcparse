@@ -277,7 +277,7 @@ print(elapsed_time)
 ##### System: Tested on a 4th-Gen Intel Core i7-4790 at 3.6GHz
 ___
  
-# Updates - Current v1.0.0
+# Updates - Current v1.0.1
  
 ### v1.0.0 - Official Production Release
 **sfcparse updates**
