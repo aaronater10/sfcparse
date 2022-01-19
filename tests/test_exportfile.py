@@ -4,7 +4,7 @@ from os import path, remove
 import time
 
 test_file_path = './tests/test_files/exportfile_files/'
-file_delay_timer = 3
+file_delay_timer = 1
 
 
 ################################################################
