@@ -254,6 +254,7 @@ def importjson(file_or_str: str, mode: str='file') -> dict:
     """
     
     """
+    __err_msg = f"[importjson] mode:'{mode}' - Invalid data imported, type, or nothing specified: {file_or_str}"
     # Import json file
     if mode == 'file':
         try:
@@ -262,13 +263,15 @@ def importjson(file_or_str: str, mode: str='file') -> dict:
                 if path.getsize(file_or_str) == 0:                
                     return {}
                 return json.load(f)
-        except FileNotFoundError: pass
+        except FileNotFoundError: raise
+        except OSError: raise TypeError(__err_msg)
+        except json.decoder.JSONDecodeError: raise TypeError(__err_msg)
 
     # Import json string
     if mode == 'str':
-        return json.loads(file_or_str)
-    
-    raise ValueError("importjson - Invalid type or nothing specified.")
+        try:
+            return json.loads(file_or_str)
+        except json.decoder.JSONDecodeError: raise TypeError(__err_msg)
 
 
 def exportjson():
