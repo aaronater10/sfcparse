@@ -252,7 +252,18 @@ def cleanformat(datatype: __Union[dict,list,tuple,set], indent_level: int=1) -> 
 # JSON: Export & Import json files and strings
 def importjson(file_or_str: str, mode: str='file') -> dict:
     """
-    
+    Imports json data from a file or string
+
+    Returns a dict. Assign the output to var.
+
+    Enter json file location or string as str to import.
+
+    [Example Use]
+    json file - importjson('path/to/filename.json')
+    json str data - importjson('string with json data', 'str')
+
+    This is using the native json libray shipped with the python standard libray. For more
+    information on the json library, visit: https://docs.python.org/3/library/json.html
     """
     __err_msg = f"[importjson] mode:'{mode}' - Invalid data imported, type, or nothing specified: {file_or_str}"
     # Import json file
