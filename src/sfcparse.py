@@ -26,7 +26,7 @@ from os import path
 
 
 #########################################################################################################
-# sfcparse
+# Import py Data from File
 
 # Create hollow reference name for "class" to denote a class returned for hinting on imports
 class __class:
