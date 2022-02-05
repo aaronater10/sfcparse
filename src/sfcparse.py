@@ -23,6 +23,7 @@ from ast import literal_eval as __literal_eval__
 from typing import Any as __Any
 from typing import Union as __Union
 from os import path
+import json
 
 
 #########################################################################################################
@@ -249,12 +250,25 @@ def cleanformat(datatype: __Union[dict,list,tuple,set], indent_level: int=1) -> 
 
 #########################################################################################################
 # JSON: Export & Import json files and strings
-def importjson() -> dict:
+def importjson(file_or_str: str, mode: str='file') -> dict:
     """
     
     """
-    pass
+    # Import json file
+    if mode == 'file':
+        try:
+            with open(file_or_str, 'r') as f:
+                # Check if file empty. Returns empty dict if empty
+                if path.getsize(file_or_str) == 0:                
+                    return {}
+                return json.load(f)
+        except FileNotFoundError: pass
 
+    # Import json string
+    if mode == 'str':
+        return json.loads(file_or_str)
+    
+    raise ValueError("importjson - Invalid type or nothing specified.")
 
 def exportjson():
     """
