@@ -245,3 +245,19 @@ def cleanformat(datatype: __Union[dict,list,tuple,set], indent_level: int=1) -> 
            If tuple, it must be empty, have a single value with a "," [e.g. (1,)], or have >= 2 values
             """
         )
+
+
+#########################################################################################################
+# JSON: Export & Import json files and strings
+def importjson() -> dict:
+    """
+    
+    """
+    pass
+
+
+def exportjson():
+    """
+    
+    """
+    pass
