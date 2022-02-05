@@ -2,7 +2,7 @@
 Simple File Configuration Parse - by aaronater10
 More info: https://github.com/aaronater10/sfcparse
 
-Version 1.0.1
+Version 1.1.0
 
 A simple library to import custom config/data files for your python program or script,
 and export any data to disk simply!. Also contains a feature for easily formatting data
