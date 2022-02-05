@@ -1,5 +1,12 @@
+# Cache
 .cache/
 *.pyc
 __pycache__
 .pytest_cache/
+
+# VS Code
 .vscode/
+
+# Test Folders and Files
+test_files/
+
