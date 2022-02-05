@@ -293,11 +293,11 @@ def exportjson(file_or_str_data: dict, filename: str='', mode: str='file') -> st
     """
     
     """
-    __err_msg = f"[exportjson] mode:'{mode}' - Invalid data imported, type, or nothing specified: {file_or_str}"
+    __err_msg = f"[exportjson] mode:'{mode}' - Invalid data imported, type, or nothing specified: {file_or_str_data}"
     # Export dict data to json file
     if mode == 'file':        
         with open(filename, 'w') as f:
-            json.dump(file_or_str_data, filename)
+            json.dump(file_or_str_data, f)
 
     # Export dict data to json string
     if mode == 'str':        
