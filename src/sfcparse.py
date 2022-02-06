@@ -341,3 +341,51 @@ def exportjsonstr(data: dict, indent_level: int=4) -> str:
     if not type(indent_level) == type(int()):
         raise TypeError(__err_msg)
     return json.dumps(data, indent=indent_level)
+
+
+#########################################################################################################
+# YAML: Export & Import yaml files
+def importyamlfile(filename: str) -> dict:
+    """
+    Imports yaml data from a file.
+
+    Returns a dict. Assign the output to var.
+
+    Enter yaml file location as str to import.
+
+    [Example Use]
+
+    importyamlfile('path/to/filename.yml')
+
+    This is using the PyYAML framework installed as a dependency from pypi. For more
+    information on PyYAML, visit: https://pypi.org/project/PyYAML/
+    """
+    __err_msg = f"importyamlfile - Invalid data imported, type, or nothing specified: {filename}"
+    # Import yaml file    
+    try:
+        with open(filename, 'r') as f:
+            # Check if file empty. Returns empty dict if empty
+            if path.getsize(filename) == 0:                
+                return {}
+            return yaml.load(f)
+    except FileNotFoundError: raise
+    except OSError: raise TypeError(__err_msg)
+    except yaml.decoder.yamlDecodeError: raise TypeError(__err_msg)
+
+def exportyamlfile(filename: str, data: dict) -> None:
+    """
+    Exports a new file from dictionary to yaml data.
+    
+    Enter new filename as str. Pass dict data for output to file
+    
+    [Example Use]
+
+    exportyamlfile('path/to/filename.yml', data)    
+
+    This is using the PyYAML framework installed as a dependency from pypi. For more
+    information on PyYAML, visit: https://pypi.org/project/PyYAML/
+    
+    """
+    # Export dict data to yaml file
+    with open(filename, 'w') as f:
+        yaml.dump(data, f)
