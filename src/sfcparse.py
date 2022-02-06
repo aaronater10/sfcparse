@@ -250,43 +250,55 @@ def cleanformat(datatype: __Union[dict,list,tuple,set], indent_level: int=1) -> 
 
 #########################################################################################################
 # JSON: Export & Import json files and strings
-def importjson(file_or_str: str, mode: str='file') -> dict:
+def importjsonfile(filename: str) -> dict:
     """
-    Imports json data from a file or string
+    Imports json data from a file.
 
     Returns a dict. Assign the output to var.
 
-    Enter json file location or string as str to import.
-
-    mode: Set to 'file' by default. Change mode to 'str' for json str.
+    Enter json file location as str to import.
 
     [Example Use]
 
-    file - importjson('path/to/filename.json')
-
-    str data - importjson('string with json data', 'str')
+    importjsonfile('path/to/filename.json')
 
     This is using the native json libray shipped with the python standard libray. For more
     information on the json library, visit: https://docs.python.org/3/library/json.html
     """
-    __err_msg = f"[importjson] mode:'{mode}' - Invalid data imported, type, or nothing specified: {file_or_str}"
-    # Import json file
-    if mode == 'file':
-        try:
-            with open(file_or_str, 'r') as f:
-                # Check if file empty. Returns empty dict if empty
-                if path.getsize(file_or_str) == 0:                
-                    return {}
-                return json.load(f)
-        except FileNotFoundError: raise
-        except OSError: raise TypeError(__err_msg)
-        except json.decoder.JSONDecodeError: raise TypeError(__err_msg)
+    __err_msg = f"importjsonfile - Invalid data imported, type, or nothing specified: {filename}"
+    # Import json file    
+    try:
+        with open(filename, 'r') as f:
+            # Check if file empty. Returns empty dict if empty
+            if path.getsize(filename) == 0:                
+                return {}
+            return json.load(f)
+    except FileNotFoundError: raise
+    except OSError: raise TypeError(__err_msg)
+    except json.decoder.JSONDecodeError: raise TypeError(__err_msg)
+   
 
-    # Import json string
-    if mode == 'str':
-        try:
-            return json.loads(file_or_str)
-        except json.decoder.JSONDecodeError: raise TypeError(__err_msg)
+def importjsonstr(json_str_data: str) -> dict:
+    """
+    Imports json data from a string.
+
+    Returns a dict. Assign the output to var.
+
+    Enter json string as str to import.
+
+    [Example Use]
+
+    importjsonstr('string with json data')
+
+    This is using the native json libray shipped with the python standard libray. For more
+    information on the json library, visit: https://docs.python.org/3/library/json.html
+    """
+    __err_msg = f"importjsonstr - Invalid data imported, type, or nothing specified: {json_str_data}"    
+
+    # Import json string    
+    try:
+        return json.loads(json_str_data)
+    except json.decoder.JSONDecodeError: raise TypeError(__err_msg)
 
 
 def exportjson(file_or_str_data: dict, filename: str='', mode: str='file') -> str:
