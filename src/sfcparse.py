@@ -152,7 +152,7 @@ def exportfile(filename: str, *data: __Any):
     """
     Exports a new file with the new data.
     
-    Enter new filename as str, Pass any data type for output to file
+    Enter new filename as str, Pass any data type for output to file.
     
     [Example Use]
     exportfile('filename.test' or 'path\\to\\filename.test', 'data1', 'data2')
@@ -170,7 +170,7 @@ def appendfile(filename: str, *data: __Any):
     """
     Appends any data to a file.
 
-    Enter existing filename as str, Pass any data type for output to file
+    Enter existing filename as str, Pass any data type for output to file.
 
     [Example Use]
     appendfile('filename.test' or 'path\\to\\filename.test', 'data1', 'data2')
@@ -301,17 +301,42 @@ def importjsonstr(json_str_data: str) -> dict:
     except json.decoder.JSONDecodeError: raise TypeError(__err_msg)
 
 
-def exportjson(file_or_str_data: dict, filename: str='', mode: str='file') -> str:
+def exportjsonfile(filename: str, data: dict) -> None:
     """
+    Exports a new file from dictionary to json data.
+    
+    Enter new filename as str. Pass dict data for output to file
+    
+    [Example Use]
+
+    exportjsonfile('path/to/filename.json', data)    
+
+    This is using the native json libray shipped with the python standard libray. For more
+    information on the json library, visit: https://docs.python.org/3/library/json.html
     
     """
-    __err_msg = f"[exportjson] mode:'{mode}' - Invalid data imported, type, or nothing specified: {file_or_str_data}"
     # Export dict data to json file
-    if mode == 'file':        
-        with open(filename, 'w') as f:
-            json.dump(file_or_str_data, f)
+    with open(filename, 'w') as f:
+        json.dump(data, f)
+        
+
+def exportjsonstr(data: dict, indent_level: int=4) -> str:
+    """
+    Exports dictionary data to json string.
+
+    Returns a str. Assign the output to var.
+
+    [Example Use]
+
+    exportjsonstr(dict, [optional] indent_level)
+
+    This is using the native json libray shipped with the python standard libray. For more
+    information on the json library, visit: https://docs.python.org/3/library/json.html
+    
+    """
+    __err_msg = f"exportjsonstr - indent_level is invalid type: {repr(indent_level)}"
 
     # Export dict data to json string
-    if mode == 'str':        
-        return json.dumps(file_or_str_data, indent=4)
-        
+    if not type(indent_level) == type(int()):
+        raise TypeError(__err_msg)
+    return json.dumps(data, indent=indent_level)
