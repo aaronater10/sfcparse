@@ -272,11 +272,11 @@ def importjsonfile(filename: str) -> dict:
         with open(filename, 'r') as f:
             # Check if file empty. Returns empty dict if empty
             if path.getsize(filename) == 0:                
-                return {}
+                raise SyntaxError(__err_msg)
             return json.load(f)
     except FileNotFoundError: raise
-    except OSError: raise TypeError(__err_msg)
-    except json.decoder.JSONDecodeError: raise TypeError(__err_msg)
+    except OSError: raise OSError(__err_msg)
+    except json.decoder.JSONDecodeError: raise SyntaxError(__err_msg)
    
 
 def importjsonstr(json_str_data: str) -> dict:
@@ -299,7 +299,7 @@ def importjsonstr(json_str_data: str) -> dict:
     # Import json string    
     try:
         return json.loads(json_str_data)
-    except json.decoder.JSONDecodeError: raise TypeError(__err_msg)
+    except json.decoder.JSONDecodeError: raise SyntaxError(__err_msg)
 
 
 def exportjsonfile(filename: str, data: dict) -> None:
@@ -366,26 +366,27 @@ def importyamlfile(filename: str) -> dict:
         with open(filename, 'r') as f:
             # Check if file empty. Returns empty dict if empty
             if path.getsize(filename) == 0:                
-                return {}
-            return yaml.load(f)
+                return None
+            return yaml.safe_load(f)
     except FileNotFoundError: raise
-    except OSError: raise TypeError(__err_msg)
-    except yaml.decoder.yamlDecodeError: raise TypeError(__err_msg)
+    except OSError: raise OSError(__err_msg)
+    except yaml.scanner.ScannerError: raise SyntaxError(__err_msg)
 
-def exportyamlfile(filename: str, data: dict) -> None:
-    """
-    Exports a new file from dictionary to yaml data.
-    
-    Enter new filename as str. Pass dict data for output to file
-    
-    [Example Use]
 
-    exportyamlfile('path/to/filename.yml', data)    
-
-    This is using the PyYAML framework installed as a dependency from pypi. For more
-    information on PyYAML, visit: https://pypi.org/project/PyYAML/
-    
-    """
-    # Export dict data to yaml file
-    with open(filename, 'w') as f:
-        yaml.dump(data, f)
+#def exportyamlfile(filename: str, data: dict) -> None:
+#    """
+#    Exports a new file from dictionary to yaml data.
+#    
+#    Enter new filename as str. Pass dict data for output to file
+#    
+#    [Example Use]
+#
+#    exportyamlfile('path/to/filename.yml', data)    
+#
+#    This is using the PyYAML framework installed as a dependency from pypi. For more
+#    information on PyYAML, visit: https://pypi.org/project/PyYAML/
+#    
+#    """
+#    # Export dict data to yaml file
+#    with open(filename, 'w') as f:
+#        yaml.dump(data, f)
