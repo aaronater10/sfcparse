@@ -304,7 +304,7 @@ def importjsonstr(json_str_data: str) -> dict:
 
 def exportjsonfile(filename: str, data: dict) -> None:
     """
-    Exports a new file from dictionary to json data.
+    Exports a new file from a dictionary to json data.
     
     Enter new filename as str. Pass dict data for output to file
     
@@ -374,20 +374,25 @@ def importyamlfile(filename: str) -> dict:
     except yaml.scanner.ScannerError: raise SyntaxError(__err_msg)
 
 
-#def exportyamlfile(filename: str, data: dict) -> None:
-#    """
-#    Exports a new file from dictionary to yaml data.
-#    
-#    Enter new filename as str. Pass dict data for output to file
-#    
-#    [Example Use]
-#
-#    exportyamlfile('path/to/filename.yml', data)    
-#
-#    This is using the PyYAML framework installed as a dependency from pypi. For more
-#    information on PyYAML, visit: https://pypi.org/project/PyYAML/
-#    
-#    """
-#    # Export dict data to yaml file
-#    with open(filename, 'w') as f:
-#        yaml.dump(data, f)
+def exportyamlfile(filename: str, data: __Any) -> None:
+    """
+    Exports a new file from python type to yaml data.
+    
+    Enter new filename as str. Pass any general data for output to file
+    
+    [Example Use]
+
+    exportyamlfile('path/to/filename.yml', data)    
+
+    This is using the PyYAML framework installed as a dependency from pypi. It is only using the
+    "safe_dump" method, which only supports standard YAML tags and cannot represent an arbitrary Python object.
+    For more information on PyYAML, visit: https://pypi.org/project/PyYAML/
+    
+    """
+    __err_msg = f"exportyamlfile - Invalid data exported or type: {data}"
+
+    # Export dict data to yaml file
+    try:
+        with open(filename, 'w') as f:
+            yaml.safe_dump(data, f)
+    except yaml.representer.RepresenterError: raise TypeError(__err_msg)
