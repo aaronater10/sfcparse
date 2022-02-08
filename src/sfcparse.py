@@ -357,8 +357,9 @@ def importyamlfile(filename: str) -> dict:
 
     importyamlfile('path/to/filename.yml')
 
-    This is using the PyYAML framework installed as a dependency from pypi. For more
-    information on PyYAML, visit: https://pypi.org/project/PyYAML/
+    This is using the PyYAML framework installed as a dependency from pypi. It is only using the
+    "safe_load" method to protect from untrusted input.
+    For more information on PyYAML, visit: https://pypi.org/project/PyYAML/
     """
     __err_msg = f"importyamlfile - Invalid data imported, type, or nothing specified: {filename}"
     # Import yaml file    
