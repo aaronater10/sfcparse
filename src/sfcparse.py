@@ -43,7 +43,7 @@ def importfile(filename: str) -> __dummy_class.Class:
     """
     Imports saved python data from any text file.
 
-    Returns a class of attributes. Assign the output to var.
+    Returns a class of attributes. Assign the output to var
 
     Enter file location as str to import.
 
@@ -195,7 +195,7 @@ def cleanformat(datatype: __Union[dict,list,tuple,set], indent_level: int=1) -> 
     """
     Formats a (single) dictionary, list, tuple, or set, to have a clean multiline output for exporting to a file.
 
-    Returned output will be a str.
+    Returned output will be a str
 
     Note: Higher indent levels will decrease performance. Indentation is applied to the main data set only.
 
@@ -278,7 +278,7 @@ def importjsonfile(filename: str) -> dict:
     """
     Imports json data from a file.
 
-    Returns a dict. Assign the output to var.
+    Returns a dict. Assign the output to var
 
     Enter json file location as str to import.
 
@@ -306,7 +306,7 @@ def importjsonstr(json_str_data: str) -> dict:
     """
     Imports json data from a string.
 
-    Returns a dict. Assign the output to var.
+    Returns a dict. Assign the output to var
 
     Enter json string as str to import.
 
@@ -348,7 +348,7 @@ def exportjsonstr(data: dict, indent_level: int=4) -> str:
     """
     Exports dictionary data to json string.
 
-    Returns a str. Assign the output to var.
+    Returns a str. Assign the output to var
 
     [Example Use]
 
@@ -372,7 +372,7 @@ def importyamlfile(filename: str) -> dict:
     """
     Imports yaml data from a file.
 
-    Returns a dict. Assign the output to var.
+    Returns a dict. Assign the output to var
 
     Enter yaml file location as str to import.
 
@@ -428,7 +428,7 @@ def buildiniauto(data: dict) -> __SafeConfigParser:
     """
     Auto converts python dict to ini data structure.
 
-    Returns a ConfigParser obj with your data. Assign the output to var.
+    Returns a ConfigParser obj with your data. Assign the output to var
 
     Enter correctly structured python dict to convert to ini.
 
@@ -466,7 +466,7 @@ def importinifile(filename: str) -> __SafeConfigParser:
     """
     Imports ini data from a file.
 
-    Returns a ConfigParser obj. Assign the output to var.
+    Returns a ConfigParser obj. Assign the output to var
 
     Enter ini file location as str to import.
 
