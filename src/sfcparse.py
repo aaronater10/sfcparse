@@ -364,7 +364,7 @@ def importyamlfile(filename: str) -> dict:
     For more information on PyYAML, visit: https://pypi.org/project/PyYAML/
     """
     __err_msg = f"importyamlfile - Invalid data imported, type, or nothing specified: {filename}"
-    # Import yaml file    
+    # Import yaml file
     try:
         with open(filename, 'r') as f:
             # Check if file empty. Returns empty dict if empty
@@ -398,3 +398,46 @@ def exportyamlfile(filename: str, data: __Any) -> None:
         with open(filename, 'w') as f:
             __yaml.safe_dump(data, f)
     except __yaml.representer.RepresenterError: raise TypeError(__err_msg)
+
+
+
+#########################################################################################################
+# INI: Build ini data. Export, and Import ini files
+def buildiniauto(data: dict) -> __SafeConfigParser:
+    """
+    Auto converts python dict to ini data structure.
+
+    Returns a ConfigParser obj with your data. Assign the output to var.
+
+    Enter correctly structured python dict to convert to ini.
+
+    [Example Python dict]
+
+    {
+        'section1': python_dict,
+        'section2': python_dict    
+    }
+
+    This is using the native configparser library shipped with the python standard libray. Using SafeConfigParser method.
+    For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
+    """
+    __err_msg = f"importyamlfile - Invalid data imported, type, or nothing specified: {data}"
+    # Auto Build INI data structure
+    __ini_data = __SafeConfigParser(interpolation=__ExtendedInterpolation())
+    for key,value in data.items():
+        __ini_data[key] = value
+    return __ini_data
+
+
+def buildinimanual():
+    """    
+    Returns an empty ConfigParser obj to manually build ini data
+    
+    Assign the output to var
+
+    This is using the native configparser library shipped with the python standard libray. Using SafeConfigParser method.
+    For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
+    """
+    return __SafeConfigParser(interpolation=__ExtendedInterpolation())
+
+
