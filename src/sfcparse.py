@@ -442,7 +442,7 @@ def buildiniauto(data: dict) -> __SafeConfigParser:
     This is using the native configparser library shipped with the python standard libray. Using SafeConfigParser method.
     For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
     """
-    __err_msg = f"importyamlfile - Invalid data imported, type, or nothing specified: {data}"
+    __err_msg = f"buildiniauto - Invalid data, type, or nothing specified: {data}"
     # Auto Build INI data structure
     __ini_data = __SafeConfigParser(interpolation=__ExtendedInterpolation())
     for key,value in data.items():
