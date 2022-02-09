@@ -33,13 +33,13 @@ from configparser import ExtendedInterpolation as __ExtendedInterpolation
 # Import py Data from File
 
 # Create hollow reference name for "class" to denote a class returned for hinting on imports
-class __class:
+class __dummy_class:
     """Not meant to be used"""
     class Class:
         """Not meant to be used"""
 
 # Import File Data
-def importfile(filename: str) -> __class.Class:
+def importfile(filename: str) -> __dummy_class.Class:
     """
     Imports saved python data from any text file.
 
