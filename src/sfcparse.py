@@ -50,7 +50,7 @@ def importfile(filename: str) -> __class.Class:
     Accepted data types: str, int, float, bool, list, dict, tuple, set, nonetype, bytes
 
     [Example Use]
-    importfile('filename.test' or 'path\\to\\filename.test')
+    importfile('filename.test' or 'path/to/filename.test')
     """
 
     # Validate file exists. Open and Import Config File into Class Object then return the object    
@@ -158,7 +158,7 @@ def exportfile(filename: str, *data: __Any):
     Enter new filename as str, Pass any data type for output to file.
     
     [Example Use]
-    exportfile('filename.test' or 'path\\to\\filename.test', 'data1', 'data2')
+    exportfile('filename.test' or 'path/to/filename.test', 'data1', 'data2')
     """
 
     # Export data to new file
@@ -176,7 +176,7 @@ def appendfile(filename: str, *data: __Any):
     Enter existing filename as str, Pass any data type for output to file.
 
     [Example Use]
-    appendfile('filename.test' or 'path\\to\\filename.test', 'data1', 'data2')
+    appendfile('filename.test' or 'path/to/filename.test', 'data1', 'data2')
     """
 
     # Append data to file
