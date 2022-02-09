@@ -22,9 +22,11 @@ Accepted Import Data Types: str, int, float, bool, list, dict, tuple, set, nonet
 from ast import literal_eval as __literal_eval__
 from typing import Any as __Any
 from typing import Union as __Union
-from os import path
-import json
-import yaml
+from os import path as __path
+import json as __json
+import yaml as __yaml
+from configparser import SafeConfigParser as __SafeConfigParser
+from configparser import ExtendedInterpolation as __ExtendedInterpolation
 
 
 #########################################################################################################
@@ -55,7 +57,7 @@ def importfile(filename: str) -> __class.Class:
     try:
         with open(filename, 'r') as f:
             # Check if file empty. Returns empty class with same name if empty
-            if path.getsize(filename) == 0:
+            if __path.getsize(filename) == 0:
                 class file_data: pass
                 return file_data()
             f = f.read().splitlines()
@@ -181,7 +183,7 @@ def appendfile(filename: str, *data: __Any):
     __new_line = '\n'
 
     # Check if file empty. Throws error if file not found
-    if path.getsize(filename) == 0: __new_line = ''
+    if __path.getsize(filename) == 0: __new_line = ''
     with open(filename, 'a') as f:
         for data_to_write in data:
             f.writelines(f"{__new_line}{data_to_write}")
@@ -271,12 +273,12 @@ def importjsonfile(filename: str) -> dict:
     try:
         with open(filename, 'r') as f:
             # Check if file empty. Returns empty dict if empty
-            if path.getsize(filename) == 0:                
+            if __path.getsize(filename) == 0:                
                 raise SyntaxError(__err_msg)
-            return json.load(f)
+            return __json.load(f)
     except FileNotFoundError: raise
     except OSError: raise OSError(__err_msg)
-    except json.decoder.JSONDecodeError: raise SyntaxError(__err_msg)
+    except __json.decoder.JSONDecodeError: raise SyntaxError(__err_msg)
    
 
 def importjsonstr(json_str_data: str) -> dict:
@@ -298,8 +300,8 @@ def importjsonstr(json_str_data: str) -> dict:
 
     # Import json string    
     try:
-        return json.loads(json_str_data)
-    except json.decoder.JSONDecodeError: raise SyntaxError(__err_msg)
+        return __json.loads(json_str_data)
+    except __json.decoder.JSONDecodeError: raise SyntaxError(__err_msg)
 
 
 def exportjsonfile(filename: str, data: dict) -> None:
@@ -318,7 +320,7 @@ def exportjsonfile(filename: str, data: dict) -> None:
     """
     # Export dict data to json file
     with open(filename, 'w') as f:
-        json.dump(data, f)
+        __json.dump(data, f)
         
 
 def exportjsonstr(data: dict, indent_level: int=4) -> str:
@@ -340,7 +342,7 @@ def exportjsonstr(data: dict, indent_level: int=4) -> str:
     # Export dict data to json string
     if not type(indent_level) == type(int()):
         raise TypeError(__err_msg)
-    return json.dumps(data, indent=indent_level)
+    return __json.dumps(data, indent=indent_level)
 
 
 #########################################################################################################
@@ -366,12 +368,12 @@ def importyamlfile(filename: str) -> dict:
     try:
         with open(filename, 'r') as f:
             # Check if file empty. Returns empty dict if empty
-            if path.getsize(filename) == 0:                
+            if __path.getsize(filename) == 0:                
                 return None
-            return yaml.safe_load(f)
+            return __yaml.safe_load(f)
     except FileNotFoundError: raise
     except OSError: raise OSError(__err_msg)
-    except yaml.scanner.ScannerError: raise SyntaxError(__err_msg)
+    except __yaml.scanner.ScannerError: raise SyntaxError(__err_msg)
 
 
 def exportyamlfile(filename: str, data: __Any) -> None:
@@ -394,5 +396,5 @@ def exportyamlfile(filename: str, data: __Any) -> None:
     # Export dict data to yaml file
     try:
         with open(filename, 'w') as f:
-            yaml.safe_dump(data, f)
-    except yaml.representer.RepresenterError: raise TypeError(__err_msg)
+            __yaml.safe_dump(data, f)
+    except __yaml.representer.RepresenterError: raise TypeError(__err_msg)
