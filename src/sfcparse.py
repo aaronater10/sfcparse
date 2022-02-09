@@ -252,6 +252,27 @@ def cleanformat(datatype: __Union[dict,list,tuple,set], indent_level: int=1) -> 
 
 
 #########################################################################################################
+# Import raw data from file
+def importrawfile(filename: str) -> str:
+    """
+    Imports any raw data from a file.
+
+    Returns a str. Assign the output to var
+
+    [Example Use]
+
+    importrawfile('path/to/filename')
+    """
+    # Validate file exists. Import File then return the raw data   
+    try:
+        with open(filename, 'r') as f:
+            if __path.getsize(filename) == 0:
+                return ''
+            return f.read()
+    except FileNotFoundError: raise
+
+
+#########################################################################################################
 # JSON: Export & Import json files and strings
 def importjsonfile(filename: str) -> dict:
     """
