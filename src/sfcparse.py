@@ -429,7 +429,7 @@ def buildiniauto(data: dict) -> __SafeConfigParser:
     return __ini_data
 
 
-def buildinimanual():
+def buildinimanual() -> __SafeConfigParser:
     """    
     Returns an empty ConfigParser obj to manually build ini data
     
@@ -441,3 +441,49 @@ def buildinimanual():
     return __SafeConfigParser(interpolation=__ExtendedInterpolation())
 
 
+def importinifile(filename: str) -> __SafeConfigParser:
+    """
+    Imports ini data from a file.
+
+    Returns a ConfigParser obj. Assign the output to var.
+
+    Enter ini file location as str to import.
+
+    [Example Use]
+
+    importinifile('path/to/filename.ini')
+
+    This is using the native configparser library shipped with the python standard libray. Using SafeConfigParser method.
+    For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
+    """
+    __parser = __SafeConfigParser(interpolation=__ExtendedInterpolation())
+    __parser.read(filename)
+    return __parser
+
+
+# Create hollow reference name for "ini_data" to denote ini data needs to be exported for hinting exports
+class __dummy_ini:
+    """Not meant to be used"""
+    class ini_data: pass
+    """Not meant to be used"""
+
+def exportinifile(filename: str, data: __dummy_ini.ini_data) -> None:
+    """
+    Exports a new file from a ini data (ConfigParser) obj
+    
+    Enter new filename as str. Pass ini data for output to file
+    
+    [Example Use]
+
+    exportinifile('path/to/filename.ini', data)
+
+    This is using the native configparser library shipped with the python standard libray. Using SafeConfigParser method.
+    For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
+    """
+    __err_msg = f"exportinifile - Invalid data to export, type, or nothing specified: {filename}"
+    if type(data) == type(__SafeConfigParser()):
+        with open(filename, 'w') as f:
+            data.write(f)
+        return None
+    
+    raise TypeError(__err_msg)
