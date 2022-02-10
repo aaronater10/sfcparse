@@ -27,6 +27,7 @@ import json as __json
 import yaml as __yaml
 from configparser import SafeConfigParser as __SafeConfigParser
 from configparser import ExtendedInterpolation as __ExtendedInterpolation
+import hashlib as __hashlib
 
 
 #########################################################################################################
@@ -508,3 +509,7 @@ def exportinifile(filename: str, data: __dummy_ini.ini_data) -> None:
         return None
     
     raise TypeError(__err_msg)
+
+
+#########################################################################################################
+# HASH: Build ini data. Export, and Import ini files
