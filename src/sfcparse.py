@@ -512,4 +512,86 @@ def exportinifile(filename: str, data: __dummy_ini.ini_data) -> None:
 
 
 #########################################################################################################
-# HASH: Build ini data. Export, and Import ini files
+# HASH: Create & Compare file hashes
+def createfilehash(file_to_hash: str, file_to_store_hash: __Union[str,bool], hash_algorithm: str='sha256') -> str:
+    """
+    """
+    __ALGO_OPTIONS = ('sha256', 'sha512', 'sha384')
+
+    if not hash_algorithm in __ALGO_OPTIONS:
+        raise TypeError('BAD HASH TYPE')
+    try: 
+        # sha256
+        if hash_algorithm == __ALGO_OPTIONS[0]:
+            __sha256 = __hashlib.sha256()
+            # Read source file data and hash
+            with open(file_to_hash, 'rb') as f:
+                for __readbytes in f:
+                    __sha256.update(__readbytes)
+            # Store hash to file
+            __sha256 = __sha256.hexdigest()
+            if bool(file_to_store_hash):
+                exportfile(file_to_store_hash, f'hash_data = "{__sha256}"')
+            return __sha256
+
+        # sha512
+        if hash_algorithm == __ALGO_OPTIONS[1]:
+            __sha512 = __hashlib.sha512()
+            # Read source file data and hash
+            with open(file_to_hash, 'rb') as f:
+                for __readbytes in f:
+                    __sha512.update(__readbytes)
+            # Store hash to file
+            __sha512 = __sha512.hexdigest()
+            if bool(file_to_store_hash):
+                exportfile(file_to_store_hash, f'hash_data = "{__sha512}"')
+            return __sha512
+
+        # sha384
+        if hash_algorithm == __ALGO_OPTIONS[2]:
+            __sha384 = __hashlib.sha384()
+            # Read source file data and hash
+            with open(file_to_hash, 'rb') as f:
+                for __readbytes in f:
+                    __sha384.update(__readbytes)
+            # Store hash to file
+            __sha384 = __sha384.hexdigest()
+            if bool(file_to_store_hash):
+                exportfile(file_to_store_hash, f'hash_data = "{__sha384}"')
+            return __sha384
+    except FileNotFoundError: raise
+
+    raise TypeError("BAD ERROR")
+
+
+def comparefilehash(file_to_hash: str, stored_hash_file: str, hash_algorithm: str='sha256') -> bool:
+    """
+    """
+    __ALGO_OPTIONS = ('sha256', 'sha512', 'sha384')
+
+    if not hash_algorithm in __ALGO_OPTIONS:
+        raise TypeError('BAD HASH TYPE')
+    try: 
+        # sha256
+        if hash_algorithm == __ALGO_OPTIONS[0]:
+            __sha256 = createfilehash(file_to_hash, False, hash_algorithm)
+            # Import hash from file
+            __hash_data = importfile(stored_hash_file)
+            return (__sha256 == __hash_data.hash_data)
+
+        # sha512
+        if hash_algorithm == __ALGO_OPTIONS[1]:
+            __sha512 = createfilehash(file_to_hash, False, hash_algorithm)
+            # Import hash from file
+            __hash_data = importfile(stored_hash_file)
+            return (__sha512 == __hash_data.hash_data)
+
+        # sha384
+        if hash_algorithm == __ALGO_OPTIONS[2]:
+            __sha384 = createfilehash(file_to_hash, False, hash_algorithm)
+            # Import hash from file
+            __hash_data = importfile(stored_hash_file)
+            return (__sha384 == __hash_data.hash_data)
+    except FileNotFoundError: raise
+
+    raise TypeError("BAD ERROR")
