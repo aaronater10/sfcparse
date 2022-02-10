@@ -515,6 +515,23 @@ def exportinifile(filename: str, data: __dummy_ini.ini_data) -> None:
 # HASH: Create & Compare file hashes
 def createfilehash(file_to_hash: str, file_to_store_hash: __Union[str,bool], hash_algorithm: str='sha256') -> str:
     """
+    Creates a hash of any file, and stores the hash data to a new created file
+
+    Always returns a str of the hash as well. Assign the output to var
+
+    Enter file locations as str
+
+    [Options]
+    file_to_store_hash: Set to False if you do not want hash data stored to a file. Hash data is always returned whether or not this is set
+
+    hash_algorithm: Already set to default of 'sha256', but supported to set 'sha512' or 'sha384'
+
+    [Example Use]
+
+    Default: createfilehash('path/to/src_filename', 'path/to/dst_hash_filename')
+    Hash only, no file: hash_data = createfilehash('path/to/filename', False)
+
+    This is using the hashlib libray shipped with the python standard libray.
     """
     __ALGO_OPTIONS = ('sha256', 'sha512', 'sha384')
 
@@ -566,6 +583,21 @@ def createfilehash(file_to_hash: str, file_to_store_hash: __Union[str,bool], has
 
 def comparefilehash(file_to_hash: str, stored_hash_file: str, hash_algorithm: str='sha256') -> bool:
     """
+    Compares hash of any file by importing the previously stored hash file data from using "createfilehash"
+
+    Returns a bool if the hash does/doesn't match
+
+    Enter file locations as str
+
+    [Options]
+
+    hash_algorithm: Already set to default of 'sha256', but supported to set 'sha512' or 'sha384'
+
+    [Example Use]
+    
+    comparefilehash('path/to/src_filename', 'path/to/src_hash_filename')
+
+    This is using the hashlib libray shipped with the python standard libray.
     """
     __ALGO_OPTIONS = ('sha256', 'sha512', 'sha384')
 
