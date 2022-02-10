@@ -11,3 +11,6 @@ __pycache__
 test_files/
 main.py
 
+# Local Launchers
+pull_start.bat
+
