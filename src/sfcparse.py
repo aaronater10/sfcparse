@@ -28,6 +28,7 @@ import yaml as __yaml
 from configparser import SafeConfigParser as __SafeConfigParser
 from configparser import ExtendedInterpolation as __ExtendedInterpolation
 import hashlib as __hashlib
+import xml.etree.ElementTree as __xml_tree
 
 
 #########################################################################################################
