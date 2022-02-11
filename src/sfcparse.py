@@ -29,7 +29,7 @@ from configparser import SafeConfigParser as __SafeConfigParser
 from configparser import ExtendedInterpolation as __ExtendedInterpolation
 import hashlib as __hashlib
 import xml.etree.ElementTree as __xml_etree
-import xml.dom.minidom as __xml_dom
+import xml.dom.minidom as __xml_minidom
 
 
 #########################################################################################################
@@ -673,22 +673,35 @@ def buildxmlmanual(xml_parse_type: str='etree') -> __SafeConfigParser:
 
 def importxmlfile(filename: str, xml_parse_type: str='etree') -> __SafeConfigParser:
     """
-    Imports ini data from a file.
+    Imports xml data from a file.
 
-    Returns a ConfigParser obj. Assign the output to var
+    Returns a XMLParser obj. Assign the output to var
 
-    Enter ini file location as str to import.
+    Enter xml file location as str to import.
+
+    [Options]
+
+    xml_parse_type: Already set to default 'etree', but also supports to set 'minidom'
 
     [Example Use]
 
-    importinifile('path/to/filename.ini')
+    importxmlfile('path/to/filename.xml')
 
-    This is using the native configparser library shipped with the python standard libray. Using SafeConfigParser method.
-    For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
+    This is using the native xml library shipped with the python standard libray.
+    For more information on the xml library, visit: https://docs.python.org/3/library/xml.html
     """
-    __parser = __SafeConfigParser(interpolation=__ExtendedInterpolation())
-    __parser.read(filename)
-    return __parser
+    __PARSER_OPTIONS = ('etree', 'minidom')
+
+    if not xml_parse_type in __PARSER_OPTIONS:
+        raise TypeError('BAD PARSER TYPE')
+
+    if xml_parse_type == __PARSER_OPTIONS[0]:
+        return __xml_etree.parse(filename)
+
+    if xml_parse_type == __PARSER_OPTIONS[1]:
+        return  __xml_minidom.parse(filename)
+    
+    raise TypeError("BAD ERROR")
 
 
 # Create hollow reference name for "ini_data" to denote ini data needs to be exported for hinting exports
