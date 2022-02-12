@@ -29,7 +29,6 @@ from configparser import SafeConfigParser as __SafeConfigParser
 from configparser import ExtendedInterpolation as __ExtendedInterpolation
 import hashlib as __hashlib
 import xml.etree.ElementTree as __xml_etree
-import xml.dom.minidom as __xml_minidom
 
 
 #########################################################################################################
@@ -279,7 +278,7 @@ def importrawfile(filename: str) -> str:
 # JSON: Export & Import json files and strings
 def importjsonfile(filename: str) -> dict:
     """
-    Imports json data from a file.
+    Imports json data from a file
 
     Returns a dict. Assign the output to var
 
@@ -307,7 +306,7 @@ def importjsonfile(filename: str) -> dict:
 
 def importjsonstr(json_str_data: str) -> dict:
     """
-    Imports json data from a string.
+    Imports json data from a string
 
     Returns a dict. Assign the output to var
 
@@ -349,7 +348,7 @@ def exportjsonfile(filename: str, data: dict) -> None:
 
 def exportjsonstr(data: dict, indent_level: int=4) -> str:
     """
-    Exports dictionary data to json string.
+    Exports dictionary data to json string
 
     Returns a str. Assign the output to var
 
@@ -488,8 +487,8 @@ def importinifile(filename: str) -> __SafeConfigParser:
 # Create hollow reference name for "ini_data" to denote ini data needs to be exported for hinting exports
 class __dummy_ini:
     """Not meant to be used"""
-    class ini_data: pass
-    """Not meant to be used"""
+    class ini_data:
+        """Not meant to be used"""
 
 def exportinifile(filename: str, data: __dummy_ini.ini_data) -> None:
     """
@@ -633,100 +632,89 @@ def comparefilehash(file_to_hash: str, stored_hash_file: str, hash_algorithm: st
 
 #########################################################################################################
 # XML: Build xml data. Export, and Import xml files
-def buildxmlauto(data: dict, xml_parse_type: str='etree') -> __SafeConfigParser:
-    """
-    Auto converts python dict to ini data structure.
 
-    Returns a ConfigParser obj with your data. Assign the output to var
-
-    Enter correctly structured python dict to convert to ini.
-
-    [Example Python dict]
-
-    {
-        'section1': python_dict,
-        'section2': python_dict    
-    }
-
-    This is using the native configparser library shipped with the python standard libray. Using SafeConfigParser method.
-    For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
-    """
-    __err_msg = f"buildiniauto - Invalid data, type, or nothing specified: {data}"
-    # Auto Build INI data structure
-    __ini_data = __SafeConfigParser(interpolation=__ExtendedInterpolation())
-    for key,value in data.items():
-        __ini_data[key] = value
-    return __ini_data
+# Dummy classes for xml hinting
+class __dummy_xml:
+    """Not meant to be used"""
+    class ElementTree:
+        """Not meant to be used"""
+    class Element:
+        """Not meant to be used"""
 
 
-def buildxmlmanual(xml_parse_type: str='etree') -> __SafeConfigParser:
+def buildxmldata() -> __dummy_xml.ElementTree:
     """    
-    Returns an empty ConfigParser obj to manually build ini data
+    Returns a empty xml ElementTree obj to build/work with xml data
     
     Assign the output to var
 
-    This is using the native configparser library shipped with the python standard libray. Using SafeConfigParser method.
-    For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
+    This is using the native xml library via etree shipped with the python standard libray.
+    For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
     """
-    return __SafeConfigParser(interpolation=__ExtendedInterpolation())
+    return __xml_etree
 
 
-def importxmlfile(filename: str, xml_parse_type: str='etree') -> __SafeConfigParser:
+def importxmlfile(filename: str) -> __dummy_xml.ElementTree:
     """
     Imports xml data from a file.
 
-    Returns a XMLParser obj. Assign the output to var
+    Returns a xml Parsed ElementTree obj with the root. Assign the output to var
 
     Enter xml file location as str to import.
-
-    [Options]
-
-    xml_parse_type: Already set to default 'etree', but also supports to set 'minidom'
 
     [Example Use]
 
     importxmlfile('path/to/filename.xml')
 
-    This is using the native xml library shipped with the python standard libray.
-    For more information on the xml library, visit: https://docs.python.org/3/library/xml.html
+    This is using the native xml library via etree shipped with the python standard libray.
+    For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
+    """    
+    return __xml_etree.parse(filename).getroot()
+
+
+def importxmlstr(data: str) -> __dummy_xml.Element:
     """
-    __PARSER_OPTIONS = ('etree', 'minidom')
+    Imports xml data from a string
 
-    if not xml_parse_type in __PARSER_OPTIONS:
-        raise TypeError('BAD PARSER TYPE')
+    Returns a xml Element. Assign the output to var
 
-    if xml_parse_type == __PARSER_OPTIONS[0]:
-        return __xml_etree.parse(filename)
+    [Example Use]
 
-    if xml_parse_type == __PARSER_OPTIONS[1]:
-        return  __xml_minidom.parse(filename)
-    
-    raise TypeError("BAD ERROR")
+    importxmlstr('<tag>data</tag>')
+
+    This is using the native xml library via etree shipped with the python standard libray.
+    For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
+    """    
+    return __xml_etree.fromstring(str(data))
 
 
-# Create hollow reference name for "ini_data" to denote ini data needs to be exported for hinting exports
-class __dummy_xml:
-    """Not meant to be used"""
-    class xml_data: pass
-    """Not meant to be used"""
-
-def exportxmlfile(filename: str, data: __dummy_xml.xml_data, xml_parse_type: str='etree') -> None:
+def exportxmlstr(data: __dummy_xml.ElementTree) -> str:
     """
-    Exports a new file from a ini data (ConfigParser) obj
+    Exports xml ElementTree to a string
+
+    Returns a str. Assign the output to var
+
+    [Example Use]
+
+    exportxmlstr(ElementTree)
+
+    This is using the native xml library via etree shipped with the python standard libray.
+    For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
+    """    
+    return __xml_etree.tostring(data).decode()
+
+
+def exportxmlfile(filename: str, data: __dummy_xml.ElementTree) -> None:
+    """
+    Exports a new file from xml ElementTree obj as xml data
     
-    Enter new filename as str. Pass ini data for output to file
+    Enter new filename as str. Pass ElementTree data for output to file
     
     [Example Use]
 
-    exportinifile('path/to/filename.ini', data)
+    exportxmlfile('path/to/filename.xml', ElementTree_data)
 
-    This is using the native configparser library shipped with the python standard libray. Using SafeConfigParser method.
-    For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
-    """
-    __err_msg = f"exportinifile - Invalid data to export, type, or nothing specified: {filename}"
-    if type(data) == type(__SafeConfigParser()):
-        with open(filename, 'w') as f:
-            data.write(f)
-        return None
-    
-    raise TypeError(__err_msg)
+    This is using the native xml library via etree shipped with the python standard libray.
+    For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
+    """    
+    data.write(filename)
