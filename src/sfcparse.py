@@ -341,6 +341,11 @@ def jsonexportfile(filename: str, data: dict) -> None:
     information on the json library, visit: https://docs.python.org/3/library/json.html
     
     """
+    __err_msg = f"jsonimportstr - Invalid data imported, type, or nothing specified: {data}"
+
+    if not isinstance(data, dict):
+        raise TypeError(__err_msg)
+
     # Export dict data to json file
     with open(filename, 'w') as f:
         __json.dump(data, f)
@@ -363,7 +368,7 @@ def jsonexportstr(data: dict, indent_level: int=4) -> str:
     __err_msg = f"jsonexportstr - indent_level is invalid type: {repr(indent_level)}"
 
     # Export dict data to json string
-    if not type(indent_level) == type(int()):
+    if not isinstance(indent_level, int):
         raise TypeError(__err_msg)
     return __json.dumps(data, indent=indent_level)
 
@@ -504,7 +509,7 @@ def iniexportfile(filename: str, data: __dummy_ini.ini_data) -> None:
     For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
     """
     __err_msg = f"iniexportfile - Invalid data to export, type, or nothing specified: {filename}"
-    if type(data) == type(__SafeConfigParser()):
+    if isinstance(data, __SafeConfigParser):
         with open(filename, 'w') as f:
             data.write(f)
         return None
