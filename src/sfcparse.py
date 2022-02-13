@@ -624,10 +624,6 @@ def xmlexportstr(data: __dummy_xml.ElementTree) -> str:
     This is using the native xml library via etree shipped with the python standard libray.
     For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
     """
-    __err_msg_etree = f"xmlexportstr - Only ElementTree is allowed for data: {repr(data)}"
-
-    if not isinstance(data, __dummy_xml.ElementTree): raise TypeError(__err_msg_etree)
-    
     return __xml_etree.tostring(data).decode()
 
 
@@ -644,11 +640,9 @@ def xmlexportfile(filename: str, data: __dummy_xml.ElementTree) -> None:
     This is using the native xml library via etree shipped with the python standard libray.
     For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
     """
-    __err_msg_etree = f"xmlexportfile - Only ElementTree is allowed for data: {repr(data)}"
     __err_msg_str = f"xmlexportfile - Only str is allowed for filename: {repr(filename)}"
     
     if not isinstance(filename, str): raise TypeError(__err_msg_str)
-    if not isinstance(data, __dummy_xml.ElementTree): raise TypeError(__err_msg_etree)
 
     data = xmlexportstr(data)
     exportfile(filename, data)
