@@ -544,6 +544,97 @@ def iniexportfile(filename: str, data: __dummy_ini.ini_data) -> None:
 
 
 #########################################################################################################
+# XML: Build xml data. Export, and Import xml files
+
+# Dummy classes for xml hinting
+class __dummy_xml:
+    """Not meant to be used"""
+    class ElementTree:
+        """Not meant to be used"""
+    class Element:
+        """Not meant to be used"""
+
+
+def xmlbuildmanual() -> __dummy_xml.ElementTree:
+    """
+    Returns a empty xml ElementTree obj to build/work with xml data
+    
+    Assign the output to var
+
+    This is using the native xml library via etree shipped with the python standard libray.
+    For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
+    """
+    return __xml_etree
+
+
+def xmlimportfile(filename: str) -> __dummy_xml.ElementTree:
+    """
+    Imports xml data from a file.
+
+    Returns a xml Parsed ElementTree obj with the root. Assign the output to var
+
+    Enter xml file location as str to import.
+
+    [Example Use]
+
+    xmlimportfile('path/to/filename.xml')
+
+    This is using the native xml library via etree shipped with the python standard libray.
+    For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
+    """    
+    return __xml_etree.parse(filename).getroot()
+
+
+def xmlimportstr(data: str) -> __dummy_xml.Element:
+    """
+    Imports xml data from a string
+
+    Returns a xml Element. Assign the output to var
+
+    [Example Use]
+
+    xmlimportstr('<tag>data</tag>')
+
+    This is using the native xml library via etree shipped with the python standard libray.
+    For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
+    """    
+    return __xml_etree.fromstring(str(data))
+
+
+def xmlexportstr(data: __dummy_xml.ElementTree) -> str:
+    """
+    Exports xml ElementTree to a string
+
+    Returns a str. Assign the output to var
+
+    [Example Use]
+
+    xmlexportstr(ElementTree)
+
+    This is using the native xml library via etree shipped with the python standard libray.
+    For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
+    """    
+    return __xml_etree.tostring(data).decode()
+
+
+def xmlexportfile(filename: str, data: __dummy_xml.ElementTree) -> None:
+    """
+    Exports a new file from xml ElementTree obj as xml data
+    
+    Enter new filename as str. Pass ElementTree data for output to file
+    
+    [Example Use]
+
+    xmlexportfile('path/to/filename.xml', ElementTree_data)
+
+    This is using the native xml library via etree shipped with the python standard libray.
+    For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
+    """
+    data = xmlexportstr(data)
+    exportfile(filename, data)
+
+
+#########################################################################################################
 # HASH: Create & Compare file hashes
 def createfilehash(file_to_hash: str, file_to_store_hash: __Union[str,bool], hash_algorithm: str='sha256') -> str:
     """
@@ -677,94 +768,3 @@ def comparefilehash(file_to_hash: str, stored_hash_file: str, hash_algorithm: st
     except FileNotFoundError: raise
 
     raise TypeError(__err_msg)
-
-
-#########################################################################################################
-# XML: Build xml data. Export, and Import xml files
-
-# Dummy classes for xml hinting
-class __dummy_xml:
-    """Not meant to be used"""
-    class ElementTree:
-        """Not meant to be used"""
-    class Element:
-        """Not meant to be used"""
-
-
-def xmlbuildmanual() -> __dummy_xml.ElementTree:
-    """
-    Returns a empty xml ElementTree obj to build/work with xml data
-    
-    Assign the output to var
-
-    This is using the native xml library via etree shipped with the python standard libray.
-    For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
-    """
-    return __xml_etree
-
-
-def xmlimportfile(filename: str) -> __dummy_xml.ElementTree:
-    """
-    Imports xml data from a file.
-
-    Returns a xml Parsed ElementTree obj with the root. Assign the output to var
-
-    Enter xml file location as str to import.
-
-    [Example Use]
-
-    xmlimportfile('path/to/filename.xml')
-
-    This is using the native xml library via etree shipped with the python standard libray.
-    For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
-    """    
-    return __xml_etree.parse(filename).getroot()
-
-
-def xmlimportstr(data: str) -> __dummy_xml.Element:
-    """
-    Imports xml data from a string
-
-    Returns a xml Element. Assign the output to var
-
-    [Example Use]
-
-    xmlimportstr('<tag>data</tag>')
-
-    This is using the native xml library via etree shipped with the python standard libray.
-    For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
-    """    
-    return __xml_etree.fromstring(str(data))
-
-
-def xmlexportstr(data: __dummy_xml.ElementTree) -> str:
-    """
-    Exports xml ElementTree to a string
-
-    Returns a str. Assign the output to var
-
-    [Example Use]
-
-    xmlexportstr(ElementTree)
-
-    This is using the native xml library via etree shipped with the python standard libray.
-    For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
-    """    
-    return __xml_etree.tostring(data).decode()
-
-
-def xmlexportfile(filename: str, data: __dummy_xml.ElementTree) -> None:
-    """
-    Exports a new file from xml ElementTree obj as xml data
-    
-    Enter new filename as str. Pass ElementTree data for output to file
-    
-    [Example Use]
-
-    xmlexportfile('path/to/filename.xml', ElementTree_data)
-
-    This is using the native xml library via etree shipped with the python standard libray.
-    For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
-    """
-    data = xmlexportstr(data)
-    exportfile(filename, data)
