@@ -209,7 +209,7 @@ def cleanformat(datatype: __Union[dict,list,tuple,set], indent_level: int=1) -> 
     var = cleanformat(datatype)
     """
     # Set indent level
-    if not type(indent_level) == type(1):
+    if not isinstance(indent_level, int):
         raise TypeError('cleanformat - Only int is allowed for indent level.')
     indent_level = '\t'*indent_level
 
