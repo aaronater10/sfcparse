@@ -341,10 +341,14 @@ def jsonexportfile(filename: str, data: dict) -> None:
     information on the json library, visit: https://docs.python.org/3/library/json.html
     
     """
-    __err_msg = f"jsonimportstr - Invalid data imported, type, or nothing specified: {data}"
+    __err_msg_dict = f"jsonexportfile - Only dict is allowed for data: {repr(data)}"
+    __err_msg_str = f"jsonexportfile - Only str is allowed for filename: {filename}"
+
+    if not isinstance(filename, str):
+        raise TypeError(__err_msg_str)
 
     if not isinstance(data, dict):
-        raise TypeError(__err_msg)
+        raise TypeError(__err_msg_dict)
 
     # Export dict data to json file
     with open(filename, 'w') as f:
@@ -365,11 +369,16 @@ def jsonexportstr(data: dict, indent_level: int=4) -> str:
     information on the json library, visit: https://docs.python.org/3/library/json.html
     
     """
-    __err_msg = f"jsonexportstr - indent_level is invalid type: {repr(indent_level)}"
+    __err_msg_int = f"jsonexportstr - Only int is allowed for indent_level: {repr(indent_level)}"
+    __err_msg_dict = f"jsonexportstr - Only dict is allowed for data: {repr(data)}"
+
+    if not isinstance(data, dict):
+        raise TypeError(__err_msg_dict)
+
+    if not isinstance(indent_level, int):
+        raise TypeError(__err_msg_int)
 
     # Export dict data to json string
-    if not isinstance(indent_level, int):
-        raise TypeError(__err_msg)
     return __json.dumps(data, indent=indent_level)
 
 
