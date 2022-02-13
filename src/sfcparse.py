@@ -370,7 +370,7 @@ def jsonexportstr(data: dict, indent_level: int=4) -> str:
 
 #########################################################################################################
 # YAML: Export & Import yaml files
-def importyamlfile(filename: str) -> dict:
+def yamlimportfile(filename: str) -> dict:
     """
     Imports yaml data from a file.
 
@@ -380,13 +380,13 @@ def importyamlfile(filename: str) -> dict:
 
     [Example Use]
 
-    importyamlfile('path/to/filename.yml')
+    yamlimportfile('path/to/filename.yml')
 
     This is using the PyYAML framework installed as a dependency from pypi. It is only using the
     "safe_load" method to protect from untrusted input.
     For more information on PyYAML, visit: https://pypi.org/project/PyYAML/
     """
-    __err_msg = f"importyamlfile - Invalid data imported, type, or nothing specified: {filename}"
+    __err_msg = f"yamlimportfile - Invalid data imported, type, or nothing specified: {filename}"
     # Import yaml file
     try:
         with open(filename, 'r') as f:
@@ -399,7 +399,7 @@ def importyamlfile(filename: str) -> dict:
     except __yaml.scanner.ScannerError: raise SyntaxError(__err_msg)
 
 
-def exportyamlfile(filename: str, data: __Any) -> None:
+def yamlexportfile(filename: str, data: __Any) -> None:
     """
     Exports a new file from python type to yaml data.
     
@@ -407,14 +407,14 @@ def exportyamlfile(filename: str, data: __Any) -> None:
     
     [Example Use]
 
-    exportyamlfile('path/to/filename.yml', data)    
+    yamlexportfile('path/to/filename.yml', data)    
 
     This is using the PyYAML framework installed as a dependency from pypi. It is only using the
     "safe_dump" method, which only supports standard YAML tags and cannot represent an arbitrary Python object.
     For more information on PyYAML, visit: https://pypi.org/project/PyYAML/
     
     """
-    __err_msg = f"exportyamlfile - Invalid data exported or type: {data}"
+    __err_msg = f"yamlexportfile - Invalid data exported or type: {data}"
 
     # Export dict data to yaml file
     try:
