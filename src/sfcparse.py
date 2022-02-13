@@ -426,7 +426,7 @@ def yamlexportfile(filename: str, data: __Any) -> None:
 
 #########################################################################################################
 # INI: Build ini data. Export, and Import ini files
-def buildiniauto(data: dict) -> __SafeConfigParser:
+def inibuildauto(data: dict) -> __SafeConfigParser:
     """
     Auto converts python dict to ini data structure.
 
@@ -444,7 +444,7 @@ def buildiniauto(data: dict) -> __SafeConfigParser:
     This is using the native configparser library shipped with the python standard libray. Using SafeConfigParser method.
     For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
     """
-    __err_msg = f"buildiniauto - Invalid data, type, or nothing specified: {data}"
+    __err_msg = f"inibuildauto - Invalid data, type, or nothing specified: {data}"
     # Auto Build INI data structure
     __ini_data = __SafeConfigParser(interpolation=__ExtendedInterpolation())
     for key,value in data.items():
@@ -452,7 +452,7 @@ def buildiniauto(data: dict) -> __SafeConfigParser:
     return __ini_data
 
 
-def buildinimanual() -> __SafeConfigParser:
+def inibuildmanual() -> __SafeConfigParser:
     """    
     Returns an empty ConfigParser obj to manually build ini data
     
@@ -464,7 +464,7 @@ def buildinimanual() -> __SafeConfigParser:
     return __SafeConfigParser(interpolation=__ExtendedInterpolation())
 
 
-def importinifile(filename: str) -> __SafeConfigParser:
+def iniimportfile(filename: str) -> __SafeConfigParser:
     """
     Imports ini data from a file.
 
@@ -474,7 +474,7 @@ def importinifile(filename: str) -> __SafeConfigParser:
 
     [Example Use]
 
-    importinifile('path/to/filename.ini')
+    iniimportfile('path/to/filename.ini')
 
     This is using the native configparser library shipped with the python standard libray. Using SafeConfigParser method.
     For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
@@ -490,7 +490,7 @@ class __dummy_ini:
     class ini_data:
         """Not meant to be used"""
 
-def exportinifile(filename: str, data: __dummy_ini.ini_data) -> None:
+def iniexportfile(filename: str, data: __dummy_ini.ini_data) -> None:
     """
     Exports a new file from a ini data (ConfigParser) obj
     
@@ -498,12 +498,12 @@ def exportinifile(filename: str, data: __dummy_ini.ini_data) -> None:
     
     [Example Use]
 
-    exportinifile('path/to/filename.ini', data)
+    iniexportfile('path/to/filename.ini', data)
 
     This is using the native configparser library shipped with the python standard libray. Using SafeConfigParser method.
     For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
     """
-    __err_msg = f"exportinifile - Invalid data to export, type, or nothing specified: {filename}"
+    __err_msg = f"iniexportfile - Invalid data to export, type, or nothing specified: {filename}"
     if type(data) == type(__SafeConfigParser()):
         with open(filename, 'w') as f:
             data.write(f)
