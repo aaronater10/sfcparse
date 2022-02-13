@@ -642,8 +642,8 @@ class __dummy_xml:
         """Not meant to be used"""
 
 
-def buildxmldata() -> __dummy_xml.ElementTree:
-    """    
+def xmlbuildmanual() -> __dummy_xml.ElementTree:
+    """
     Returns a empty xml ElementTree obj to build/work with xml data
     
     Assign the output to var
@@ -654,7 +654,7 @@ def buildxmldata() -> __dummy_xml.ElementTree:
     return __xml_etree
 
 
-def importxmlfile(filename: str) -> __dummy_xml.ElementTree:
+def xmlimportfile(filename: str) -> __dummy_xml.ElementTree:
     """
     Imports xml data from a file.
 
@@ -664,7 +664,7 @@ def importxmlfile(filename: str) -> __dummy_xml.ElementTree:
 
     [Example Use]
 
-    importxmlfile('path/to/filename.xml')
+    xmlimportfile('path/to/filename.xml')
 
     This is using the native xml library via etree shipped with the python standard libray.
     For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
@@ -672,7 +672,7 @@ def importxmlfile(filename: str) -> __dummy_xml.ElementTree:
     return __xml_etree.parse(filename).getroot()
 
 
-def importxmlstr(data: str) -> __dummy_xml.Element:
+def xmlimportstr(data: str) -> __dummy_xml.Element:
     """
     Imports xml data from a string
 
@@ -680,7 +680,7 @@ def importxmlstr(data: str) -> __dummy_xml.Element:
 
     [Example Use]
 
-    importxmlstr('<tag>data</tag>')
+    xmlimportstr('<tag>data</tag>')
 
     This is using the native xml library via etree shipped with the python standard libray.
     For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
@@ -688,7 +688,7 @@ def importxmlstr(data: str) -> __dummy_xml.Element:
     return __xml_etree.fromstring(str(data))
 
 
-def exportxmlstr(data: __dummy_xml.ElementTree) -> str:
+def xmlexportstr(data: __dummy_xml.ElementTree) -> str:
     """
     Exports xml ElementTree to a string
 
@@ -696,7 +696,7 @@ def exportxmlstr(data: __dummy_xml.ElementTree) -> str:
 
     [Example Use]
 
-    exportxmlstr(ElementTree)
+    xmlexportstr(ElementTree)
 
     This is using the native xml library via etree shipped with the python standard libray.
     For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
@@ -704,7 +704,7 @@ def exportxmlstr(data: __dummy_xml.ElementTree) -> str:
     return __xml_etree.tostring(data).decode()
 
 
-def exportxmlfile(filename: str, data: __dummy_xml.ElementTree) -> None:
+def xmlexportfile(filename: str, data: __dummy_xml.ElementTree) -> None:
     """
     Exports a new file from xml ElementTree obj as xml data
     
@@ -712,10 +712,10 @@ def exportxmlfile(filename: str, data: __dummy_xml.ElementTree) -> None:
     
     [Example Use]
 
-    exportxmlfile('path/to/filename.xml', ElementTree_data)
+    xmlexportfile('path/to/filename.xml', ElementTree_data)
 
     This is using the native xml library via etree shipped with the python standard libray.
     For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
     """
-    data = exportxmlstr(data)
+    data = xmlexportstr(data)
     exportfile(filename, data)
