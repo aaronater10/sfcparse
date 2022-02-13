@@ -276,7 +276,7 @@ def importrawfile(filename: str) -> str:
 
 #########################################################################################################
 # JSON: Export & Import json files and strings
-def importjsonfile(filename: str) -> dict:
+def jsonimportfile(filename: str) -> dict:
     """
     Imports json data from a file
 
@@ -304,7 +304,7 @@ def importjsonfile(filename: str) -> dict:
     except __json.decoder.JSONDecodeError: raise SyntaxError(__err_msg)
    
 
-def importjsonstr(json_str_data: str) -> dict:
+def jsonimportstr(json_str_data: str) -> dict:
     """
     Imports json data from a string
 
@@ -327,7 +327,7 @@ def importjsonstr(json_str_data: str) -> dict:
     except __json.decoder.JSONDecodeError: raise SyntaxError(__err_msg)
 
 
-def exportjsonfile(filename: str, data: dict) -> None:
+def jsonexportfile(filename: str, data: dict) -> None:
     """
     Exports a new file from a dictionary to json data.
     
@@ -346,7 +346,7 @@ def exportjsonfile(filename: str, data: dict) -> None:
         __json.dump(data, f)
         
 
-def exportjsonstr(data: dict, indent_level: int=4) -> str:
+def jsonexportstr(data: dict, indent_level: int=4) -> str:
     """
     Exports dictionary data to json string
 
