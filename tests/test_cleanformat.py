@@ -26,7 +26,7 @@ def test1_default_format_export():
     sfcparse.exportfile(filepath, f"data = {data_formatted}")
     assert path.exists(filepath)
     file_import = sfcparse.importfile(filepath)
-    assert (file_import.data == {'k1':1, 'k2':2, 'k3':3, 'k4':4, 'k5':5}) and (type(file_import.data) == type(dict()))
+    assert (file_import.data == {'k1':1, 'k2':2, 'k3':3, 'k4':4, 'k5':5}) and (isinstance(file_import.data, dict))
     # Remove Test File
     time.sleep(file_delay_timer)
     try: remove(filepath)
@@ -51,8 +51,8 @@ def test2_indent_format_export():
     assert path.exists(filepath)
     sfcparse.appendfile(filepath, f"data2 = {data_formatted2}")
     file_import = sfcparse.importfile(filepath)
-    assert (file_import.data1 == {'k1':1, 'k2':2, 'k3':3, 'k4':4, 'k5':5}) and (type(file_import.data1) == type(dict()))
-    assert (file_import.data2 == {'k1':1, 'k2':2, 'k3':3, 'k4':4, 'k5':5}) and (type(file_import.data2) == type(dict()))
+    assert (file_import.data1 == {'k1':1, 'k2':2, 'k3':3, 'k4':4, 'k5':5}) and (isinstance(file_import.data1, dict))
+    assert (file_import.data2 == {'k1':1, 'k2':2, 'k3':3, 'k4':4, 'k5':5}) and (isinstance(file_import.data2, dict))
     # Remove Test File
     time.sleep(file_delay_timer)
     try: remove(filepath)
