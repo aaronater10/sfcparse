@@ -302,7 +302,7 @@ def jsonimportfile(filename: str) -> dict:
     except FileNotFoundError: raise
     except OSError: raise OSError(__err_msg)
     except __json.decoder.JSONDecodeError: raise SyntaxError(__err_msg)
-   
+
 
 def jsonimportstr(json_str_data: str) -> dict:
     """
@@ -437,7 +437,6 @@ def yamlexportfile(filename: str, data: __Any) -> None:
     except __yaml.representer.RepresenterError: raise TypeError(__err_msg)
 
 
-
 #########################################################################################################
 # INI: Build ini data. Export, and Import ini files
 def inibuildauto(data: dict) -> __SafeConfigParser:
@@ -458,12 +457,20 @@ def inibuildauto(data: dict) -> __SafeConfigParser:
     This is using the native configparser library shipped with the python standard libray. Using SafeConfigParser method.
     For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
     """
-    __err_msg = f"inibuildauto - Invalid data, type, or nothing specified: {data}"
+    __err_msg_syntax = f"inibuildauto - Structure of dict is incorrect: {repr(data)}"
+    __err_msg_dict = f"inibuildauto - Invalid data, type, or nothing specified: {repr(data)}"
+
+    if not isinstance(data, dict):
+        raise TypeError(__err_msg_dict)
+
     # Auto Build INI data structure
     __ini_data = __SafeConfigParser(interpolation=__ExtendedInterpolation())
-    for key,value in data.items():
-        __ini_data[key] = value
-    return __ini_data
+
+    try:
+        for key,value in data.items():
+            __ini_data[key] = value
+        return __ini_data
+    except AttributeError: raise SyntaxError(__err_msg_syntax)
 
 
 def inibuildmanual() -> __SafeConfigParser:
@@ -493,6 +500,11 @@ def iniimportfile(filename: str) -> __SafeConfigParser:
     This is using the native configparser library shipped with the python standard libray. Using SafeConfigParser method.
     For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
     """
+    __err_msg_str = f"iniimportfile - Only str is allowed for filename: {filename}"
+
+    if not isinstance(filename, str):
+        raise TypeError(__err_msg_str)
+
     __parser = __SafeConfigParser(interpolation=__ExtendedInterpolation())
     __parser.read(filename)
     return __parser
@@ -517,13 +529,18 @@ def iniexportfile(filename: str, data: __dummy_ini.ini_data) -> None:
     This is using the native configparser library shipped with the python standard libray. Using SafeConfigParser method.
     For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
     """
-    __err_msg = f"iniexportfile - Invalid data to export, type, or nothing specified: {filename}"
+    __err_msg_parser = f"iniexportfile - Invalid data to export, type, or nothing specified: {filename}"
+    __err_msg_str = f"iniexportfile - Only str is allowed for filename: {filename}"
+
+    if not isinstance(filename, str):
+        raise TypeError(__err_msg_str)
+        
     if isinstance(data, __SafeConfigParser):
         with open(filename, 'w') as f:
             data.write(f)
         return None
     
-    raise TypeError(__err_msg)
+    raise TypeError(__err_msg_parser)
 
 
 #########################################################################################################
@@ -550,8 +567,17 @@ def createfilehash(file_to_hash: str, file_to_store_hash: __Union[str,bool], has
     """
     __ALGO_OPTIONS = ('sha256', 'sha512', 'sha384')
 
-    if not hash_algorithm in __ALGO_OPTIONS:
-        raise TypeError('BAD HASH TYPE')
+    __err_msg = f"createfilehash - Invalid data to export, type, or nothing specified."
+    __err_msg_str_file_src = f"createfilehash - Only str is allowed for file_to_hash: {file_to_hash}"
+    __err_msg_file_dst = f"createfilehash - Only str|bool is allowed for file_to_store_hash: {file_to_store_hash}"
+    __err_msg_str_hash = f"createfilehash - Only str is allowed for hash_algorithm: {hash_algorithm}"
+    __err_msg_hash = f"createfilehash - Invalid or no hash option chosen for hash_algorithm: {hash_algorithm}"
+
+    if not isinstance(file_to_hash, str): raise TypeError(__err_msg_str_file_src)
+    if not (isinstance(file_to_store_hash, str)) or (isinstance(file_to_store_hash, bool)): raise TypeError(__err_msg_file_dst)
+    if not isinstance(hash_algorithm, str): raise TypeError(__err_msg_str_hash)
+    if not hash_algorithm in __ALGO_OPTIONS: raise ValueError(__err_msg_hash)
+
     try: 
         # sha256
         if hash_algorithm == __ALGO_OPTIONS[0]:
@@ -593,7 +619,7 @@ def createfilehash(file_to_hash: str, file_to_store_hash: __Union[str,bool], has
             return __sha384
     except FileNotFoundError: raise
 
-    raise TypeError("BAD ERROR")
+    raise TypeError(__err_msg)
 
 
 def comparefilehash(file_to_hash: str, stored_hash_file: str, hash_algorithm: str='sha256') -> bool:
