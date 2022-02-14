@@ -555,6 +555,7 @@ class __dummy_xml:
         """Not meant to be used"""
 
 
+
 def xmlbuildmanual() -> __dummy_xml.ElementTree:
     """
     Returns a empty xml ElementTree obj to build/work with xml data
@@ -624,6 +625,14 @@ def xmlexportstr(data: __dummy_xml.ElementTree) -> str:
     This is using the native xml library via etree shipped with the python standard libray.
     For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
     """
+    # Check for Error
+    __err_msg_etree = f"xmlexportstr - Only ElementTree is allowed for data: {repr(data)}"
+
+    __dummy_element_str = "<dummy>dummy</dummy>"
+    __dummy_element = __xml_etree.Element(__dummy_element_str)
+    if not type(data) == type(__dummy_element): raise TypeError(__err_msg_etree) 
+
+    # Export Data
     return __xml_etree.tostring(data).decode()
 
 
@@ -640,10 +649,17 @@ def xmlexportfile(filename: str, data: __dummy_xml.ElementTree) -> None:
     This is using the native xml library via etree shipped with the python standard libray.
     For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
     """
+    # Check for Error
     __err_msg_str = f"xmlexportfile - Only str is allowed for filename: {repr(filename)}"
-    
+    __err_msg_etree = f"xmlexportfile - Only ElementTree is allowed for data: {repr(data)}"
+
+    __dummy_element_str = "<dummy>dummy</dummy>"
+    __dummy_element = __xml_etree.Element(__dummy_element_str)    
+
+    if not type(data) == type(__dummy_element): raise TypeError(__err_msg_etree)    
     if not isinstance(filename, str): raise TypeError(__err_msg_str)
 
+    # Export Data
     data = xmlexportstr(data)
     exportfile(filename, data)
 
