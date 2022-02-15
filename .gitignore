@@ -8,7 +8,7 @@ __pycache__
 .vscode/
 
 # Test Folders and Files
-test_files/
+priv_test_files/
 main.py
 
 # Local Launchers
