@@ -2,7 +2,7 @@
 from src import sfcparse
 from os import path
 
-test_file_path = './tests/test_files/importfile_files/'
+test_file_path = './tests/native/test_files/importfile_files/'
 
 
 ################################################################
