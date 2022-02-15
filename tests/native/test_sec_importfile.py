@@ -2,7 +2,7 @@
 from src import sfcparse
 import unittest
 
-test_file_path = './tests/test_files/sec_importfile_files/'
+test_file_path = './tests/test_files/native/sec_importfile_files/'
 
 
 ################################################################
