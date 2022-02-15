@@ -3,7 +3,7 @@ from src import sfcparse
 from os import path, remove
 import time
 
-test_file_path = './tests/native/test_files/appendfile_files/'
+test_file_path = './tests/test_files/appendfile_files/'
 file_delay_timer = 1
 
 
