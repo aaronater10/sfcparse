@@ -695,7 +695,7 @@ def createfilehash(file_to_hash: str, file_to_store_hash: __Union[str,bool], has
     __err_msg_hash = f"createfilehash - Invalid or no hash option chosen for hash_algorithm: {hash_algorithm}"
 
     if not isinstance(file_to_hash, str): raise TypeError(__err_msg_str_file_src)
-    if not (isinstance(file_to_store_hash, str)) or (isinstance(file_to_store_hash, bool)): raise TypeError(__err_msg_file_dst)
+    if not ((isinstance(file_to_store_hash, str)) or (isinstance(file_to_store_hash, bool))): raise TypeError(__err_msg_file_dst)
     if not isinstance(hash_algorithm, str): raise TypeError(__err_msg_str_hash)
     if not hash_algorithm in __ALGO_OPTIONS: raise ValueError(__err_msg_hash)
 
