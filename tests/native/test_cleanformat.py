@@ -57,3 +57,42 @@ def test2_indent_format_export():
     time.sleep(file_delay_timer)
     try: remove(filepath)
     except: pass
+
+
+# 3. All Data Formats - Formatting All Accepted Data Cleanly
+def test3_all_formats_export():
+    filename = '3_all_data_format.data'
+    filepath = test_file_path + filename
+    data_dict = {'k1':1, 'k2':2, 'k3':3, 'k4':4, 'k5':5}
+    data_list = [1,2,3,4,5]
+    data_tuple = (1,2,3,4,5)
+    data_set = {1, 2, 3, 4, 5}
+
+    # Remove Any Existing Test File
+    try: remove(filepath)
+    except: pass
+    time.sleep(file_delay_timer)
+    # Test Formatted Data then Export it and Read it
+    data_dict = sfcparse.cleanformat(data_dict)
+    data_list = sfcparse.cleanformat(data_list)
+    data_tuple = sfcparse.cleanformat(data_tuple)
+    data_set = sfcparse.cleanformat(data_set)
+
+    assert not path.exists(filepath)
+    sfcparse.exportfile(filepath,
+        f"data_dict = {data_dict}\n",
+        f"data_list = {data_list}\n",
+        f"data_tuple = {data_tuple}\n",
+        f"data_set = {data_set}\n"
+    )
+    
+    assert path.exists(filepath)
+    file_import = sfcparse.importfile(filepath)
+    assert (file_import.data_dict == {'k1':1, 'k2':2, 'k3':3, 'k4':4, 'k5':5}) and (isinstance(file_import.data_dict, dict))
+    assert (file_import.data_list == [1,2,3,4,5]) and (isinstance(file_import.data_list, list))
+    assert (file_import.data_tuple == (1,2,3,4,5)) and (isinstance(file_import.data_tuple, tuple))
+    assert (file_import.data_set == {1, 2, 3, 4, 5}) and (isinstance(file_import.data_set, set))
+    # Remove Test File
+    time.sleep(file_delay_timer)
+    try: remove(filepath)
+    except: pass
