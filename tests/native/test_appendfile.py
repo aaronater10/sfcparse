@@ -26,7 +26,7 @@ def test1_basic_file_append():
     # Test Single Line Append and Verify
     sfcparse.appendfile(filepath, f"data = {data}")
     file_import = sfcparse.importfile(filepath)
-    assert (file_import.data == {'k1':1, 'k2':2, 'k3':3}) and (type(file_import.data) == type(dict()))
+    assert (file_import.data == {'k1':1, 'k2':2, 'k3':3}) and (isinstance(file_import.data, dict))
     # Remove Test File
     time.sleep(file_delay_timer)
     try: remove(filepath)
@@ -54,12 +54,12 @@ data_b3 = {data}
     # Test Multi Line Append and Verify
     sfcparse.appendfile(filepath, f"data1 = {data}", f"\ndata2 = {data}", f"\ndata3 = {data}", big_data)
     file_import = sfcparse.importfile(filepath)
-    assert (file_import.data1 == {'k1':1, 'k2':2, 'k3':3}) and (type(file_import.data1) == type(dict()))
-    assert (file_import.data2 == {'k1':1, 'k2':2, 'k3':3}) and (type(file_import.data2) == type(dict()))
-    assert (file_import.data3 == {'k1':1, 'k2':2, 'k3':3}) and (type(file_import.data3) == type(dict()))
-    assert (file_import.data_b1 == {'k1':1, 'k2':2, 'k3':3}) and (type(file_import.data_b1) == type(dict()))
-    assert (file_import.data_b2 == {'k1':1, 'k2':2, 'k3':3}) and (type(file_import.data_b2) == type(dict()))
-    assert (file_import.data_b3 == {'k1':1, 'k2':2, 'k3':3}) and (type(file_import.data_b3) == type(dict()))
+    assert (file_import.data1 == {'k1':1, 'k2':2, 'k3':3}) and (isinstance(file_import.data1, dict))
+    assert (file_import.data2 == {'k1':1, 'k2':2, 'k3':3}) and (isinstance(file_import.data2, dict))
+    assert (file_import.data3 == {'k1':1, 'k2':2, 'k3':3}) and (isinstance(file_import.data3, dict))
+    assert (file_import.data_b1 == {'k1':1, 'k2':2, 'k3':3}) and (isinstance(file_import.data_b1, dict))
+    assert (file_import.data_b2 == {'k1':1, 'k2':2, 'k3':3}) and (isinstance(file_import.data_b2, dict))
+    assert (file_import.data_b3 == {'k1':1, 'k2':2, 'k3':3}) and (isinstance(file_import.data_b3, dict))
     # Remove Test File
     time.sleep(file_delay_timer)
     try: remove(filepath)
@@ -87,12 +87,12 @@ data_b3 = {data}"""
     # Test Append Without Tampering Present Data and Verify. Appending 3x Lines
     sfcparse.appendfile(filepath, f"data1 = {data}", f"data2 = {data}", f"data3 = {data}")
     file_import = sfcparse.importfile(filepath)
-    assert (file_import.data1 == {'k1':1, 'k2':2, 'k3':3}) and (type(file_import.data1) == type(dict()))
-    assert (file_import.data2 == {'k1':1, 'k2':2, 'k3':3}) and (type(file_import.data2) == type(dict()))
-    assert (file_import.data3 == {'k1':1, 'k2':2, 'k3':3}) and (type(file_import.data3) == type(dict()))
-    assert (file_import.data_b1 == {'k1':1, 'k2':2, 'k3':3}) and (type(file_import.data_b1) == type(dict()))
-    assert (file_import.data_b2 == {'k1':1, 'k2':2, 'k3':3}) and (type(file_import.data_b2) == type(dict()))
-    assert (file_import.data_b3 == {'k1':1, 'k2':2, 'k3':3}) and (type(file_import.data_b3) == type(dict()))
+    assert (file_import.data1 == {'k1':1, 'k2':2, 'k3':3}) and (isinstance(file_import.data1, dict))
+    assert (file_import.data2 == {'k1':1, 'k2':2, 'k3':3}) and (isinstance(file_import.data2, dict))
+    assert (file_import.data3 == {'k1':1, 'k2':2, 'k3':3}) and (isinstance(file_import.data3, dict))
+    assert (file_import.data_b1 == {'k1':1, 'k2':2, 'k3':3}) and (isinstance(file_import.data_b1, dict))
+    assert (file_import.data_b2 == {'k1':1, 'k2':2, 'k3':3}) and (isinstance(file_import.data_b2, dict))
+    assert (file_import.data_b3 == {'k1':1, 'k2':2, 'k3':3}) and (isinstance(file_import.data_b3, dict))
     # Remove Test File
     time.sleep(file_delay_timer)
     try: remove(filepath)
