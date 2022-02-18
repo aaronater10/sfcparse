@@ -1,7 +1,5 @@
 # comparefilehash - Tests
 from src import sfcparse
-from os import remove
-import time
 
 test_file_path = './tests/test_files/hash/'
 file_delay_timer = 1
