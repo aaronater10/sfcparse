@@ -99,7 +99,7 @@ def test4_data_bytes_export():
     assert not path.exists(filepath)
     sfcparse.exportfile(filepath, data_bytes, byte_data=True)
     assert path.exists(filepath)
-    file_import = sfcparse.importrawfile(filepath, True)
+    file_import = sfcparse.importrawfile(filepath, byte_data=True)
     assert (file_import == bytes_match) and (isinstance(file_import, str))
     
     # Remove Test File

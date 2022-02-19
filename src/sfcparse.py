@@ -300,7 +300,7 @@ def importrawfile(filename: str, byte_data: bool=False) -> str:
             with open(filename, 'rb') as f:
                 if __path.getsize(filename) == 0:
                     return ''
-                return f.read().decode()
+                return f.read()
         except FileNotFoundError: raise
 
 
