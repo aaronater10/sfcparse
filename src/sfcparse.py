@@ -25,7 +25,7 @@ from typing import Union as __Union
 from os import path as __path
 import json as __json
 import yaml as __yaml
-from configparser import SafeConfigParser as __SafeConfigParser
+from configparser import ConfigParser as __ConfigParser
 from configparser import ExtendedInterpolation as __ExtendedInterpolation
 import hashlib as __hashlib
 import xml.etree.ElementTree as __xml_etree
@@ -469,7 +469,7 @@ def yamlexportfile(filename: str, data: __Any) -> None:
 
 #########################################################################################################
 # INI: Build ini data. Export, and Import ini files
-def inibuildauto(data: dict) -> __SafeConfigParser:
+def inibuildauto(data: dict) -> __ConfigParser:
     """
     Auto converts python dict to ini data structure.
 
@@ -484,7 +484,7 @@ def inibuildauto(data: dict) -> __SafeConfigParser:
         'section2': python_dict    
     }
 
-    This is using the native configparser library shipped with the python standard libray. Using SafeConfigParser method.
+    This is using the native configparser library shipped with the python standard libray. Using ConfigParser method.
     For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
     """
     __err_msg_syntax = f"inibuildauto - Structure of dict is incorrect: {repr(data)}"
@@ -494,7 +494,7 @@ def inibuildauto(data: dict) -> __SafeConfigParser:
         raise TypeError(__err_msg_dict)
 
     # Auto Build INI data structure
-    __ini_data = __SafeConfigParser(interpolation=__ExtendedInterpolation())
+    __ini_data = __ConfigParser(interpolation=__ExtendedInterpolation())
 
     try:
         for key,value in data.items():
@@ -503,19 +503,19 @@ def inibuildauto(data: dict) -> __SafeConfigParser:
     except AttributeError: raise SyntaxError(__err_msg_syntax)
 
 
-def inibuildmanual() -> __SafeConfigParser:
+def inibuildmanual() -> __ConfigParser:
     """    
     Returns an empty ConfigParser obj to manually build ini data
     
     Assign the output to var
 
-    This is using the native configparser library shipped with the python standard libray. Using SafeConfigParser method.
+    This is using the native configparser library shipped with the python standard libray. Using ConfigParser method.
     For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
     """
-    return __SafeConfigParser(interpolation=__ExtendedInterpolation())
+    return __ConfigParser(interpolation=__ExtendedInterpolation())
 
 
-def iniimportfile(filename: str) -> __SafeConfigParser:
+def iniimportfile(filename: str) -> __ConfigParser:
     """
     Imports ini data from a file.
 
@@ -527,7 +527,7 @@ def iniimportfile(filename: str) -> __SafeConfigParser:
 
     iniimportfile('path/to/filename.ini')
 
-    This is using the native configparser library shipped with the python standard libray. Using SafeConfigParser method.
+    This is using the native configparser library shipped with the python standard libray. Using ConfigParser method.
     For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
     """
     __err_msg_str = f"iniimportfile - Only str is allowed for filename: {filename}"
@@ -535,7 +535,7 @@ def iniimportfile(filename: str) -> __SafeConfigParser:
     if not isinstance(filename, str):
         raise TypeError(__err_msg_str)
 
-    __parser = __SafeConfigParser(interpolation=__ExtendedInterpolation())
+    __parser = __ConfigParser(interpolation=__ExtendedInterpolation())
     __parser.read(filename)
     return __parser
 
@@ -556,7 +556,7 @@ def iniexportfile(filename: str, data: __dummy_ini.ini_data) -> None:
 
     iniexportfile('path/to/filename.ini', data)
 
-    This is using the native configparser library shipped with the python standard libray. Using SafeConfigParser method.
+    This is using the native configparser library shipped with the python standard libray. Using ConfigParser method.
     For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
     """
     __err_msg_parser = f"iniexportfile - Invalid data to export, type, or nothing specified: {filename}"
@@ -565,7 +565,7 @@ def iniexportfile(filename: str, data: __dummy_ini.ini_data) -> None:
     if not isinstance(filename, str):
         raise TypeError(__err_msg_str)
         
-    if isinstance(data, __SafeConfigParser):
+    if isinstance(data, __ConfigParser):
         with open(filename, 'w') as f:
             data.write(f)
         return None
