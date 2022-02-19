@@ -589,7 +589,7 @@ class __dummy_xml:
 
 
 
-def xmlbuildmanual() -> __dummy_xml.ElementTree:
+def xmlbuildmanual() -> __xml_etree:
     """
     Returns a empty xml ElementTree obj to build/work with xml data
     
@@ -601,7 +601,7 @@ def xmlbuildmanual() -> __dummy_xml.ElementTree:
     return __xml_etree
 
 
-def xmlimportfile(filename: str) -> __dummy_xml.ElementTree:
+def xmlimportfile(filename: str) -> __xml_etree.Element:
     """
     Imports xml data from a file.
 
@@ -625,7 +625,7 @@ def xmlimportfile(filename: str) -> __dummy_xml.ElementTree:
     except FileNotFoundError: raise FileNotFoundError(__err_msg_file)
 
 
-def xmlimportstr(data: str) -> __dummy_xml.Element:
+def xmlimportstr(data: str) -> __xml_etree.Element:
     """
     Imports xml data from a string
 
@@ -645,9 +645,9 @@ def xmlimportstr(data: str) -> __dummy_xml.Element:
     return __xml_etree.fromstring(str(data))
 
 
-def xmlexportstr(data: __dummy_xml.ElementTree) -> str:
+def xmlexportstr(data: __xml_etree.ElementTree) -> str:
     """
-    Exports xml ElementTree to a string
+    Exports xml ElementTree obj to a string
 
     Returns a str. Assign the output to var
 
@@ -669,7 +669,7 @@ def xmlexportstr(data: __dummy_xml.ElementTree) -> str:
     return __xml_etree.tostring(data).decode()
 
 
-def xmlexportfile(filename: str, data: __dummy_xml.ElementTree) -> None:
+def xmlexportfile(filename: str, data: __xml_etree.ElementTree) -> None:
     """
     Exports a new file from xml ElementTree obj as xml data
     
