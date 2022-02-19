@@ -94,12 +94,14 @@ def test4_data_bytes_export():
     try: remove(filepath)
     except: pass
     time.sleep(file_delay_timer)
+
     # Test Not Exist, Create, Exist, Data and it's Type
     assert not path.exists(filepath)
     sfcparse.exportfile(filepath, data_bytes, byte_data=True)
     assert path.exists(filepath)
     file_import = sfcparse.importrawfile(filepath, True)
     assert (file_import == bytes_match) and (isinstance(file_import, str))
+    
     # Remove Test File
     time.sleep(file_delay_timer)
     try: remove(filepath)

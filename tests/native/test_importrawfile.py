@@ -22,3 +22,14 @@ def test2_raw_data_file_import():
     filepath = test_file_path + filename
     sfcparse.importrawfile(filepath)
     assert isinstance(sfcparse.importrawfile(filepath), str)
+
+
+# 3. Data Bytes Export - Exporting a file with bytes and validate character
+def test3_data_bytes_import():
+    filename = '3_data_bytes.data'
+    filepath = test_file_path + filename
+    bytes_match = "é"
+
+    # Test Data and it's Type
+    file_import = sfcparse.importrawfile(filepath, byte_data=True)
+    assert (file_import == bytes_match) and (isinstance(file_import, str))
