@@ -100,7 +100,7 @@ def test4_data_bytes_export():
     sfcparse.exportfile(filepath, data_bytes, byte_data=True)
     assert path.exists(filepath)
     file_import = sfcparse.importrawfile(filepath, byte_data=True)
-    assert (file_import == bytes_match) and (isinstance(file_import, str))
+    assert (file_import.decode() == bytes_match) and (isinstance(file_import, bytes))
     
     # Remove Test File
     time.sleep(file_delay_timer)

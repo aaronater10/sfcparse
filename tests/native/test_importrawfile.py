@@ -32,4 +32,4 @@ def test3_data_bytes_import():
 
     # Test Data and it's Type
     file_import = sfcparse.importrawfile(filepath, byte_data=True)
-    assert (file_import == bytes_match) and (isinstance(file_import, str))
+    assert (file_import.decode() == bytes_match) and (isinstance(file_import, bytes))
