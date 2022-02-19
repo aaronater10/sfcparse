@@ -10,7 +10,7 @@ test_file_path = './tests/test_files/json/'
 
 # 1. JSON Data Import - Importing json file data and test attributes
 def test1_json_file_import():
-    filename = '1_import_data.json'
+    filename = '1_import_data_file.json'
     filepath = test_file_path + filename    
 
     # Test Data and it's Type

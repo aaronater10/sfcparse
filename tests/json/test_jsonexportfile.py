@@ -28,7 +28,7 @@ def test1_json_file_export():
     except: pass
     time.sleep(file_delay_timer)
 
-    # Test Not Exist, Create, Exist, Data and it's Type
+    # Test Not Exist, Create, Exist, test data and it's Type
     assert not path.exists(filepath)
     sfcparse.jsonexportfile(filepath, json_data)
     assert path.exists(filepath)
