@@ -81,3 +81,26 @@ data_b3 = {data}
     time.sleep(file_delay_timer)
     try: remove(filepath)
     except: pass
+
+
+# 4. Data Bytes Export - Exporting a file with bytes and validate character
+def test4_data_bytes_export():
+    filename = '4_data_bytes.data'
+    filepath = test_file_path + filename
+    data_bytes = b'\xC3\xA9'
+    bytes_match = "é"
+
+    # Remove Any Existing Test File
+    try: remove(filepath)
+    except: pass
+    time.sleep(file_delay_timer)
+    # Test Not Exist, Create, Exist, Data and it's Type
+    assert not path.exists(filepath)
+    sfcparse.exportfile(filepath, data_bytes, byte_data=True)
+    assert path.exists(filepath)
+    file_import = sfcparse.importrawfile(filepath, True)
+    assert (file_import == bytes_match) and (isinstance(file_import, str))
+    # Remove Test File
+    time.sleep(file_delay_timer)
+    try: remove(filepath)
+    except: pass
