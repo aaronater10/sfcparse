@@ -11,7 +11,7 @@ file_delay_timer = 0.5
 # TESTS
 
 
-# 1. JSON Data Import - Importing json file data and test attributes
+# 1. JSON Data Export - Exporting json file data and test attributes
 def test1_json_file_export():
     filename = '1_export_data.json'
     filepath = test_file_path + filename
