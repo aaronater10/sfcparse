@@ -299,7 +299,7 @@ def importrawfile(filename: str, byte_data: bool=False) -> str:
         try:
             with open(filename, 'rb') as f:
                 if __path.getsize(filename) == 0:
-                    return ''
+                    return b''
                 return f.read()
         except FileNotFoundError: raise
 
