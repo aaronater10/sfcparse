@@ -484,8 +484,9 @@ def inibuildauto(data: dict) -> __ConfigParser:
         'section2': python_dict    
     }
 
-    This is using the native configparser library shipped with the python standard libray. Using ConfigParser method.
-    For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
+    This is using the native configparser library shipped with the python standard libray. Using ConfigParser method
+    with ExtendedInterpolation enabled by default. For more information on the configparser library, 
+    visit: https://docs.python.org/3/library/configparser.html
     """
     __err_msg_syntax = f"inibuildauto - Structure of dict is incorrect: {repr(data)}"
     __err_msg_dict = f"inibuildauto - Invalid data, type, or nothing specified: {repr(data)}"
@@ -509,8 +510,9 @@ def inibuildmanual() -> __ConfigParser:
     
     Assign the output to var
 
-    This is using the native configparser library shipped with the python standard libray. Using ConfigParser method.
-    For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
+    This is using the native configparser library shipped with the python standard libray. Using ConfigParser method
+    with ExtendedInterpolation enabled by default. For more information on the configparser library, 
+    visit: https://docs.python.org/3/library/configparser.html
     """
     return __ConfigParser(interpolation=__ExtendedInterpolation())
 
@@ -527,8 +529,9 @@ def iniimportfile(filename: str) -> __ConfigParser:
 
     iniimportfile('path/to/filename.ini')
 
-    This is using the native configparser library shipped with the python standard libray. Using ConfigParser method.
-    For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
+    This is using the native configparser library shipped with the python standard libray. Using ConfigParser method
+    with ExtendedInterpolation enabled by default. For more information on the configparser library, 
+    visit: https://docs.python.org/3/library/configparser.html
     """
     __err_msg_str = f"iniimportfile - Only str is allowed for filename: {filename}"
 
