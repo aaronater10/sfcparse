@@ -10,7 +10,6 @@ file_delay_timer = 0.5
 ################################################################
 # TESTS
 
-
 # 1. INI Data Export - Exporting ini file data and test attributes
 def test1_ini_file_export():
     filename = '1_export_file_data.ini'

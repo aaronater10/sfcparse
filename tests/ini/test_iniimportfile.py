@@ -7,7 +7,6 @@ test_file_path = './tests/test_files/ini/'
 ################################################################
 # TESTS
 
-
 # 1. INI Data Import - Importing ini file data and test attributes
 def test1_ini_file_import():
     filename = '1_import_file_data.ini'
