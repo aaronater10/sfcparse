@@ -645,9 +645,9 @@ def xmlimportstr(data: str) -> __xml_etree.Element:
     return __xml_etree.fromstring(str(data))
 
 
-def xmlexportstr(data: __xml_etree.ElementTree) -> str:
+def xmlexportstr(data: __Union[__xml_etree.Element, __xml_etree.ElementTree]) -> str:
     """
-    Exports xml ElementTree obj to a string
+    Exports xml Element or ElementTree obj to a string
 
     Returns a str. Assign the output to var
 
@@ -669,9 +669,9 @@ def xmlexportstr(data: __xml_etree.ElementTree) -> str:
     return __xml_etree.tostring(data).decode()
 
 
-def xmlexportfile(filename: str, data: __xml_etree.ElementTree) -> None:
+def xmlexportfile(filename: str, data: __Union[__xml_etree.Element, __xml_etree.ElementTree]) -> None:
     """
-    Exports a new file from xml ElementTree obj as xml data
+    Exports a new file from xml Element or ElementTree obj as xml data
     
     Enter new filename as str. Pass ElementTree data for output to file
     
