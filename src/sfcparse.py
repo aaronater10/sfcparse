@@ -578,17 +578,6 @@ def iniexportfile(filename: str, data: __dummy_ini.ini_data) -> None:
 
 #########################################################################################################
 # XML: Build xml data. Export, and Import xml files
-
-# Dummy classes for xml hinting
-class __dummy_xml:
-    """Not meant to be used"""
-    class ElementTree:
-        """Not meant to be used"""
-    class Element:
-        """Not meant to be used"""
-
-
-
 def xmlbuildmanual() -> __xml_etree:
     """
     Returns a empty xml ElementTree obj to build/work with xml data
@@ -645,51 +634,46 @@ def xmlimportstr(data: str) -> __xml_etree.Element:
     return __xml_etree.fromstring(str(data))
 
 
-def xmlexportstr(data: __Union[__xml_etree.Element, __xml_etree.ElementTree]) -> str:
+def xmlexportstr(data: __xml_etree.Element) -> str:
     """
-    Exports xml Element or ElementTree obj to a string
+    Exports xml Element obj to a string
 
     Returns a str. Assign the output to var
 
     [Example Use]
 
-    xmlexportstr(ElementTree)
+    xmlexportstr(Element)
 
     This is using the native xml library via etree shipped with the python standard libray.
     For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
     """
     # Check for Error
-    __err_msg_etree = f"xmlexportstr - Only ElementTree is allowed for data: {repr(data)}"
+    __err_msg_etree = f"xmlexportstr - Only Element is allowed for data: {repr(data)}"
 
-    __dummy_element_str = "<dummy>dummy</dummy>"
-    __dummy_element = __xml_etree.Element(__dummy_element_str)
-    if not type(data) == type(__dummy_element): raise TypeError(__err_msg_etree) 
+    if not isinstance(data, __xml_etree.Element): raise TypeError(__err_msg_etree)
 
     # Export Data
     return __xml_etree.tostring(data).decode()
 
 
-def xmlexportfile(filename: str, data: __Union[__xml_etree.Element, __xml_etree.ElementTree]) -> None:
+def xmlexportfile(filename: str, data: __xml_etree.Element) -> None:
     """
-    Exports a new file from xml Element or ElementTree obj as xml data
+    Exports a new file from xml Element obj as xml data
     
     Enter new filename as str. Pass ElementTree data for output to file
     
     [Example Use]
 
-    xmlexportfile('path/to/filename.xml', ElementTree_data)
+    xmlexportfile('path/to/filename.xml', Element_data)
 
     This is using the native xml library via etree shipped with the python standard libray.
     For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
     """
     # Check for Error
     __err_msg_str = f"xmlexportfile - Only str is allowed for filename: {repr(filename)}"
-    __err_msg_etree = f"xmlexportfile - Only ElementTree is allowed for data: {repr(data)}"
+    __err_msg_etree = f"xmlexportfile - Only Element is allowed for data: {repr(data)}"
 
-    __dummy_element_str = "<dummy>dummy</dummy>"
-    __dummy_element = __xml_etree.Element(__dummy_element_str)    
-
-    if not type(data) == type(__dummy_element): raise TypeError(__err_msg_etree)    
+    if not isinstance(data, __xml_etree.Element): raise TypeError(__err_msg_etree)    
     if not isinstance(filename, str): raise TypeError(__err_msg_str)
 
     # Export Data
