@@ -133,8 +133,10 @@ def importfile(filename: str) -> '__importfile.file_data':
 
     Accepted data types: str, int, float, bool, list, dict, tuple, set, nonetype, bytes
 
+    Returns None if file empty
+
     [Example Use]
-    importfile('filename.test' or 'path/to/filename.test')
+    importfile('filename.test' or 'path/to/filename.data')
     """
     __err_msg = f"importfile - Invalid data type or nothing specified: {filename}"
     # Check if filename is str
