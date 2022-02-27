@@ -13,7 +13,7 @@ def test1_basic_file_import():
     filename = '1_empty.data'
     filepath = test_file_path + filename
     assert path.getsize(filepath) == 0, f"File Not Empty: {filename}"
-    assert sfcparse.importfile(filepath), f"Cannot Import File {filename}"
+    assert (sfcparse.importfile(filepath)) == None, f"Not None {filename}"
 
 
 # 2. Single Line Import - Importing Singles Lines of All Accepted Data Types
