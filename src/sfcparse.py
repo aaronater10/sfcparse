@@ -136,7 +136,7 @@ def importfile(filename: str) -> '__importfile.file_data':
     Returns None if file empty
 
     [Example Use]
-    importfile('filename.test' or 'path/to/filename.data')
+    importfile('filename.data' or 'path/to/filename.data')
     """
     __err_msg = f"importfile - Invalid data type or nothing specified: {filename}"
     # Check if filename is str
