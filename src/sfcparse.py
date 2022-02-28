@@ -723,18 +723,15 @@ def createfilehash(file_to_hash: str, file_to_store_hash: __Union[str,bool], has
     if hash_algorithm == __ALGO_OPTIONS[3]: __hash_type = __hashlib.sha1() # sha1
     if hash_algorithm == __ALGO_OPTIONS[4]: __hash_type = __hashlib.md5() # md5
     
-    try:
-        # Read source file data and update hash
-        __readbytes = importrawfile(file_to_hash, True)
-        __hash_type.update(__readbytes)
-        # Store hash to file
-        __hash_type = __hash_type.hexdigest()
-        if bool(file_to_store_hash):
-            exportfile(file_to_store_hash, f'hash_data = "{__hash_type}"')
-        # Return hash data also
-        return __hash_type
-        
-    except FileNotFoundError: raise
+    # Read source file data and update hash
+    __readbytes = importrawfile(file_to_hash, True)
+    __hash_type.update(__readbytes)
+    # Store hash to file
+    __hash_type = __hash_type.hexdigest()
+    if bool(file_to_store_hash):
+        exportfile(file_to_store_hash, f'hash_data = "{__hash_type}"')
+    # Return hash data also
+    return __hash_type
 
 
 def comparefilehash(file_to_hash: str, stored_hash_file: str, hash_algorithm: str='sha256') -> bool:
