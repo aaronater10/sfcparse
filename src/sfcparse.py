@@ -694,7 +694,7 @@ def createfilehash(file_to_hash: str, file_to_store_hash: __Union[str,bool], has
     [Options]
     file_to_store_hash: Set to False if you do not want hash data stored to a file. Hash data is always returned whether or not this is set
 
-    hash_algorithm: Already set to default of 'sha256', but supported to set 'sha512' or 'sha384'
+    hash_algorithm: Already set to default of 'sha256'. Supported options: 'sha256', 'sha512', 'sha384', 'sha1', 'md5'
 
     [Example Use]
 
@@ -747,7 +747,7 @@ def comparefilehash(file_to_hash: str, stored_hash_file: str, hash_algorithm: st
 
     [Options]
 
-    hash_algorithm: Already set to default of 'sha256', but supported to set 'sha512' or 'sha384'
+    hash_algorithm: Already set to default of 'sha256'. Supported options: 'sha256', 'sha512', 'sha384', 'sha1', 'md5'
 
     [Example Use]
     
