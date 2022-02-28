@@ -703,9 +703,9 @@ def createfilehash(file_to_hash: str, file_to_store_hash: __Union[str,bool], has
 
     This is using the hashlib libray shipped with the python standard libray.
     """
-    __ALGO_OPTIONS = ('sha256', 'sha512', 'sha384')
+    __ALGO_OPTIONS = ('sha256', 'sha512', 'sha384', 'sha1', 'md5')
 
-    __err_msg = f"createfilehash - Invalid data to export, type, or nothing specified."
+    # Error checks
     __err_msg_str_file_src = f"createfilehash - Only str is allowed for file_to_hash: {file_to_hash}"
     __err_msg_file_dst = f"createfilehash - Only str|bool is allowed for file_to_store_hash: {file_to_store_hash}"
     __err_msg_str_hash = f"createfilehash - Only str is allowed for hash_algorithm: {hash_algorithm}"
@@ -716,48 +716,25 @@ def createfilehash(file_to_hash: str, file_to_store_hash: __Union[str,bool], has
     if not isinstance(hash_algorithm, str): raise TypeError(__err_msg_str_hash)
     if not hash_algorithm in __ALGO_OPTIONS: raise ValueError(__err_msg_hash)
 
-    try: 
-        # sha256
-        if hash_algorithm == __ALGO_OPTIONS[0]:
-            __sha256 = __hashlib.sha256()
-            # Read source file data and hash
-            with open(file_to_hash, 'rb') as f:
-                for __readbytes in f:
-                    __sha256.update(__readbytes)
-            # Store hash to file
-            __sha256 = __sha256.hexdigest()
-            if bool(file_to_store_hash):
-                exportfile(file_to_store_hash, f'hash_data = "{__sha256}"')
-            return __sha256
-
-        # sha512
-        if hash_algorithm == __ALGO_OPTIONS[1]:
-            __sha512 = __hashlib.sha512()
-            # Read source file data and hash
-            with open(file_to_hash, 'rb') as f:
-                for __readbytes in f:
-                    __sha512.update(__readbytes)
-            # Store hash to file
-            __sha512 = __sha512.hexdigest()
-            if bool(file_to_store_hash):
-                exportfile(file_to_store_hash, f'hash_data = "{__sha512}"')
-            return __sha512
-
-        # sha384
-        if hash_algorithm == __ALGO_OPTIONS[2]:
-            __sha384 = __hashlib.sha384()
-            # Read source file data and hash
-            with open(file_to_hash, 'rb') as f:
-                for __readbytes in f:
-                    __sha384.update(__readbytes)
-            # Store hash to file
-            __sha384 = __sha384.hexdigest()
-            if bool(file_to_store_hash):
-                exportfile(file_to_store_hash, f'hash_data = "{__sha384}"')
-            return __sha384
+    # Generate Hash Type
+    if hash_algorithm == __ALGO_OPTIONS[0]: __hash_type = __hashlib.sha256() # sha256
+    if hash_algorithm == __ALGO_OPTIONS[1]: __hash_type = __hashlib.sha512() # sha512
+    if hash_algorithm == __ALGO_OPTIONS[2]: __hash_type = __hashlib.sha384() # sha384
+    if hash_algorithm == __ALGO_OPTIONS[3]: __hash_type = __hashlib.sha1() # sha1
+    if hash_algorithm == __ALGO_OPTIONS[4]: __hash_type = __hashlib.md5() # md5
+    
+    try:
+        # Read source file data and update hash
+        __readbytes = importrawfile(file_to_hash, True)
+        __hash_type.update(__readbytes)
+        # Store hash to file
+        __hash_type = __hash_type.hexdigest()
+        if bool(file_to_store_hash):
+            exportfile(file_to_store_hash, f'hash_data = "{__hash_type}"')
+        # Return hash data also
+        return __hash_type
+        
     except FileNotFoundError: raise
-
-    raise TypeError(__err_msg)
 
 
 def comparefilehash(file_to_hash: str, stored_hash_file: str, hash_algorithm: str='sha256') -> bool:
@@ -778,8 +755,9 @@ def comparefilehash(file_to_hash: str, stored_hash_file: str, hash_algorithm: st
 
     This is using the hashlib libray shipped with the python standard libray.
     """
-    __ALGO_OPTIONS = ('sha256', 'sha512', 'sha384')
+    __ALGO_OPTIONS = ('sha256', 'sha512', 'sha384', 'sha1', 'md5')
 
+    # Error checks
     __err_msg = f"comparefilehash - Invalid data to export, type, or nothing specified."
     __err_msg_str_file_src = f"comparefilehash - Only str is allowed for file_to_hash: {file_to_hash}"
     __err_msg_hash_file = f"comparefilehash - Only str is allowed for stored_hash_file: {stored_hash_file}"
@@ -790,28 +768,8 @@ def comparefilehash(file_to_hash: str, stored_hash_file: str, hash_algorithm: st
     if not isinstance(stored_hash_file, str): raise TypeError(__err_msg_hash_file)
     if not isinstance(hash_algorithm, str): raise TypeError(__err_msg_str_hash)
     if not hash_algorithm in __ALGO_OPTIONS: raise ValueError(__err_msg_hash)
-
-    try: 
-        # sha256
-        if hash_algorithm == __ALGO_OPTIONS[0]:
-            __sha256 = createfilehash(file_to_hash, False, hash_algorithm)
-            # Import hash from file
-            __hash_data = importfile(stored_hash_file)
-            return (__sha256 == __hash_data.hash_data)
-
-        # sha512
-        if hash_algorithm == __ALGO_OPTIONS[1]:
-            __sha512 = createfilehash(file_to_hash, False, hash_algorithm)
-            # Import hash from file
-            __hash_data = importfile(stored_hash_file)
-            return (__sha512 == __hash_data.hash_data)
-
-        # sha384
-        if hash_algorithm == __ALGO_OPTIONS[2]:
-            __sha384 = createfilehash(file_to_hash, False, hash_algorithm)
-            # Import hash from file
-            __hash_data = importfile(stored_hash_file)
-            return (__sha384 == __hash_data.hash_data)
-    except FileNotFoundError: raise
-
-    raise TypeError(__err_msg)
+    
+    # Collect hash data, then return result
+    __hash_type = createfilehash(file_to_hash, False, hash_algorithm)
+    __hash_data = importfile(stored_hash_file)
+    return (__hash_type == __hash_data.hash_data)
