@@ -3,6 +3,11 @@
 # Imports
 from typing import Any as __Any
 import yaml as __yaml
+from ..error import SfcparseError
+
+# Exception for Module
+class _Yamlexportfile: 
+    class yamlexportfile(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 
 #########################################################################################################
@@ -22,10 +27,11 @@ def yamlexportfile(filename: str, data: __Any) -> None:
     For more information on PyYAML, visit: https://pypi.org/project/PyYAML/
     
     """
-    __err_msg = f"yamlexportfile - Invalid data exported or type: {data}"
-
     # Export dict data to yaml file
     try:
         with open(filename, 'w') as f:
             __yaml.safe_dump(data, f)
-    except __yaml.representer.RepresenterError: raise TypeError(__err_msg)
+    except __yaml.representer.RepresenterError as __err_msg: raise _Yamlexportfile.yamlexportfile(__err_msg)
+    except TypeError as __err_msg: raise _Yamlexportfile.yamlexportfile(__err_msg, f'"{filename}"')
+    except ValueError as __err_msg: raise _Yamlexportfile.yamlexportfile(__err_msg, f'"{filename}"')
+    except FileNotFoundError as __err_msg: raise _Yamlexportfile.yamlexportfile(__err_msg, f'"{filename}"')

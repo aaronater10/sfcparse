@@ -3,6 +3,11 @@
 # Imports
 from os import path as __path
 import yaml as __yaml
+from ..error import SfcparseError
+
+# Exception for Module
+class _Yamlimportfile: 
+    class yamlimportfile(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 
 #########################################################################################################
@@ -23,7 +28,6 @@ def yamlimportfile(filename: str) -> dict:
     "safe_load" method to protect from untrusted input.
     For more information on PyYAML, visit: https://pypi.org/project/PyYAML/
     """
-    __err_msg = f"yamlimportfile - Invalid data imported, type, or nothing specified: {filename}"
     # Import yaml file
     try:
         with open(filename, 'r') as f:
@@ -31,6 +35,8 @@ def yamlimportfile(filename: str) -> dict:
             if __path.getsize(filename) == 0:                
                 return None
             return __yaml.safe_load(f)
-    except FileNotFoundError: raise
-    except OSError: raise OSError(__err_msg)
-    except __yaml.scanner.ScannerError: raise SyntaxError(__err_msg)
+    except FileNotFoundError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'"{filename}"')
+    except OSError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'"{filename}"')
+    except __yaml.scanner.ScannerError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'"{filename}"')
+    except ValueError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'"{filename}"')
+    except TypeError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'"{filename}"')
