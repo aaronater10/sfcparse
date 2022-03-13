@@ -2,6 +2,11 @@
 #########################################################################################################
 # Imports
 from typing import Any as __Any
+from ..error import SfcparseError
+
+# Exception for Module
+class _Exportfile: 
+    class exportfile(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 
 #########################################################################################################
@@ -20,7 +25,7 @@ def exportfile(filename: str, *data: __Any, byte_data: bool=False):
 
     Byte Data: exportfile('path/of/filename', b'data', byte_data=True)
     """
-    __err_msg_bytes = f"exportfile - Only bytes is allowed for data: {data}"
+    __err_msg_bytes = f"Only bytes is allowed if using byte_data=True: {data}"
 
     # Export data to new file
 
@@ -33,7 +38,7 @@ def exportfile(filename: str, *data: __Any, byte_data: bool=False):
     if byte_data:
         for data_to_write in data:
             if not isinstance(data_to_write, bytes):
-                raise TypeError(__err_msg_bytes)
+                raise _Exportfile.exportfile(__err_msg_bytes, f'"{data}"')
 
         with open(filename, 'wb') as f:
             for data_to_write in data:

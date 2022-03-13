@@ -2,6 +2,11 @@
 #########################################################################################################
 # Imports
 from typing import Union as __Union
+from ..error import SfcparseError
+
+# Exception for Module
+class _Cleanformat: 
+    class cleanformat(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 
 #########################################################################################################
@@ -21,9 +26,13 @@ def cleanformat(datatype: __Union[dict,list,tuple,set], indent_level: int=1) -> 
     [Example Use]
     var = cleanformat(datatype)
     """
+    __err_indent = 'Only int is allowed for indent level.'
+    __err_type = """Only dict, list, tuple, or set are allowed.
+    If tuple, it must be empty, have a single value with a "," [e.g. (1,)], or have >= 2 values"""
+
     # Set indent level
     if not isinstance(indent_level, int):
-        raise TypeError('cleanformat - Only int is allowed for indent level.')
+        raise _Cleanformat.cleanformat(__err_indent, f'"{indent_level}"')
     indent_level = '\t'*indent_level
 
     # Format Data Type and Return as str
@@ -59,8 +68,4 @@ def cleanformat(datatype: __Union[dict,list,tuple,set], indent_level: int=1) -> 
 
     # Raise Error
     else:
-        raise TypeError(
-            """cleanformat - Only dict, list, tuple, or set are allowed.
-           If tuple, it must be empty, have a single value with a "," [e.g. (1,)], or have >= 2 values
-            """
-        )
+        raise _Cleanformat.cleanformat(__err_type, f'"{datatype}"')

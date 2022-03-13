@@ -20,7 +20,7 @@ class __importfile:
             try:
                 with open(filename, 'r') as f:
                     f = f.read().splitlines()
-            except FileNotFoundError as __err_msg: raise _Importfile.importfile(str(__err_msg))
+            except FileNotFoundError as __err_msg: raise _Importfile.importfile(__err_msg, f'"{filename}"')
 
             # Syntax Error Message
             __py_syntax_err_msg = "Must have valid Python data types to import, or file is not formatted correctly"
@@ -81,7 +81,7 @@ class __importfile:
                         __build_data += f"\n{__file_data_line}"
                         
                         try: setattr(self, __var_token, __literal_eval__(__build_data))
-                        except SyntaxError: raise _Importfile.importfile(__py_syntax_err_msg)
+                        except SyntaxError: raise _Importfile.importfile(__py_syntax_err_msg, f'"{filename}"')
 
                         # Turn OFF Data Build Switches
                         __is_building_data_sw = False
@@ -97,9 +97,9 @@ class __importfile:
                     # IMPORT SINLGE LINE VALUES: If not multiline, assume single
                     else:
                         try: setattr(self, __var_token, __literal_eval__(__value_token))
-                        except ValueError: raise _Importfile.importfile(__py_syntax_err_msg)
+                        except ValueError: raise _Importfile.importfile(__py_syntax_err_msg, f'"{filename}"')
                 
-                else: raise _Importfile.importfile(__py_syntax_err_msg)
+                else: raise _Importfile.importfile(__py_syntax_err_msg, f'"{filename}"')
 
 
 def importfile(filename: str) -> '__importfile.file_data':
@@ -120,13 +120,13 @@ def importfile(filename: str) -> '__importfile.file_data':
     __err_msg = f'Invalid data type or nothing specified: "{filename}"'
     # Check if filename is str
     if not isinstance(filename, str):
-        raise _Importfile.importfile(__err_msg)
+        raise _Importfile.importfile(__err_msg, f'"{filename}"')
 
     # Check if file empty. Returns None if empty
     try:
         if __path.getsize(filename) == 0:
             return None
-    except FileNotFoundError as __err_msg: raise _Importfile.importfile(str(__err_msg))
+    except FileNotFoundError as __err_msg: raise _Importfile.importfile(__err_msg, f'"{filename}"')
 
     # Return Final Import
     return __importfile.file_data(filename)

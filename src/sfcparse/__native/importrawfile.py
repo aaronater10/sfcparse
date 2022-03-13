@@ -31,7 +31,7 @@ def importrawfile(filename: str, byte_data: bool=False) -> str:
                 if __path.getsize(filename) == 0:
                     return ''
                 return f.read()
-        except FileNotFoundError as __err_msg: raise _Importrawfile.importrawfile(str(__err_msg))
+        except FileNotFoundError as __err_msg: raise _Importrawfile.importrawfile(__err_msg, f'"{filename}"')
     
     if byte_data:
         try:
@@ -39,4 +39,4 @@ def importrawfile(filename: str, byte_data: bool=False) -> str:
                 if __path.getsize(filename) == 0:
                     return b''
                 return f.read()
-        except FileNotFoundError as __err_msg: raise _Importrawfile.importrawfile(str(__err_msg))
+        except FileNotFoundError as __err_msg: raise _Importrawfile.importrawfile(__err_msg, f'"{filename}"')

@@ -5,11 +5,12 @@ class SfcparseError(Exception):
     """
     __PARENT_EXCEPTION_NAME = 'sfcparse'
 
-    def __init__(self, msg: str) -> None:
-        self.msg = msg
+    def __init__(self, msg: str, item: str='') -> None:
+        self.msg = str(msg)
+        self.item = str(item)
 
     def __str__(self) -> str:
-        return self.msg
+        return f'[Error] {self.item} {self.msg}'
     
     def set_module_name(module_name: str=__PARENT_EXCEPTION_NAME):
         return module_name
