@@ -3,6 +3,11 @@
 # Imports
 from .createfilehash import createfilehash
 from ..__native.importfile import importfile
+from ..error import SfcparseError
+
+# Exception for Module
+class _Comparefilehash: 
+    class comparefilehash(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 
 #########################################################################################################
@@ -28,16 +33,15 @@ def comparefilehash(file_to_hash: str, stored_hash_file: str, hash_algorithm: st
     __ALGO_OPTIONS = ('sha256', 'sha512', 'sha384', 'sha1', 'md5')
 
     # Error checks
-    __err_msg = f"comparefilehash - Invalid data to export, type, or nothing specified."
-    __err_msg_str_file_src = f"comparefilehash - Only str is allowed for file_to_hash: {file_to_hash}"
-    __err_msg_hash_file = f"comparefilehash - Only str is allowed for stored_hash_file: {stored_hash_file}"
-    __err_msg_str_hash = f"comparefilehash - Only str is allowed for hash_algorithm: {hash_algorithm}"
-    __err_msg_hash = f"comparefilehash - Invalid or no hash option chosen for hash_algorithm: {hash_algorithm}"
+    __err_msg_str_file_src = f"Only str is allowed for file_to_hash"
+    __err_msg_hash_file = f"Only str is allowed for stored_hash_file"
+    __err_msg_str_hash = f"Only str is allowed for hash_algorithm"
+    __err_msg_hash = f"Invalid or no hash option chosen for hash_algorithm"
 
-    if not isinstance(file_to_hash, str): raise TypeError(__err_msg_str_file_src)
-    if not isinstance(stored_hash_file, str): raise TypeError(__err_msg_hash_file)
-    if not isinstance(hash_algorithm, str): raise TypeError(__err_msg_str_hash)
-    if not hash_algorithm in __ALGO_OPTIONS: raise ValueError(__err_msg_hash)
+    if not isinstance(file_to_hash, str): raise _Comparefilehash.comparefilehash(__err_msg_str_file_src, f'"{file_to_hash}"')
+    if not isinstance(stored_hash_file, str): raise _Comparefilehash.comparefilehash(__err_msg_hash_file, f'"{stored_hash_file}"')
+    if not isinstance(hash_algorithm, str): raise _Comparefilehash.comparefilehash(__err_msg_str_hash, f'"{hash_algorithm}"')
+    if not hash_algorithm in __ALGO_OPTIONS: raise _Comparefilehash.comparefilehash(__err_msg_hash, f'"{hash_algorithm}"')
     
     # Collect hash data, then return result
     __hash_type = createfilehash(file_to_hash, False, hash_algorithm)

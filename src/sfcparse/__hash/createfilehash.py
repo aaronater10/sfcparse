@@ -5,6 +5,11 @@ from ..__native.importrawfile import importrawfile
 from ..__native.exportfile import exportfile
 from typing import Union as __Union
 import hashlib as __hashlib
+from ..error import SfcparseError
+
+# Exception for Module
+class _Createfilehash: 
+    class createfilehash(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 
 #########################################################################################################
@@ -32,15 +37,16 @@ def createfilehash(file_to_hash: str, file_to_store_hash: __Union[str,bool], has
     __ALGO_OPTIONS = ('sha256', 'sha512', 'sha384', 'sha1', 'md5')
 
     # Error checks
-    __err_msg_str_file_src = f"createfilehash - Only str is allowed for file_to_hash: {file_to_hash}"
-    __err_msg_file_dst = f"createfilehash - Only str|bool is allowed for file_to_store_hash: {file_to_store_hash}"
-    __err_msg_str_hash = f"createfilehash - Only str is allowed for hash_algorithm: {hash_algorithm}"
-    __err_msg_hash = f"createfilehash - Invalid or no hash option chosen for hash_algorithm: {hash_algorithm}"
+    __err_msg_str_file_src = f"Only str is allowed for file_to_hash"
+    __err_msg_file_dst = f"Only str|bool is allowed for file_to_store_hash"
+    __err_msg_str_hash = f"Only str is allowed for hash_algorithm"
+    __err_msg_hash = f"Invalid or no hash option chosen for hash_algorithm"
 
-    if not isinstance(file_to_hash, str): raise TypeError(__err_msg_str_file_src)
-    if not ((isinstance(file_to_store_hash, str)) or (isinstance(file_to_store_hash, bool))): raise TypeError(__err_msg_file_dst)
-    if not isinstance(hash_algorithm, str): raise TypeError(__err_msg_str_hash)
-    if not hash_algorithm in __ALGO_OPTIONS: raise ValueError(__err_msg_hash)
+    if not isinstance(file_to_hash, str): raise _Createfilehash.createfilehash(__err_msg_str_file_src, f'"{file_to_hash}"')
+    if not ((isinstance(file_to_store_hash, str)) \
+        or (isinstance(file_to_store_hash, bool))): raise _Createfilehash.createfilehash(__err_msg_file_dst, f'"{file_to_store_hash}"')
+    if not isinstance(hash_algorithm, str): raise _Createfilehash.createfilehash(__err_msg_str_hash, f'"{hash_algorithm}"')
+    if not hash_algorithm in __ALGO_OPTIONS: raise _Createfilehash.createfilehash(__err_msg_hash, f'"{hash_algorithm}"')
 
     # Generate Hash Type
     if hash_algorithm == __ALGO_OPTIONS[0]: __hash_type = __hashlib.sha256() # sha256
