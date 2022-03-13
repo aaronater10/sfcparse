@@ -3,6 +3,11 @@
 # Imports
 from ast import literal_eval as __literal_eval__
 from os import path as __path
+from ..error import SfcparseError
+
+# Exception for Module
+class _Importfile: 
+    class importfile(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 
 #########################################################################################################
@@ -15,10 +20,10 @@ class __importfile:
             try:
                 with open(filename, 'r') as f:
                     f = f.read().splitlines()
-            except FileNotFoundError: raise
+            except FileNotFoundError as __err_msg: raise _Importfile.importfile(str(__err_msg))
 
             # Syntax Error Message
-            __py_syntax_err_msg = "importfile - Must have valid Python data types to import, or file is not formatted correctly"
+            __py_syntax_err_msg = "Must have valid Python data types to import, or file is not formatted correctly"
             
             # Data Build Setup and Switches        
             __is_building_data_sw = False
@@ -76,7 +81,7 @@ class __importfile:
                         __build_data += f"\n{__file_data_line}"
                         
                         try: setattr(self, __var_token, __literal_eval__(__build_data))
-                        except SyntaxError: raise SyntaxError(__py_syntax_err_msg)
+                        except SyntaxError: raise _Importfile.importfile(__py_syntax_err_msg)
 
                         # Turn OFF Data Build Switches
                         __is_building_data_sw = False
@@ -92,9 +97,9 @@ class __importfile:
                     # IMPORT SINLGE LINE VALUES: If not multiline, assume single
                     else:
                         try: setattr(self, __var_token, __literal_eval__(__value_token))
-                        except ValueError: raise ValueError(__py_syntax_err_msg)
+                        except ValueError: raise _Importfile.importfile(__py_syntax_err_msg)
                 
-                else: raise SyntaxError(__py_syntax_err_msg)
+                else: raise _Importfile.importfile(__py_syntax_err_msg)
 
 
 def importfile(filename: str) -> '__importfile.file_data':
@@ -112,14 +117,16 @@ def importfile(filename: str) -> '__importfile.file_data':
     [Example Use]
     importfile('filename.data' or 'path/to/filename.data')
     """
-    __err_msg = f"importfile - Invalid data type or nothing specified: {filename}"
+    __err_msg = f'Invalid data type or nothing specified: "{filename}"'
     # Check if filename is str
     if not isinstance(filename, str):
-        raise TypeError(__err_msg)
+        raise _Importfile.importfile(__err_msg)
 
     # Check if file empty. Returns None if empty
-    if __path.getsize(filename) == 0:
-        return None
+    try:
+        if __path.getsize(filename) == 0:
+            return None
+    except FileNotFoundError as __err_msg: raise _Importfile.importfile(str(__err_msg))
 
     # Return Final Import
     return __importfile.file_data(filename)

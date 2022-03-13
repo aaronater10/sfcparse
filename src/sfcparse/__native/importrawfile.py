@@ -5,7 +5,7 @@ from os import path as __path
 from ..error import SfcparseError
 
 # Exception for Module
-class __importrawfile: 
+class _Importrawfile: 
     class importrawfile(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 
@@ -31,7 +31,7 @@ def importrawfile(filename: str, byte_data: bool=False) -> str:
                 if __path.getsize(filename) == 0:
                     return ''
                 return f.read()
-        except FileNotFoundError as __err_msg: raise __importrawfile.importrawfile(str(__err_msg))
+        except FileNotFoundError as __err_msg: raise _Importrawfile.importrawfile(str(__err_msg))
     
     if byte_data:
         try:
@@ -39,4 +39,4 @@ def importrawfile(filename: str, byte_data: bool=False) -> str:
                 if __path.getsize(filename) == 0:
                     return b''
                 return f.read()
-        except FileNotFoundError as __err_msg: raise __importrawfile.importrawfile(str(__err_msg))
+        except FileNotFoundError as __err_msg: raise _Importrawfile.importrawfile(str(__err_msg))
