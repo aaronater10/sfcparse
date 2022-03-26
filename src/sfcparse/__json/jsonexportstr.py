@@ -2,6 +2,11 @@
 #########################################################################################################
 # Imports
 import json as __json
+from ..error import SfcparseError
+
+# Exception for Module
+class _Jsonexportstr: 
+    class jsonexportstr(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 
 #########################################################################################################
@@ -20,14 +25,9 @@ def jsonexportstr(data: dict, indent_level: int=4) -> str:
     information on the json library, visit: https://docs.python.org/3/library/json.html
     
     """
-    __err_msg_int = f"jsonexportstr - Only int is allowed for indent_level: {repr(indent_level)}"
-    __err_msg_dict = f"jsonexportstr - Only dict is allowed for data: {repr(data)}"
+    try:
+        # Export dict data to json string
+        return __json.dumps(data, indent=indent_level)
+    except TypeError as __err_msg: raise _Jsonexportstr.jsonexportstr(__err_msg, f'DATA:{data} INDENT_LEVEL:{indent_level}')
+    except ValueError as __err_msg: raise _Jsonexportstr.jsonexportstr(__err_msg, f'DATA:{data} INDENT_LEVEL:{indent_level}')
 
-    if not isinstance(data, dict):
-        raise TypeError(__err_msg_dict)
-
-    if not isinstance(indent_level, int):
-        raise TypeError(__err_msg_int)
-
-    # Export dict data to json string
-    return __json.dumps(data, indent=indent_level)

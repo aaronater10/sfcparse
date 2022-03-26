@@ -2,6 +2,11 @@
 #########################################################################################################
 # Imports
 import json as __json
+from ..error import SfcparseError
+
+# Exception for Module
+class _Jsonexportfile: 
+    class jsonexportfile(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 
 #########################################################################################################
@@ -20,15 +25,10 @@ def jsonexportfile(filename: str, data: dict) -> None:
     information on the json library, visit: https://docs.python.org/3/library/json.html
     
     """
-    __err_msg_dict = f"jsonexportfile - Only dict is allowed for data: {repr(data)}"
-    __err_msg_str = f"jsonexportfile - Only str is allowed for filename: {filename}"
-
-    if not isinstance(filename, str):
-        raise TypeError(__err_msg_str)
-
-    if not isinstance(data, dict):
-        raise TypeError(__err_msg_dict)
-
-    # Export dict data to json file
-    with open(filename, 'w') as f:
-        __json.dump(data, f)
+    try:
+        # Export dict data to json file
+        with open(filename, 'w') as f:
+            __json.dump(data, f)
+    except TypeError as __err_msg: raise _Jsonexportfile.jsonexportfile(__err_msg, f'FILE:"{filename}" DATA:{data}')
+    except ValueError as __err_msg: raise _Jsonexportfile.jsonexportfile(__err_msg, f'FILE:"{filename}" DATA:{data}')
+    except FileNotFoundError as __err_msg: raise _Jsonexportfile.jsonexportfile(__err_msg, f'FILE:"{filename}"')
