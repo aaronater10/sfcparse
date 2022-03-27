@@ -31,7 +31,7 @@ def yamlexportfile(filename: str, data: __Any) -> None:
     try:
         with open(filename, 'w') as f:
             __yaml.safe_dump(data, f)
-    except __yaml.representer.RepresenterError as __err_msg: raise _Yamlexportfile.yamlexportfile(__err_msg)
-    except TypeError as __err_msg: raise _Yamlexportfile.yamlexportfile(__err_msg, f'"{filename}"')
-    except ValueError as __err_msg: raise _Yamlexportfile.yamlexportfile(__err_msg, f'"{filename}"')
-    except FileNotFoundError as __err_msg: raise _Yamlexportfile.yamlexportfile(__err_msg, f'"{filename}"')
+    except __yaml.representer.RepresenterError as __err_msg: raise _Yamlexportfile.yamlexportfile(__err_msg, f'FILE:"{filename}" DATA:{data}')
+    except TypeError as __err_msg: raise _Yamlexportfile.yamlexportfile(__err_msg, f'FILE:"{filename}" DATA:{data}')
+    except ValueError as __err_msg: raise _Yamlexportfile.yamlexportfile(__err_msg, f'FILE:"{filename}" DATA:{data}')
+    except FileNotFoundError as __err_msg: raise _Yamlexportfile.yamlexportfile(__err_msg, f'FILE:"{filename}" DATA:{data}')
