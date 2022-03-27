@@ -2,6 +2,11 @@
 #########################################################################################################
 # Imports
 import xml.etree.ElementTree as __xml_etree
+from ..error import SfcparseError
+
+# Exception for Module
+class _Xmlimportstr: 
+    class xmlimportstr(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 
 #########################################################################################################
@@ -19,8 +24,9 @@ def xmlimportstr(data: str) -> __xml_etree.Element:
     This is using the native xml library via etree shipped with the python standard libray.
     For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
     """
-    __err_msg_str = f"xmlimportstr - Only str is allowed for data: {repr(data)}"
+    __err_msg_str = f"Only str is allowed for data"
 
-    if not isinstance(data, str): raise TypeError(__err_msg_str)
-
-    return __xml_etree.fromstring(str(data))
+    if not isinstance(data, str): raise _Xmlimportstr.xmlimportstr(__err_msg_str, f'\nDATA: {repr(data)}')
+    try:
+        return __xml_etree.fromstring(str(data))
+    except __xml_etree.ParseError as __err_msg: raise _Xmlimportstr.xmlimportstr(__err_msg, f'\nDATA: {data}')
