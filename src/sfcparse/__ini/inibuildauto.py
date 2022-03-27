@@ -3,6 +3,11 @@
 # Imports
 from configparser import ConfigParser as __ConfigParser
 from configparser import ExtendedInterpolation as __ExtendedInterpolation
+from ..error import SfcparseError
+
+# Exception for Module
+class _Inilimportfile: 
+    class iniimportfile(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 
 #########################################################################################################
@@ -26,17 +31,13 @@ def inibuildauto(data: dict) -> __ConfigParser:
     with ExtendedInterpolation enabled by default. For more information on the configparser library, 
     visit: https://docs.python.org/3/library/configparser.html
     """
-    __err_msg_syntax = f"inibuildauto - Structure of dict is incorrect: {repr(data)}"
-    __err_msg_dict = f"inibuildauto - Invalid data, type, or nothing specified: {repr(data)}"
-
-    if not isinstance(data, dict):
-        raise TypeError(__err_msg_dict)
-
     # Auto Build INI data structure
     __ini_data = __ConfigParser(interpolation=__ExtendedInterpolation())
 
     try:
-        for key,value in data.items():
-            __ini_data[key] = value
+        for section,dict_value in data.items():
+            bad_value = [v for _,v in dict_value.items()]
+            __ini_data[section] = dict_value
         return __ini_data
-    except AttributeError: raise SyntaxError(__err_msg_syntax)
+    except AttributeError as __err_msg: raise _Inilimportfile.iniimportfile(f'{__err_msg} - Please send correct dict structure', f'\nDATA:{data}')
+    except TypeError as __err_msg: raise _Inilimportfile.iniimportfile(__err_msg, f'\nDATA:{data} \nBAD_VALUE: {bad_value[0]}')
