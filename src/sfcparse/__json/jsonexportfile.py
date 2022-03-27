@@ -29,6 +29,6 @@ def jsonexportfile(filename: str, data: dict) -> None:
         # Export dict data to json file
         with open(filename, 'w') as f:
             __json.dump(data, f)
-    except TypeError as __err_msg: raise _Jsonexportfile.jsonexportfile(__err_msg, f'FILE:"{filename}" DATA:{data}')
-    except ValueError as __err_msg: raise _Jsonexportfile.jsonexportfile(__err_msg, f'FILE:"{filename}" DATA:{data}')
-    except FileNotFoundError as __err_msg: raise _Jsonexportfile.jsonexportfile(__err_msg, f'FILE:"{filename}"')
+    except TypeError as __err_msg: raise _Jsonexportfile.jsonexportfile(__err_msg, f'\nFILE:"{filename}" \nDATA:{data}')
+    except ValueError as __err_msg: raise _Jsonexportfile.jsonexportfile(__err_msg, f'\nFILE:"{filename}" \nDATA:{data}')
+    except FileNotFoundError as __err_msg: raise _Jsonexportfile.jsonexportfile(__err_msg, f'\nFILE:"{filename}"')

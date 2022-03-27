@@ -29,7 +29,7 @@ def jsonimportstr(json_str_data: str) -> dict:
     # Import json string    
     try:
         return __json.loads(json_str_data)
-    except __json.decoder.JSONDecodeError as __err_msg: raise _Jsonimportstr.jsonimportstr(__err_msg, f'DATA:"{json_str_data}"')
-    except TypeError as __err_msg: raise _Jsonimportstr.jsonimportstr(__err_msg, f'DATA:"{json_str_data}"')
-    except ValueError as __err_msg: raise _Jsonimportstr.jsonimportstr(__err_msg, f'DATA:"{json_str_data}"')
+    except __json.decoder.JSONDecodeError as __err_msg: raise _Jsonimportstr.jsonimportstr(__err_msg, f'\nDATA:"{json_str_data}"')
+    except TypeError as __err_msg: raise _Jsonimportstr.jsonimportstr(__err_msg, f'\nDATA:"{json_str_data}"')
+    except ValueError as __err_msg: raise _Jsonimportstr.jsonimportstr(__err_msg, f'\nDATA:"{json_str_data}"')
 

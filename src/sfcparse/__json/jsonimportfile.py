@@ -34,6 +34,6 @@ def jsonimportfile(filename: str) -> dict:
             if __path.getsize(filename) == 0:                
                 raise SyntaxError(__err_msg)
             return __json.load(f)
-    except FileNotFoundError as __err_msg: raise _Jsonimportfile.jsonimportfile(__err_msg, f'FILE:"{filename}"')
-    except OSError as __err_msg: raise _Jsonimportfile.jsonimportfile(__err_msg, f'FILE:"{filename}"')
-    except __json.decoder.JSONDecodeError as __err_msg: raise _Jsonimportfile.jsonimportfile(__err_msg, f'FILE:"{filename}"')
+    except FileNotFoundError as __err_msg: raise _Jsonimportfile.jsonimportfile(__err_msg, f'\nFILE:"{filename}"')
+    except OSError as __err_msg: raise _Jsonimportfile.jsonimportfile(__err_msg, f'\nFILE:"{filename}"')
+    except __json.decoder.JSONDecodeError as __err_msg: raise _Jsonimportfile.jsonimportfile(__err_msg, f'\nFILE:"{filename}"')

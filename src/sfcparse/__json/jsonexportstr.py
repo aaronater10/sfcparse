@@ -28,6 +28,6 @@ def jsonexportstr(data: dict, indent_level: int=4) -> str:
     try:
         # Export dict data to json string
         return __json.dumps(data, indent=indent_level)
-    except TypeError as __err_msg: raise _Jsonexportstr.jsonexportstr(__err_msg, f'DATA:{data} INDENT_LEVEL:{indent_level}')
-    except ValueError as __err_msg: raise _Jsonexportstr.jsonexportstr(__err_msg, f'DATA:{data} INDENT_LEVEL:{indent_level}')
+    except TypeError as __err_msg: raise _Jsonexportstr.jsonexportstr(__err_msg, f'\nDATA:{data} \nINDENT_LEVEL:{indent_level}')
+    except ValueError as __err_msg: raise _Jsonexportstr.jsonexportstr(__err_msg, f'\nDATA:{data} \nINDENT_LEVEL:{indent_level}')
 
