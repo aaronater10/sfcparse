@@ -35,8 +35,8 @@ def yamlimportfile(filename: str) -> dict:
             if __path.getsize(filename) == 0:                
                 return None
             return __yaml.safe_load(f)
-    except FileNotFoundError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'FILE: "{filename}"')
-    except OSError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'FILE: "{filename}"')
-    except __yaml.scanner.ScannerError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'FILE: "{filename}"')
-    except ValueError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'FILE: "{filename}"')
-    except TypeError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'FILE: "{filename}"')
+    except FileNotFoundError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'\nFILE: "{filename}"')
+    except OSError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'\nFILE: "{filename}"')
+    except __yaml.scanner.ScannerError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'\nFILE: "{filename}"')
+    except ValueError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'\nFILE: "{filename}"')
+    except TypeError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'\nFILE: "{filename}"')
