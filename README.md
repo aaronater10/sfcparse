@@ -2,7 +2,7 @@
 **Simple File Configuration Parse** 
 The easy to use library for data and configuration files.
 
-##SIMPLE DESC SECTION
+## SIMPLE DESC SECTION
 
 Import or Export industry-common, or custom, data and config files for your python program or script!
 
@@ -27,9 +27,9 @@ Latest Updates: [sfcparse Docs](https://docs.sfcparse.org/updates/current-versio
 
 Changelog: [sfcparse Docs](https://docs.sfcparse.org/updates/changelog)
 
- 
 
-#MOVE BELOW TO DOCS!!!
+
+# MOVE BELOW TO DOCS!!!
  
 ### Intro
 This library allows you to import custom config/data/save files for your python program or script on a plain text file with any file extension. It can be used to easily export any data to a file as well. Also contains a **feature for easily formatting data types for clean multiline output** when exporting data to files, **and importing is more secure than importing your values from .py files**.
