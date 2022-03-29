@@ -1,7 +1,5 @@
 # sfcparse
-**Simple File Configuration Parse**
-
-The easy to use library for data and configuration files.
+**Simple File Configuration Parse** - The easy to use library for data and configuration files.
 
 ## SIMPLE DESC SECTION
 
