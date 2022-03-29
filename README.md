@@ -3,6 +3,7 @@
 The easy to use library for data and configuration files.
 
 ##SIMPLE DESC SECTION
+
 Import or Export industry-common, or custom, data and config files for your python program or script!
 
 Contains features for easily formatting data and other quick and easy tools like getting the hash of a file.
@@ -17,9 +18,13 @@ pip install sfcparse
 
 # Tutorials and Docs:
 Quick Start Tutorial: [sfcparse Docs](https://docs.sfcparse.org/watch/quick-start)
+
 Full Tutorials: [sfcparse Docs](https://docs.sfcparse.org/watch/full-training-series)
+
 Official Docs: [sfcparse Docs](https://docs.sfcparse.org/)
+
 Latest Updates: [sfcparse Docs](https://docs.sfcparse.org/updates/current-version-updates)
+
 Changelog: [sfcparse Docs](https://docs.sfcparse.org/updates/changelog)
 
  
