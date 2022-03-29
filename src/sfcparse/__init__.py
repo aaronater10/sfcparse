@@ -4,18 +4,13 @@ More info: https://github.com/aaronater10/sfcparse
 
 Version 1.1.0
 
-A simple library to import custom config/data files for your python program or script,
-and export any data to disk simply!. Also contains a feature for easily formatting data
-types for clean multiline output when exporting data to files.
+The easy to use library for data and configuration files.
 
-Importing [Python types only]: returns a class with attributes from the file keeping python's natural
-recognition of data types, including comments being ignored.
+Import or Export industry-common, or custom, data and config files for your python program or script!
 
-Exporting/Appending: it simply sends str data to a file. It may be used for any str data file output.
+Contains features for easily formatting data and other quick and easy tools like getting the hash of a file.
 
-CleanFormat: simply formats any dict, list, set, or tuple to a clean multiline structure, and returned as str
-
-Accepted Import Data Types: str, int, float, bool, list, dict, tuple, set, nonetype, bytes
+See tutorials and docs here for more info: https://docs.sfcparse.org
 """
 #########################################################################################################
 # Imports
