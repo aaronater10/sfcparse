@@ -1,22 +1,30 @@
 # sfcparse
-**Simple File Configuration Parse** is a simple library to import custom config/data files for your python program or script, and export any data to disk simply!
- 
-See "Updates" section on bottom for the **latest version information**
- 
+**Simple File Configuration Parse** 
+The easy to use library for data and configuration files.
+
+##SIMPLE DESC SECTION
+Import or Export industry-common, or custom, data and config files for your python program or script!
+
+Contains features for easily formatting data and other quick and easy tools like getting the hash of a file.
+
 [![Functionality-QA-Tests](https://github.com/aaronater10/sfcparse/actions/workflows/sfcparse_functionality_testing.yml/badge.svg)](https://github.com/aaronater10/sfcparse/actions/workflows/sfcparse_functionality_testing.yml)
  
-# Tutorial Videos:
-Quick Start Tutorial: [YouTube Video](https://youtu.be/W7TIVFE7epI)
- 
-Full Training Series: [YouTube Playlist](https://www.youtube.com/watch?v=7-_iRNAQkno&list=PLaVLtZTXV5i2Zkj704h-Cxl3uDqrFpohU&index=1)
- 
-See **Usage sections** below for more detail
- 
+
 # Install
 ```python
 pip install sfcparse
 ```
+
+# Tutorials and Docs:
+Quick Start Tutorial: [sfcparse Docs](https://docs.sfcparse.org/watch/quick-start)
+Full Tutorials: [sfcparse Docs](https://docs.sfcparse.org/watch/full-training-series)
+Official Docs: [sfcparse Docs](https://docs.sfcparse.org/)
+Latest Updates: [sfcparse Docs](https://docs.sfcparse.org/updates/current-version-updates)
+Changelog: [sfcparse Docs](https://docs.sfcparse.org/updates/changelog)
+
  
+
+#MOVE BELOW TO DOCS!!!
  
 ### Intro
 This library allows you to import custom config/data/save files for your python program or script on a plain text file with any file extension. It can be used to easily export any data to a file as well. Also contains a **feature for easily formatting data types for clean multiline output** when exporting data to files, **and importing is more secure than importing your values from .py files**.
