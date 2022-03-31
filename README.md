@@ -5,7 +5,7 @@ The easy to use library for your data, configuration, and save files
 
 ##### Latest Version: 1.1.0
 
----
+#
 
 #### sfcparse == Simple File Configuration Parse
 
@@ -34,7 +34,7 @@ Use built-in features for easily formatting your data and other quick and easy t
 pip install sfcparse
 ```
 
-#### Cloning the repository
+### Cloning the repository
 
 Clone via HTTPS
 ```bash
