@@ -1,4 +1,4 @@
-[![Read the Docs](https://raw.githubusercontent.com/aaronater10/sfcparse/main/ext/sfcparse_logo_3.png)](https://docs.sfcparse.org/)
+[![Read the Docs](https://raw.githubusercontent.com/aaronater10/sfcparse/1.1.0/ext/sfcparse_logo_3.png)](https://docs.sfcparse.org/)
 
 # sfcparse
 The easy to use library for your data, configuration, and save files
