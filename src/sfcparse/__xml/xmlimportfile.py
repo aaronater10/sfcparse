@@ -15,7 +15,7 @@ def xmlimportfile(filename: str) -> __xml_etree.Element:
     """
     Imports xml data from a file.
 
-    Returns a xml Parsed ElementTree obj with the root. Assign the output to var
+    Returns a xml Parsed Element obj with the root. Assign the output to var
 
     Enter xml file location as str to import.
 
