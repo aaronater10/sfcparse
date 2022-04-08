@@ -15,7 +15,7 @@ def test1_json_str_export():
     filepath = test_file_path + filename    
 
     # Test Importing Data and it's Type
-    json_raw = sfcparse.importrawfile(filepath)
+    json_raw = sfcparse.importfileraw(filepath)
     json_import = sfcparse.jsonimportstr(json_raw)
 
     assert (json_import['string_data'] == 'data') and (isinstance(json_import['string_data'], str))

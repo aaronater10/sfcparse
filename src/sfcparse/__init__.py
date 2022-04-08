@@ -17,7 +17,7 @@ See tutorials and docs here for more info: https://docs.sfcparse.org
 
 # Native Lib
 from .__native.importfile import importfile
-from .__native.importrawfile import importrawfile
+from .__native.importfileraw import importfileraw
 from .__native.exportfile import exportfile
 from .__native.appendfile import appendfile
 from .__native.cleanformat import cleanformat

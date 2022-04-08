@@ -5,13 +5,13 @@ from os import path as __path
 from ..error import SfcparseError
 
 # Exception for Module
-class _Importrawfile: 
-    class importrawfile(SfcparseError): __module__ = SfcparseError.set_module_name()
+class _Importfileraw: 
+    class importfileraw(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 
 #########################################################################################################
 # Import raw data from file
-def importrawfile(filename: str, byte_data: bool=False) -> str:
+def importfileraw(filename: str, byte_data: bool=False) -> str:
     """
     Imports any raw data from a file.
 
@@ -31,7 +31,7 @@ def importrawfile(filename: str, byte_data: bool=False) -> str:
                 if __path.getsize(filename) == 0:
                     return ''
                 return f.read()
-        except FileNotFoundError as __err_msg: raise _Importrawfile.importrawfile(__err_msg, f'"{filename}"')
+        except FileNotFoundError as __err_msg: raise _Importfileraw.importfileraw(__err_msg, f'"{filename}"')
     
     if byte_data:
         try:
@@ -39,4 +39,4 @@ def importrawfile(filename: str, byte_data: bool=False) -> str:
                 if __path.getsize(filename) == 0:
                     return b''
                 return f.read()
-        except FileNotFoundError as __err_msg: raise _Importrawfile.importrawfile(__err_msg, f'"{filename}"')
+        except FileNotFoundError as __err_msg: raise _Importfileraw.importfileraw(__err_msg, f'"{filename}"')

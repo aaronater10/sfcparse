@@ -1,7 +1,7 @@
 # createfilehash
 #########################################################################################################
 # Imports
-from ..__native.importrawfile import importrawfile
+from ..__native.importfileraw import importfileraw
 from ..__native.exportfile import exportfile
 from typing import Union as __Union
 import hashlib as __hashlib
@@ -56,7 +56,7 @@ def createfilehash(file_to_hash: str, file_to_store_hash: __Union[str,bool], has
     if hash_algorithm == __ALGO_OPTIONS[4]: __hash_type = __hashlib.md5() # md5
     
     # Read source file data and update hash
-    __readbytes = importrawfile(file_to_hash, True)
+    __readbytes = importfileraw(file_to_hash, True)
     __hash_type.update(__readbytes)
     # Store hash to file
     __hash_type = __hash_type.hexdigest()
