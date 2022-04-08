@@ -28,7 +28,8 @@ def comparefilehash(file_to_hash: str, stored_hash_file: str, hash_algorithm: st
     
     comparefilehash('path/to/src_filename', 'path/to/src_hash_filename')
 
-    This is using the hashlib libray shipped with the python standard libray.
+    This is using the hashlib library shipped with the python standard library. For more
+    information on hashlib, visit: https://docs.python.org/3/library/hashlib.html
     """
     __ALGO_OPTIONS = ('sha256', 'sha512', 'sha384', 'sha1', 'md5')
 

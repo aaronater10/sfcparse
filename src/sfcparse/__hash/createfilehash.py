@@ -32,7 +32,8 @@ def createfilehash(file_to_hash: str, file_to_store_hash: __Union[str,bool], has
     Default: createfilehash('path/to/src_filename', 'path/to/dst_hash_filename')
     Hash only, no file: hash_data = createfilehash('path/to/filename', False)
 
-    This is using the hashlib libray shipped with the python standard libray.
+    This is using the hashlib library shipped with the python standard library. For more
+    information on hashlib, visit: https://docs.python.org/3/library/hashlib.html
     """
     __ALGO_OPTIONS = ('sha256', 'sha512', 'sha384', 'sha1', 'md5')
 
