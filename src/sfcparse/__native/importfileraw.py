@@ -1,4 +1,4 @@
-# importrawfile
+# importfileraw
 #########################################################################################################
 # Imports
 from os import path as __path
@@ -22,7 +22,7 @@ def importfileraw(filename: str, byte_data: bool=False) -> str:
 
     [Example Use]
 
-    importrawfile('path/to/filename')
+    importfileraw('path/to/filename')
     """
     # Validate file exists. Import File then return the raw data
     if not byte_data:

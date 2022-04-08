@@ -21,7 +21,7 @@ def xmlimportstr(data: str) -> __xml_etree.Element:
 
     xmlimportstr('<tag>data</tag>')
 
-    This is using the native xml library via etree shipped with the python standard libray.
+    This is using the native xml library via etree shipped with the python standard library.
     For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
     """
     __err_msg_str = f"Only str is allowed for data"

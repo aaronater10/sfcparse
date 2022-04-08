@@ -23,7 +23,7 @@ def xmlexportfile(filename: str, data: __xml_etree.Element) -> None:
 
     xmlexportfile('path/to/filename.xml', Element_data)
 
-    This is using the native xml library via etree shipped with the python standard libray.
+    This is using the native xml library via etree shipped with the python standard library.
     For more information on the xml.etree api, visit: https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree
     """
     # Check for Error

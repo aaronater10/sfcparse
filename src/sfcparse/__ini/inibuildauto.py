@@ -27,7 +27,7 @@ def inibuildauto(data: dict) -> __ConfigParser:
         'section2': python_dict    
     }
 
-    This is using the native configparser library shipped with the python standard libray. Using ConfigParser method
+    This is using the native configparser library shipped with the python standard library. Using ConfigParser method
     with ExtendedInterpolation enabled by default. For more information on the configparser library, 
     visit: https://docs.python.org/3/library/configparser.html
     """

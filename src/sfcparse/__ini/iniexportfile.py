@@ -28,7 +28,7 @@ def iniexportfile(filename: str, data: __dummy_ini.ini_data) -> None:
 
     iniexportfile('path/to/filename.ini', data)
 
-    This is using the native configparser library shipped with the python standard libray. Using ConfigParser method.
+    This is using the native configparser library shipped with the python standard library. Using ConfigParser method.
     For more information on the configparser library, visit: https://docs.python.org/3/library/configparser.html
     """
     __err_msg_parser = f"Invalid data to export, type, or nothing specified"
