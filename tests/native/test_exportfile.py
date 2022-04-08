@@ -3,8 +3,8 @@ from src import sfcparse
 from os import path, remove
 import time
 
-test_file_path = './tests/test_files/exportfile_files/'
-file_delay_timer = 1
+test_file_path = './tests/test_files/native/exportfile_files/'
+file_delay_timer = 0.5
 
 
 ################################################################
@@ -44,7 +44,7 @@ def test2_data_file_export():
     sfcparse.exportfile(filepath, f"data = {data}")
     assert path.exists(filepath)
     file_import = sfcparse.importfile(filepath)
-    assert (file_import.data == {'k1':1, 'k2':2, 'k3':3}) and (type(file_import.data) == type(dict()))
+    assert (file_import.data == {'k1':1, 'k2':2, 'k3':3}) and (isinstance(file_import.data, dict))
     # Remove Test File
     time.sleep(file_delay_timer)
     try: remove(filepath)
@@ -71,12 +71,37 @@ data_b3 = {data}
     sfcparse.exportfile(filepath, f"data1 = {data}", f"\ndata2 = {data}", f"\ndata3 = {data}", big_data)
     assert path.exists(filepath)
     file_import = sfcparse.importfile(filepath)
-    assert (file_import.data1 == {'k1':1, 'k2':2, 'k3':3}) and (type(file_import.data1) == type(dict()))
-    assert (file_import.data2 == {'k1':1, 'k2':2, 'k3':3}) and (type(file_import.data2) == type(dict()))
-    assert (file_import.data3 == {'k1':1, 'k2':2, 'k3':3}) and (type(file_import.data3) == type(dict()))
-    assert (file_import.data_b1 == {'k1':1, 'k2':2, 'k3':3}) and (type(file_import.data_b1) == type(dict()))
-    assert (file_import.data_b2 == {'k1':1, 'k2':2, 'k3':3}) and (type(file_import.data_b2) == type(dict()))
-    assert (file_import.data_b3 == {'k1':1, 'k2':2, 'k3':3}) and (type(file_import.data_b3) == type(dict()))
+    assert (file_import.data1 == {'k1':1, 'k2':2, 'k3':3}) and (isinstance(file_import.data1, dict))
+    assert (file_import.data2 == {'k1':1, 'k2':2, 'k3':3}) and (isinstance(file_import.data2, dict))
+    assert (file_import.data3 == {'k1':1, 'k2':2, 'k3':3}) and (isinstance(file_import.data3, dict))
+    assert (file_import.data_b1 == {'k1':1, 'k2':2, 'k3':3}) and (isinstance(file_import.data_b1, dict))
+    assert (file_import.data_b2 == {'k1':1, 'k2':2, 'k3':3}) and (isinstance(file_import.data_b2, dict))
+    assert (file_import.data_b3 == {'k1':1, 'k2':2, 'k3':3}) and (isinstance(file_import.data_b3, dict))
+    # Remove Test File
+    time.sleep(file_delay_timer)
+    try: remove(filepath)
+    except: pass
+
+
+# 4. Data Bytes Export - Exporting a file with bytes and validate character
+def test4_data_bytes_export():
+    filename = '4_data_bytes.data'
+    filepath = test_file_path + filename
+    data_bytes = b'\xC3\xA9'
+    bytes_match = "é"
+
+    # Remove Any Existing Test File
+    try: remove(filepath)
+    except: pass
+    time.sleep(file_delay_timer)
+
+    # Test Not Exist, Create, Exist, Data and it's Type
+    assert not path.exists(filepath)
+    sfcparse.exportfile(filepath, data_bytes, byte_data=True)
+    assert path.exists(filepath)
+    file_import = sfcparse.importfileraw(filepath, byte_data=True)
+    assert (file_import.decode() == bytes_match) and (isinstance(file_import, bytes))
+    
     # Remove Test File
     time.sleep(file_delay_timer)
     try: remove(filepath)

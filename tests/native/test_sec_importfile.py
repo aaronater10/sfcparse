@@ -2,7 +2,7 @@
 from src import sfcparse
 import unittest
 
-test_file_path = './tests/test_files/sec_importfile_files/'
+test_file_path = './tests/test_files/native/sec_importfile_files/'
 
 
 ################################################################
@@ -14,7 +14,7 @@ class Test1CodeNotExec(unittest.TestCase):
     def test1_code_notexec_import(self):
         filename = '1_code_notexec.data'
         filepath = test_file_path + filename
-        with self.assertRaises(ValueError):
+        with self.assertRaises(Exception):
             sfcparse.importfile(filepath)
 
 
@@ -24,5 +24,5 @@ class Test2CodeNotExec(unittest.TestCase):
     def test2_code_notexec_import(self):
         filename = '2_code_notexec.data'
         filepath = test_file_path + filename
-        with self.assertRaises(SyntaxError):
+        with self.assertRaises(Exception):
             sfcparse.importfile(filepath)

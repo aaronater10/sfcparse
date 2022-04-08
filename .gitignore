@@ -1,5 +1,17 @@
+# Cache
 .cache/
 *.pyc
 __pycache__
 .pytest_cache/
+
+# VS Code
 .vscode/
+
+# Test Folders and Files
+priv_test_files/
+main.py
+
+# Local Launchers
+pull_start.bat
+const_test.bat
+
