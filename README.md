@@ -1,11 +1,11 @@
-[![Docs](https://raw.githubusercontent.com/aaronater10/sfcparse/1.1.0/ext/sfcparse_cover_4.png)](https://docs.sfcparse.org/)
+[![Docs](https://raw.githubusercontent.com/aaronater10/sfcparse/main/ext/sfcparse_cover.png)](https://docs.sfcparse.org/)
 
 # sfcparse
 The easy to use library for your data, configuration, and save files
 
 [![Functionality-QA-Tests](https://github.com/aaronater10/sfcparse/actions/workflows/sfcparse_functionality_testing.yml/badge.svg)](https://github.com/aaronater10/sfcparse/actions/workflows/sfcparse_functionality_testing.yml)
 
-##### Latest Version: 1.1.0
+##### Latest Version: 1.1.1
 
 #
 
