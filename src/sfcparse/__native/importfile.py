@@ -14,7 +14,7 @@ class _Importfile:
 # Import py Data from File
 class __importfile:
     class file_data:
-        def __init__(self, filename: str):
+        def __init__(self, filename: str, attrib_name_dedup: bool):
 
             # Validate file exists. Open and Import Config File into Class Object then return the object    
             try:
@@ -24,6 +24,7 @@ class __importfile:
 
             # Syntax Error Message
             __py_syntax_err_msg = "Must have valid Python data types to import, or file is not formatted correctly"
+            __name_preexists_err_msg = "Name already preexists. Must give unique attribute names in file"
             
             # Data Build Setup and Switches        
             __is_building_data_sw = False
@@ -68,6 +69,10 @@ class __importfile:
                     
                     # START BUILD: Check if value in file line is only Start Marker. Check if Multiline or Single Line
                     if (__value_token_multi in __start_markers) and ((__last_token in __start_markers) or (__start_skip_token[0] in __skip_markers)) and (__is_building_data_sw == False):
+                        
+                        if (attrib_name_dedup) and (__var_token in vars(self).keys()):
+                                raise _Importfile.importfile(__name_preexists_err_msg, f'\nFILE: "{filename}" \nATTRIB_NAME: {__var_token}')
+
                         __build_data = __value_token
                         
                         # Turn ON Data Build Switches
@@ -96,13 +101,18 @@ class __importfile:
                         
                     # IMPORT SINLGE LINE VALUES: If not multiline, assume single
                     else:
-                        try: setattr(self, __var_token, __literal_eval__(__value_token))
+                        try: 
+                            if (attrib_name_dedup) and (__var_token in vars(self).keys()):
+                                raise _Importfile.importfile(__name_preexists_err_msg, f'\nFILE: "{filename}" \nATTRIB_NAME: {__var_token}')
+                            
+                            setattr(self, __var_token, __literal_eval__(__value_token))
+                            
                         except ValueError: raise _Importfile.importfile(__py_syntax_err_msg, f'"{filename}"')
                 
                 else: raise _Importfile.importfile(__py_syntax_err_msg, f'"{filename}"')
 
 
-def importfile(filename: str) -> '__importfile.file_data':
+def importfile(filename: str, attrib_name_dedup: bool=True) -> '__importfile.file_data':
     """
     Imports saved python data from any text file.
 
@@ -117,10 +127,12 @@ def importfile(filename: str) -> '__importfile.file_data':
     [Example Use]
     importfile('filename.data' or 'path/to/filename.data')
     """
-    __err_msg = f'Invalid data type or nothing specified: "{filename}"'
-    # Check if filename is str
-    if not isinstance(filename, str):
-        raise _Importfile.importfile(__err_msg, f'"{filename}"')
+    __err_msg_file = 'Invalid data type or nothing specified for filename:'
+    __err_msg_attrib = 'Invalid data type or nothing specified for attrib_name_dedup:'
+    
+    # Error Checks
+    if not isinstance(filename, str): raise _Importfile.importfile(__err_msg_file, f'"{filename}"')
+    if not isinstance(attrib_name_dedup, bool): raise _Importfile.importfile(__err_msg_attrib, f'"{attrib_name_dedup}"')
 
     # Check if file empty. Returns None if empty
     try:
@@ -129,4 +141,4 @@ def importfile(filename: str) -> '__importfile.file_data':
     except FileNotFoundError as __err_msg: raise _Importfile.importfile(__err_msg, f'"{filename}"')
 
     # Return Final Import
-    return __importfile.file_data(filename)
+    return __importfile.file_data(filename, attrib_name_dedup)

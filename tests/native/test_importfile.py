@@ -201,3 +201,27 @@ def test10_misc_data_import():
     assert (file_import.data_set == {1,2,3}) and (isinstance(file_import.data_set, set))
     assert (file_import.data_token1 == ['normal value', "var = 'value'", 'normal value']) and (isinstance(file_import.data_token1, list))
     assert (file_import.data_end_token1 == ['normal value', "var = 'value'", 'normal value']) and (isinstance(file_import.data_end_token1, list))
+
+
+# 11. Single-Line Attr Dedup OFF - Turning OFF Attribute Dedup Feature Test
+def test11_single_attr_dedup_off():
+    filename = '11_attr_dedup_off_single.data'
+    filepath = test_file_path + filename
+
+    # Test Turn OFF Attr Dedup Protection
+    file_import = sfcparse.importfile(filepath, False)
+
+    # Test Attributes and Types - Confirm data and it's type was in fact changed inside file
+    assert (file_import.data_dict == "changed data") and (isinstance(file_import.data_dict, str))
+
+
+# 12. Multi-Line Attr Dedup OFF - Turning OFF Attribute Dedup Feature Test
+def test12_multi_attr_dedup_off():
+    filename = '12_attr_dedup_off_multi.data'
+    filepath = test_file_path + filename
+
+    # Test Turn OFF Attr Dedup Protection
+    file_import = sfcparse.importfile(filepath, False)
+
+    # Test Attributes and Types - Confirm data and it's type was in fact changed inside file
+    assert (file_import.data_list == "changed data") and (isinstance(file_import.data_list, str))
