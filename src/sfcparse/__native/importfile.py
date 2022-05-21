@@ -70,7 +70,7 @@ class __importfile:
                     # START BUILD: Check if value in file line is only Start Marker. Check if Multiline or Single Line
                     if (__value_token_multi in __start_markers) and ((__last_token in __start_markers) or (__start_skip_token[0] in __skip_markers)) and (__is_building_data_sw == False):
                         
-                        if (attrib_name_dedup) and (__var_token in vars(self).keys()):
+                        if (attrib_name_dedup) and (hasattr(self, __var_token)):
                                 raise _Importfile.importfile(__name_preexists_err_msg, f'\nFILE: "{filename}" \nATTRIB_NAME: {__var_token}')
 
                         __build_data = __value_token
@@ -102,7 +102,7 @@ class __importfile:
                     # IMPORT SINLGE LINE VALUES: If not multiline, assume single
                     else:
                         try: 
-                            if (attrib_name_dedup) and (__var_token in vars(self).keys()):
+                            if (attrib_name_dedup) and (hasattr(self, __var_token)):
                                 raise _Importfile.importfile(__name_preexists_err_msg, f'\nFILE: "{filename}" \nATTRIB_NAME: {__var_token}')
                             
                             setattr(self, __var_token, __literal_eval__(__value_token))
