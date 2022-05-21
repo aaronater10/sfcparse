@@ -5,7 +5,7 @@ The easy to use library for your data, configuration, and save files
 
 [![Functionality-QA-Tests](https://github.com/aaronater10/sfcparse/actions/workflows/sfcparse_functionality_testing.yml/badge.svg)](https://github.com/aaronater10/sfcparse/actions/workflows/sfcparse_functionality_testing.yml)
 
-##### Latest Version: 1.1.2
+##### Latest Version: 1.1.3
 
 #
 
