@@ -36,6 +36,7 @@ class __importfile:
             __start_markers = {'[','{','('}
             __end_markers = {']','}',')'}
             __skip_markers = {'',' ','#','\n'}
+            __assignment_operator_markers = {'=', '$='}
             __eof_marker = f[-1]
 
             # Main File Loop
@@ -45,15 +46,15 @@ class __importfile:
                 try: __skip_marker = __file_data_line[0]
                 except IndexError: __skip_marker = ''
 
-                # Skip Comments, Blank Lines, and potential New Lines
+                # Skip Any Comments, Blanks, and New Lines
                 if (__is_building_data_sw == False) and (__skip_marker in __skip_markers): continue
 
-                # Set Syntax Check
-                try: __syntax_check = __file_data_line.split()[1]
-                except IndexError: __syntax_check = ''
+                # Set Assignment Operator
+                try: __assignment_operator = __file_data_line.split()[1]
+                except IndexError: __assignment_operator = ''
 
-                # Basic Syntax Check
-                if (__syntax_check == '=') or (__is_building_data_sw):
+                # Basic Syntax Check, or if in a Multiline Build
+                if (__assignment_operator in __assignment_operator_markers) or (__is_building_data_sw):
 
                     if not __is_building_data_sw:
                         __var_token = __file_data_line.split('=')[0].strip()
