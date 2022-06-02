@@ -2,7 +2,7 @@
 Simple File Configuration Parse - by aaronater10
 More info: https://github.com/aaronater10/sfcparse
 
-Version 1.1.3
+Version 1.2.0
 
 The easy to use library for data and configuration files.
 
