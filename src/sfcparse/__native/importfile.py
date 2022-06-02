@@ -100,7 +100,7 @@ class __importfile:
                     elif __body_build_data_sw:
                         __build_data += f"\n{__file_data_line}"
                         
-                    # IMPORT SINLGE LINE VALUES: If not multiline, assume single
+                    # IMPORT SINGLE LINE VALUES: If not multiline, assume single
                     else:
                         try: 
                             if (attrib_name_dedup) and (hasattr(self, __var_token)):
