@@ -30,7 +30,7 @@ def jsonimportstr(json_str_data: str) -> Union[list, dict, str, int, float, bool
     # Import json string    
     try:
         return __json.loads(json_str_data)
-    except __json.decoder.JSONDecodeError as __err_msg: raise _Jsonimportstr.jsonimportstr(__err_msg, f'\nDATA:"{json_str_data}"')
-    except TypeError as __err_msg: raise _Jsonimportstr.jsonimportstr(__err_msg, f'\nDATA:"{json_str_data}"')
-    except ValueError as __err_msg: raise _Jsonimportstr.jsonimportstr(__err_msg, f'\nDATA:"{json_str_data}"')
+    except __json.decoder.JSONDecodeError as __err_msg: raise _Jsonimportstr.jsonimportstr(__err_msg, f'\nDATA: {json_str_data}')
+    except TypeError as __err_msg: raise _Jsonimportstr.jsonimportstr(__err_msg, f'\nDATA: {json_str_data}')
+    except ValueError as __err_msg: raise _Jsonimportstr.jsonimportstr(__err_msg, f'\nDATA: {json_str_data}')
 

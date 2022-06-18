@@ -34,6 +34,7 @@ from .__json.jsonexportstr import jsonexportstr
 
 # YAML Lib
 from .__yaml.yamlimportfile import yamlimportfile
+from .__yaml.yamlimportstr import yamlimportstr
 from .__yaml.yamlexportfile import yamlexportfile
 from .__yaml.yamlexportstr import yamlexportstr
 

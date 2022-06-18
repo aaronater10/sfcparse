@@ -1,7 +1,6 @@
 # jsonimportfile
 #########################################################################################################
 # Imports
-from os import path as __path
 import json as __json
 from ..error import SfcparseError
 from typing import Union
