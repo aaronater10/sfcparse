@@ -17,6 +17,7 @@ class FileData:
     def __init__(self, filename: str, attrib_name_dedup: bool):
         # '__assignment_locked_attribs' MUST BE FIRST INIT ASSIGNMENT
         self._assignment_locked_attribs = []
+        self.attrib_name_dedup = attrib_name_dedup
 
         # Validate file exists. Open and Import Config File into Class Object then return the object    
         try:
@@ -75,7 +76,7 @@ class FileData:
                 # START BUILD: Check if value in file line is only Start Marker. Check if Multiline or Single Line
                 if (__value_token_multi in __start_markers) and ((__last_token in __start_markers) or (__start_skip_token[0] in __skip_markers)) and (__is_building_data_sw == False):
                     
-                    if (attrib_name_dedup) and (hasattr(self, __var_token)):
+                    if (self.attrib_name_dedup) and (hasattr(self, __var_token)):
                             raise _Importfile.importfile(__name_preexists_err_msg, f'\nFILE: "{filename}" \nATTRIB_NAME: {__var_token}')
 
                     __build_data = __value_token
@@ -115,7 +116,7 @@ class FileData:
                 else:
                     try:
                         # Check if Attr Dedup
-                        if (attrib_name_dedup) and (hasattr(self, __var_token)):
+                        if (self.attrib_name_dedup) and (hasattr(self, __var_token)):
                             raise _Importfile.importfile(__name_preexists_err_msg, f'\nFILE: "{filename}" \nATTRIB_NAME: {__var_token}')
                         
                         # Assign Attr
