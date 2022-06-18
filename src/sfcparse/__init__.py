@@ -35,6 +35,7 @@ from .__json.jsonexportstr import jsonexportstr
 # YAML Lib
 from .__yaml.yamlimportfile import yamlimportfile
 from .__yaml.yamlexportfile import yamlexportfile
+from .__yaml.yamlexportstr import yamlexportstr
 
 # INI Lib
 from .__ini.iniimportfile import iniimportfile
