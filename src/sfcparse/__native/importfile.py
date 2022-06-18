@@ -25,9 +25,10 @@ class FileData:
                 f = f.read().splitlines()
         except FileNotFoundError as __err_msg: raise _Importfile.importfile(__err_msg, f'"{filename}"')
 
-        # Syntax Error Message
-        __py_syntax_err_msg = "Must have valid Python data types to import, or file is not formatted correctly"
+        # Syntax/Usage Error Messages
+        __py_syntax_err_msg = "Must have valid Python data types to import, or file's syntax is not formatted correctly"
         __name_preexists_err_msg = "Name already preexists. Must give unique attribute names in file"
+        self.__assignment_locked_atrribs_err_msg = "Value Locked! Attribute cannot be reassigned"
         
         # Data Build Setup and Switches        
         __is_building_data_sw = False
@@ -99,7 +100,7 @@ class FileData:
                         if __current_assignment_operator == __assignment_operator_markers[1]:
                             self.__assignment_locked_attribs.append(__var_token)
 
-                    except SyntaxError: raise _Importfile.importfile(__py_syntax_err_msg, f'"{filename}"')
+                    except SyntaxError: raise _Importfile.importfile(__py_syntax_err_msg, f'\nFILE: "{filename}"')
 
                     # Turn OFF Data Build Switches
                     __is_building_data_sw = False
@@ -126,18 +127,18 @@ class FileData:
                         if __current_assignment_operator == __assignment_operator_markers[1]:
                             self.__assignment_locked_attribs.append(__var_token)
                         
-                    except ValueError: raise _Importfile.importfile(__py_syntax_err_msg, f'"{filename}"')
+                    except ValueError: raise _Importfile.importfile(__py_syntax_err_msg, f'\nFILE: "{filename}"')
             
-            else: raise _Importfile.importfile(__py_syntax_err_msg, f'"{filename}"')
+            else: raise _Importfile.importfile(__py_syntax_err_msg, f'\nFILE: "{filename}"')
     
 
-    def __setattr__(self, _name: str, __new_value: _Any) -> None:
+    def __setattr__(self, _name: str, _new_value: _Any) -> None:
         # Check if Attr Already Exists, if so, Collect Original Value
         if _name in self.__dict__:
             _orig_value = self.__dict__.get(_name)
             
         # Always Assign Value 
-        self.__dict__[_name] = __new_value
+        self.__dict__[_name] = _new_value
 
         # If attr was added to lock list after first assignment, assign orig value back, and raise exception
         # Exception can be caught/bypassed, setting original value is vital to protect value
@@ -145,7 +146,7 @@ class FileData:
             # PROTECT ORIGINAL VALUE
             self.__dict__[_name] = _orig_value
             # RAISE EXCEPTION
-            raise Exception(f"LOCKED: Cannot add '{_name}'")
+            raise _Importfile.importfile(self.__assignment_locked_atrribs_err_msg, f'\nATTRIB_NAME: "{_name}"')
 
 
 def importfile(filename: str, attrib_name_dedup: bool=True) -> 'FileData':
