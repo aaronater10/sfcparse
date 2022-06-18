@@ -15,7 +15,7 @@ def jsonimportstr(json_str_data: str) -> dict:
     """
     Imports json data from a string
 
-    Returns a dict. Assign the output to var
+    Returns a list or dict depending on json data. Assign the output to var
 
     Enter json string as str to import.
 
