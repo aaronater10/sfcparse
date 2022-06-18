@@ -148,7 +148,7 @@ class FileData:
             raise Exception(f"LOCKED: Cannot add '{_name}'")
 
 
-def importfile(filename: str, attrib_name_dedup: bool=True) -> '__importfile.file_data':
+def importfile(filename: str, attrib_name_dedup: bool=True) -> 'FileData':
     """
     Imports saved python data from any text file.
 
