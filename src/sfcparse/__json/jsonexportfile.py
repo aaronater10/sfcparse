@@ -3,6 +3,7 @@
 # Imports
 import json as __json
 from ..error import SfcparseError
+from typing import Union
 
 # Exception for Module
 class _Jsonexportfile: 
@@ -11,11 +12,11 @@ class _Jsonexportfile:
 
 #########################################################################################################
 # Export json file
-def jsonexportfile(filename: str, data: dict) -> None:
+def jsonexportfile(filename: str, data: Union[str, int, float, bool, list, dict, tuple, None]) -> None:
     """
-    Exports a new file from a dictionary to json data.
+    Exports a new file from python data type to json data.
     
-    Enter new filename as str. Pass dict data for output to file
+    Enter new filename as str. Pass data for output to file
     
     [Example Use]
 
@@ -26,7 +27,7 @@ def jsonexportfile(filename: str, data: dict) -> None:
     
     """
     try:
-        # Export dict data to json file
+        # Export data to json file
         with open(filename, 'w') as f:
             __json.dump(data, f)
     except TypeError as __err_msg: raise _Jsonexportfile.jsonexportfile(__err_msg, f'\nFILE:"{filename}" \nDATA:{data}')

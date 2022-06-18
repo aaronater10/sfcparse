@@ -14,9 +14,9 @@ class _Jsonexportstr:
 # Export json str
 def jsonexportstr(data: Union[str, int, float, bool, list, dict, tuple, None], indent_level: int=4) -> str:
     """
-    Exports multiple data types to json string
+    Exports python data type to json string
 
-    Returns a str. Assign the output to var
+    Returns a json formatted str. Assign the output to var
 
     [Example Use]
 

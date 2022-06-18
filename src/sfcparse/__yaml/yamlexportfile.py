@@ -14,7 +14,7 @@ class _Yamlexportfile:
 # Export yaml file
 def yamlexportfile(filename: str, data: __Any) -> None:
     """
-    Exports a new file from python type to yaml data.
+    Exports a new file from python data type to yaml data.
     
     Enter new filename as str. Pass any general data for output to file
     

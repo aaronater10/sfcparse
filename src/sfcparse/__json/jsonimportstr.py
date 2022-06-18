@@ -3,6 +3,7 @@
 # Imports
 import json as __json
 from ..error import SfcparseError
+from typing import Union
 
 # Exception for Module
 class _Jsonimportstr: 
@@ -11,11 +12,11 @@ class _Jsonimportstr:
 
 #########################################################################################################
 # Import json string
-def jsonimportstr(json_str_data: str) -> dict:
+def jsonimportstr(json_str_data: str) -> Union[list, dict, str, int, float, bool, None]:
     """
     Imports json data from a string
 
-    Returns a list or dict depending on json data. Assign the output to var
+    Returns data with matching python data type. Assign the output to var
 
     Enter json string as str to import.
 

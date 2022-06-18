@@ -4,6 +4,7 @@
 from os import path as __path
 import json as __json
 from ..error import SfcparseError
+from typing import Union
 
 # Exception for Module
 class _Jsonimportfile: 
@@ -12,11 +13,11 @@ class _Jsonimportfile:
 
 #########################################################################################################
 # Import json file
-def jsonimportfile(filename: str) -> dict:
+def jsonimportfile(filename: str) -> Union[list, dict, str, int, float, bool, None]:
     """
     Imports json data from a file
 
-    Returns a dict. Assign the output to var
+    Returns data with matching python data type. Assign the output to var
 
     Enter json file location as str to import.
 
