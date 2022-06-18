@@ -31,9 +31,9 @@ def jsonimportfile(filename: str) -> Union[list, dict, str, int, float, bool, No
     # Import json file
     try:
         with open(filename, 'r') as f:
-            # Check if file empty. Returns empty dict if empty
+            # Check if file empty. Returns None if empty
             if __path.getsize(filename) == 0:                
-                raise SyntaxError(__err_msg)
+                return None
             return __json.load(f)
     except FileNotFoundError as __err_msg: raise _Jsonimportfile.jsonimportfile(__err_msg, f'\nFILE:"{filename}"')
     except OSError as __err_msg: raise _Jsonimportfile.jsonimportfile(__err_msg, f'\nFILE:"{filename}"')
