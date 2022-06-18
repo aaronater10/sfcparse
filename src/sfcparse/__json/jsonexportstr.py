@@ -3,6 +3,7 @@
 # Imports
 import json as __json
 from ..error import SfcparseError
+from typing import Union
 
 # Exception for Module
 class _Jsonexportstr: 
@@ -11,9 +12,9 @@ class _Jsonexportstr:
 
 #########################################################################################################
 # Export json str
-def jsonexportstr(data: dict, indent_level: int=4) -> str:
+def jsonexportstr(data: Union[str, int, float, bool, list, dict, tuple, None], indent_level: int=4) -> str:
     """
-    Exports dictionary data to json string
+    Exports multiple data types to json string
 
     Returns a str. Assign the output to var
 
