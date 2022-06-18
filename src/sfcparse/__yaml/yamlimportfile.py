@@ -39,5 +39,6 @@ def yamlimportfile(filename: str) -> __Any:
     except FileNotFoundError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'\nFILE: "{filename}"')
     except OSError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'\nFILE: "{filename}"')
     except __yaml.scanner.ScannerError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'\nFILE: "{filename}"')
+    except __yaml.parser.ParserError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'\nFILE: "{filename}"')
     except ValueError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'\nFILE: "{filename}"')
     except TypeError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'\nFILE: "{filename}"')
