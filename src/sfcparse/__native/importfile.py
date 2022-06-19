@@ -52,13 +52,13 @@ class FileData:
             # Set Assignment Operator
             try: 
                 __assignment_operator = __file_data_line.split()[1]
-                __current_assignment_operator = __assignment_operator
             except IndexError: __assignment_operator = ''
 
             # Basic Syntax Check, or if in a Multiline Build
             if (__assignment_operator in __assignment_operator_markers) or (__is_building_data_sw):
 
                 if not __is_building_data_sw:
+                    __current_assignment_operator = __assignment_operator
                     __var_token = __file_data_line.split(__assignment_operator)[0].strip()
                     __value_token = __file_data_line.split(__assignment_operator)[1].strip()
                     __value_token_multi = __file_data_line.split(__assignment_operator)[1].split()[0].strip()
