@@ -6,9 +6,7 @@ from ..error import SfcparseError
 from typing import Union
 
 # Exception for Module
-class _Jsonexportfile: 
-    class jsonexportfile(SfcparseError): __module__ = SfcparseError.set_module_name()
-
+class JsonExportFile(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Export json file
@@ -30,6 +28,6 @@ def jsonexportfile(filename: str, data: Union[str, int, float, bool, list, dict,
         # Export data to json file
         with open(filename, 'w') as f:
             __json.dump(data, f)
-    except TypeError as __err_msg: raise _Jsonexportfile.jsonexportfile(__err_msg, f'\nFILE:"{filename}" \nDATA:{data}')
-    except ValueError as __err_msg: raise _Jsonexportfile.jsonexportfile(__err_msg, f'\nFILE:"{filename}" \nDATA:{data}')
-    except FileNotFoundError as __err_msg: raise _Jsonexportfile.jsonexportfile(__err_msg, f'\nFILE:"{filename}"')
+    except TypeError as __err_msg: raise JsonExportFile(__err_msg, f'\nFILE: "{filename}" \nDATA:{data}')
+    except ValueError as __err_msg: raise JsonExportFile(__err_msg, f'\nFILE: "{filename}" \nDATA:{data}')
+    except FileNotFoundError as __err_msg: raise JsonExportFile(__err_msg, f'\nFILE: "{filename}"')

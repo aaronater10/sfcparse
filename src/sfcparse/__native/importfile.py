@@ -7,9 +7,7 @@ from typing import Any as _Any
 from ..error import SfcparseError
 
 # Exception for Module
-class _Importfile: 
-    class importfile(SfcparseError): __module__ = SfcparseError.set_module_name()
-
+class ImportFile(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Import py Data from File
@@ -19,11 +17,9 @@ class FileData:
         self.__assignment_locked_attribs = []
         self.__attrib_name_dedup = attrib_name_dedup
 
-        # Validate file exists. Open and Import Config File into Class Object then return the object    
-        try:
-            with open(filename, 'r') as f:
-                f = f.read().splitlines()
-        except FileNotFoundError as __err_msg: raise _Importfile.importfile(__err_msg, f'"{filename}"')
+        # Open and Import Config File into Class Object then return the object        
+        with open(filename, 'r') as f:
+            f = f.read().splitlines()
 
         # Syntax/Usage Error Messages
         __py_syntax_err_msg = "Must have valid Python data types to import, or file's syntax is not formatted correctly"
@@ -78,7 +74,7 @@ class FileData:
                 if (__value_token_multi in __start_markers) and ((__last_token in __start_markers) or (__start_skip_token[0] in __skip_markers)) and (__is_building_data_sw == False):
                     
                     if (self.__attrib_name_dedup) and (hasattr(self, __var_token)):
-                            raise _Importfile.importfile(__name_preexists_err_msg, f'\nFILE: "{filename}" \nATTRIB_NAME: {__var_token}')
+                            raise ImportFile(__name_preexists_err_msg, f'\nFILE: "{filename}" \nATTRIB_NAME: {__var_token}')
 
                     __build_data = __value_token
                     
@@ -100,7 +96,7 @@ class FileData:
                         if __current_assignment_operator == __assignment_operator_markers[1]:
                             self.__assignment_locked_attribs.append(__var_token)
 
-                    except SyntaxError: raise _Importfile.importfile(__py_syntax_err_msg, f'\nFILE: "{filename}"')
+                    except SyntaxError: raise ImportFile(__py_syntax_err_msg, f'\nFILE: "{filename}"')
 
                     # Turn OFF Data Build Switches
                     __is_building_data_sw = False
@@ -118,7 +114,7 @@ class FileData:
                     try:
                         # Check if Attr Dedup
                         if (self.__attrib_name_dedup) and (hasattr(self, __var_token)):
-                            raise _Importfile.importfile(__name_preexists_err_msg, f'\nFILE: "{filename}" \nATTRIB_NAME: {__var_token}')
+                            raise ImportFile(__name_preexists_err_msg, f'\nFILE: "{filename}" \nATTRIB_NAME: {__var_token}')
                         
                         # Assign Attr
                         setattr(self, __var_token, __literal_eval__(__value_token))
@@ -127,9 +123,9 @@ class FileData:
                         if __current_assignment_operator == __assignment_operator_markers[1]:
                             self.__assignment_locked_attribs.append(__var_token)
                         
-                    except ValueError: raise _Importfile.importfile(__py_syntax_err_msg, f'\nFILE: "{filename}"')
+                    except ValueError: raise ImportFile(__py_syntax_err_msg, f'\nFILE: "{filename}"')
             
-            else: raise _Importfile.importfile(__py_syntax_err_msg, f'\nFILE: "{filename}"')
+            else: raise ImportFile(__py_syntax_err_msg, f'\nFILE: "{filename}"')
     
 
     def __setattr__(self, _name: str, _new_value: _Any) -> None:
@@ -146,7 +142,7 @@ class FileData:
             # PROTECT ORIGINAL VALUE
             self.__dict__[_name] = _orig_value
             # RAISE EXCEPTION
-            raise _Importfile.importfile(self.__assignment_locked_atrribs_err_msg, f'\nATTRIB_NAME: "{_name}"')
+            raise ImportFile(self.__assignment_locked_atrribs_err_msg, f'\nATTRIB_NAME: "{_name}"')
 
 
 def importfile(filename: str, attrib_name_dedup: bool=True) -> 'FileData':
@@ -168,14 +164,14 @@ def importfile(filename: str, attrib_name_dedup: bool=True) -> 'FileData':
     __err_msg_attrib = 'Invalid data type or nothing specified for attrib_name_dedup:'
     
     # Error Checks
-    if not isinstance(filename, str): raise _Importfile.importfile(__err_msg_file, f'"{filename}"')
-    if not isinstance(attrib_name_dedup, bool): raise _Importfile.importfile(__err_msg_attrib, f'"{attrib_name_dedup}"')
+    if not isinstance(filename, str): raise ImportFile(__err_msg_file, f'\nFILE: "{filename}"')
+    if not isinstance(attrib_name_dedup, bool): raise ImportFile(__err_msg_attrib, f'\nDATA: {attrib_name_dedup}')
 
     # Check if file empty. Returns None if empty
     try:
         if __path.getsize(filename) == 0:
             return None
-    except FileNotFoundError as __err_msg: raise _Importfile.importfile(__err_msg, f'"{filename}"')
+    except FileNotFoundError as __err_msg: raise ImportFile(__err_msg, f'\nFILE: "{filename}"')
 
     # Return Final Import
     return FileData(filename, attrib_name_dedup)

@@ -6,9 +6,7 @@ from configparser import ExtendedInterpolation as __ExtendedInterpolation
 from ..error import SfcparseError
 
 # Exception for Module
-class _Inibuildauto: 
-    class inibuildauto(SfcparseError): __module__ = SfcparseError.set_module_name()
-
+class IniBuildAuto(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Auto Build ini data
@@ -39,5 +37,5 @@ def inibuildauto(data: dict) -> __ConfigParser:
             bad_value = [v for _,v in dict_value.items()]
             __ini_data[section] = dict_value
         return __ini_data
-    except AttributeError as __err_msg: raise _Inibuildauto.inibuildauto(f'{__err_msg} - Please send correct dict structure', f'\nDATA:{data}')
-    except TypeError as __err_msg: raise _Inibuildauto.inibuildauto(__err_msg, f'\nDATA:{data} \nBAD_VALUE: {bad_value[0]}')
+    except AttributeError as __err_msg: raise IniBuildAuto(f'{__err_msg} - Please send correct dict structure', f'\nDATA: {data}')
+    except TypeError as __err_msg: raise IniBuildAuto(__err_msg, f'\nDATA: {data} \nBAD_VALUE: {bad_value[0]}')

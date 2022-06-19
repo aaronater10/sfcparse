@@ -5,9 +5,7 @@ import xml.etree.ElementTree as __xml_etree
 from ..error import SfcparseError
 
 # Exception for Module
-class _Xmlexportstr: 
-    class xmlexportstr(SfcparseError): __module__ = SfcparseError.set_module_name()
-
+class XmlExportStr(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Export xml str
@@ -27,7 +25,7 @@ def xmlexportstr(data: __xml_etree.Element) -> str:
     # Check for Error
     __err_msg_etree = f"Only Element is allowed for data"
 
-    if not isinstance(data, __xml_etree.Element): raise _Xmlexportstr.xmlexportstr(__err_msg_etree, f'\nDATA:"{data}"')
+    if not isinstance(data, __xml_etree.Element): raise XmlExportStr(__err_msg_etree, f'\nDATA: {data}')
 
     # Export Data
     return __xml_etree.tostring(data).decode()

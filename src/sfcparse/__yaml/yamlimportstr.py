@@ -6,12 +6,10 @@ import yaml as __yaml
 from ..error import SfcparseError
 
 # Exception for Module
-class _Yamlimportstr: 
-    class yamlimportstr(SfcparseError): __module__ = SfcparseError.set_module_name()
-
+class YamlImportStr(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
-# Import yaml file
+# Import yaml str
 def yamlimportstr(yaml_str_data: str) -> __Any:
     """
     Imports yaml data from a string
@@ -31,10 +29,10 @@ def yamlimportstr(yaml_str_data: str) -> __Any:
     # Import yaml str
     try:       
         return __yaml.safe_load(yaml_str_data)
-    except FileNotFoundError as __err_msg: raise _Yamlimportstr.yamlimportstr(__err_msg, f'\nDATA: {yaml_str_data}')
-    except OSError as __err_msg: raise _Yamlimportstr.yamlimportstr(__err_msg, f'\nDATA: {yaml_str_data}')
-    except __yaml.scanner.ScannerError as __err_msg: raise _Yamlimportstr.yamlimportstr(__err_msg, f'\nDATA: {yaml_str_data}')
-    except __yaml.parser.ParserError as __err_msg: raise _Yamlimportstr.yamlimportstr(__err_msg, f'\nDATA: {yaml_str_data}')
-    except ValueError as __err_msg: raise _Yamlimportstr.yamlimportstr(__err_msg, f'\nDATA: {yaml_str_data}')
-    except TypeError as __err_msg: raise _Yamlimportstr.yamlimportstr(__err_msg, f'\nDATA: {yaml_str_data}')
-    except AttributeError as __err_msg: raise _Yamlimportstr.yamlimportstr(__err_msg, f'\nDATA: {yaml_str_data}')
+    except FileNotFoundError as __err_msg: raise YamlImportStr(__err_msg, f'\nDATA: {yaml_str_data}')
+    except OSError as __err_msg: raise YamlImportStr(__err_msg, f'\nDATA: {yaml_str_data}')
+    except __yaml.scanner.ScannerError as __err_msg: raise YamlImportStr(__err_msg, f'\nDATA: {yaml_str_data}')
+    except __yaml.parser.ParserError as __err_msg: raise YamlImportStr(__err_msg, f'\nDATA: {yaml_str_data}')
+    except ValueError as __err_msg: raise YamlImportStr(__err_msg, f'\nDATA: {yaml_str_data}')
+    except TypeError as __err_msg: raise YamlImportStr(__err_msg, f'\nDATA: {yaml_str_data}')
+    except AttributeError as __err_msg: raise YamlImportStr(__err_msg, f'\nDATA: {yaml_str_data}')

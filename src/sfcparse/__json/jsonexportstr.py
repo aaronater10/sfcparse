@@ -6,9 +6,7 @@ from ..error import SfcparseError
 from typing import Union
 
 # Exception for Module
-class _Jsonexportstr: 
-    class jsonexportstr(SfcparseError): __module__ = SfcparseError.set_module_name()
-
+class JsonExportStr(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Export json str
@@ -29,6 +27,6 @@ def jsonexportstr(data: Union[str, int, float, bool, list, dict, tuple, None], i
     try:
         # Export dict data to json string
         return __json.dumps(data, indent=indent_level)
-    except TypeError as __err_msg: raise _Jsonexportstr.jsonexportstr(__err_msg, f'\nDATA:{data} \nINDENT_LEVEL:{indent_level}')
-    except ValueError as __err_msg: raise _Jsonexportstr.jsonexportstr(__err_msg, f'\nDATA:{data} \nINDENT_LEVEL:{indent_level}')
+    except TypeError as __err_msg: raise JsonExportStr(__err_msg, f'\nDATA: {data} \nINDENT_LEVEL: {indent_level}')
+    except ValueError as __err_msg: raise JsonExportStr(__err_msg, f'\nDATA: {data} \nINDENT_LEVEL: {indent_level}')
 

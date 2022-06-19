@@ -6,9 +6,7 @@ import yaml as __yaml
 from ..error import SfcparseError
 
 # Exception for Module
-class _Yamlexportfile: 
-    class yamlexportfile(SfcparseError): __module__ = SfcparseError.set_module_name()
-
+class YamlExportFile(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Export yaml file
@@ -27,11 +25,11 @@ def yamlexportfile(filename: str, data: __Any) -> None:
     For more information on PyYAML, visit: https://pypi.org/project/PyYAML/
     
     """
-    # Export dict data to yaml file
+    # Export data to yaml file
     try:
         with open(filename, 'w') as f:
             __yaml.safe_dump(data, f)
-    except __yaml.representer.RepresenterError as __err_msg: raise _Yamlexportfile.yamlexportfile(__err_msg, f'\nFILE:"{filename}" \nDATA:{data}')
-    except TypeError as __err_msg: raise _Yamlexportfile.yamlexportfile(__err_msg, f'\nFILE:"{filename}" \nDATA:{data}')
-    except ValueError as __err_msg: raise _Yamlexportfile.yamlexportfile(__err_msg, f'\nFILE:"{filename}" \nDATA:{data}')
-    except FileNotFoundError as __err_msg: raise _Yamlexportfile.yamlexportfile(__err_msg, f'\nFILE:"{filename}" \nDATA:{data}')
+    except __yaml.representer.RepresenterError as __err_msg: raise YamlExportFile(__err_msg, f'\nFILE: "{filename}" \nDATA: {data}')
+    except TypeError as __err_msg: raise YamlExportFile(__err_msg, f'\nFILE: "{filename}" \nDATA: {data}')
+    except ValueError as __err_msg: raise YamlExportFile(__err_msg, f'\nFILE: "{filename}" \nDATA: {data}')
+    except FileNotFoundError as __err_msg: raise YamlExportFile(__err_msg, f'\nFILE: "{filename}"')

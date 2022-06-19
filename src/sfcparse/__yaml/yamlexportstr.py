@@ -6,15 +6,13 @@ import yaml as __yaml
 from ..error import SfcparseError
 
 # Exception for Module
-class _Yamlexportstr: 
-    class yamlexportstr(SfcparseError): __module__ = SfcparseError.set_module_name()
-
+class YamlExportStr(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Export yaml str
 def yamlexportstr(data: __Any) -> str:
     """
-    Exports multiple data types to yaml string
+    Exports python data type to yaml string
 
     Returns a yaml formatted str. Assign the output to var
 
@@ -30,6 +28,6 @@ def yamlexportstr(data: __Any) -> str:
     # Export data to yaml str
     try:
         return __yaml.safe_dump(data, stream=None).rstrip() # Strip trailing \n, yaml parser adds this oddly
-    except __yaml.representer.RepresenterError as __err_msg: raise _Yamlexportstr.yamlexportstr(__err_msg, f'\nDATA:{data}')
-    except TypeError as __err_msg: raise _Yamlexportstr.yamlexportstr(__err_msg, f'\nDATA:{data}')
-    except ValueError as __err_msg: raise _Yamlexportstr.yamlexportstr(__err_msg, f'\nDATA:{data}')
+    except __yaml.representer.RepresenterError as __err_msg: raise YamlExportStr(__err_msg, f'\nDATA: {data}')
+    except TypeError as __err_msg: raise YamlExportStr(__err_msg, f'\nDATA: {data}')
+    except ValueError as __err_msg: raise YamlExportStr(__err_msg, f'\nDATA: {data}')

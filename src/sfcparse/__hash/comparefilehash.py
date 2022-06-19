@@ -6,9 +6,7 @@ from ..__native.importfile import importfile
 from ..error import SfcparseError
 
 # Exception for Module
-class _Comparefilehash: 
-    class comparefilehash(SfcparseError): __module__ = SfcparseError.set_module_name()
-
+class CompareFileHash(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Compare file hashes
@@ -39,12 +37,12 @@ def comparefilehash(file_to_hash: str, stored_hash_file: str, hash_algorithm: st
     __err_msg_str_hash = f"Only str is allowed for hash_algorithm"
     __err_msg_hash = f"Invalid or no hash option chosen for hash_algorithm"
 
-    if not isinstance(file_to_hash, str): raise _Comparefilehash.comparefilehash(__err_msg_str_file_src, f'"{file_to_hash}"')
-    if not isinstance(stored_hash_file, str): raise _Comparefilehash.comparefilehash(__err_msg_hash_file, f'"{stored_hash_file}"')
-    if not isinstance(hash_algorithm, str): raise _Comparefilehash.comparefilehash(__err_msg_str_hash, f'"{hash_algorithm}"')
-    if not hash_algorithm in __ALGO_OPTIONS: raise _Comparefilehash.comparefilehash(__err_msg_hash, f'"{hash_algorithm}"')
+    if not isinstance(file_to_hash, str): raise CompareFileHash(__err_msg_str_file_src, f'"{file_to_hash}"')
+    if not isinstance(stored_hash_file, str): raise CompareFileHash(__err_msg_hash_file, f'"{stored_hash_file}"')
+    if not isinstance(hash_algorithm, str): raise CompareFileHash(__err_msg_str_hash, f'"{hash_algorithm}"')
+    if not hash_algorithm in __ALGO_OPTIONS: raise CompareFileHash(__err_msg_hash, f'"{hash_algorithm}"')
     
     # Collect hash data, then return result
-    __hash_type = createfilehash(file_to_hash, False, hash_algorithm)
-    __hash_data = importfile(stored_hash_file)
-    return (__hash_type == __hash_data.hash_data)
+    __hash_data = createfilehash(file_to_hash, False, hash_algorithm)
+    __stored_hash_data = importfile(stored_hash_file)
+    return (__hash_data == __stored_hash_data.hash_data)

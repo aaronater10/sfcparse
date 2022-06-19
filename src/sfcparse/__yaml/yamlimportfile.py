@@ -6,9 +6,7 @@ import yaml as __yaml
 from ..error import SfcparseError
 
 # Exception for Module
-class _Yamlimportfile: 
-    class yamlimportfile(SfcparseError): __module__ = SfcparseError.set_module_name()
-
+class YamlImportFile(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Import yaml file
@@ -32,9 +30,9 @@ def yamlimportfile(filename: str) -> __Any:
     try:
         with open(filename, 'r') as f:
             return __yaml.safe_load(f)
-    except FileNotFoundError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'\nFILE: "{filename}"')
-    except OSError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'\nFILE: "{filename}"')
-    except __yaml.scanner.ScannerError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'\nFILE: "{filename}"')
-    except __yaml.parser.ParserError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'\nFILE: "{filename}"')
-    except ValueError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'\nFILE: "{filename}"')
-    except TypeError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'\nFILE: "{filename}"')
+    except FileNotFoundError as __err_msg: raise YamlImportFile(__err_msg, f'\nFILE: "{filename}"')
+    except OSError as __err_msg: raise YamlImportFile(__err_msg, f'\nFILE: "{filename}"')
+    except __yaml.scanner.ScannerError as __err_msg: raise YamlImportFile(__err_msg, f'\nFILE: "{filename}"')
+    except __yaml.parser.ParserError as __err_msg: raise YamlImportFile(__err_msg, f'\nFILE: "{filename}"')
+    except ValueError as __err_msg: raise YamlImportFile(__err_msg, f'\nFILE: "{filename}"')
+    except TypeError as __err_msg: raise YamlImportFile(__err_msg, f'\nFILE: "{filename}"')

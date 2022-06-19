@@ -6,9 +6,7 @@ from ..error import SfcparseError
 from typing import Union
 
 # Exception for Module
-class _Jsonimportfile: 
-    class jsonimportfile(SfcparseError): __module__ = SfcparseError.set_module_name()
-
+class JsonImportFile(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Import json file
@@ -31,6 +29,7 @@ def jsonimportfile(filename: str) -> Union[list, dict, str, int, float, bool, No
     try:
         with open(filename, 'r') as f:
             return __json.load(f)
-    except FileNotFoundError as __err_msg: raise _Jsonimportfile.jsonimportfile(__err_msg, f'\nFILE:"{filename}"')
-    except OSError as __err_msg: raise _Jsonimportfile.jsonimportfile(__err_msg, f'\nFILE:"{filename}"')
-    except __json.decoder.JSONDecodeError as __err_msg: raise _Jsonimportfile.jsonimportfile(__err_msg, f'\nFILE:"{filename}"')
+    except FileNotFoundError as __err_msg: raise JsonImportFile(__err_msg, f'\nFILE: "{filename}"')
+    except OSError as __err_msg: raise JsonImportFile(__err_msg, f'\nFILE: "{filename}"')
+    except TypeError as __err_msg: raise JsonImportFile(__err_msg, f'\nFILE: "{filename}"')
+    except __json.decoder.JSONDecodeError as __err_msg: raise JsonImportFile(__err_msg, f'\nFILE: "{filename}"')

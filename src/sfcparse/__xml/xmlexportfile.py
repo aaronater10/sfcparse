@@ -7,9 +7,7 @@ import xml.etree.ElementTree as __xml_etree
 from ..error import SfcparseError
 
 # Exception for Module
-class _Xmlexportfile: 
-    class xmlexportfile(SfcparseError): __module__ = SfcparseError.set_module_name()
-
+class XmlExportFile(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Export xml file
@@ -30,11 +28,11 @@ def xmlexportfile(filename: str, data: __xml_etree.Element) -> None:
     __err_msg_str = f"Only str is allowed for filename"
     __err_msg_etree = f"Only Element is allowed for data"
 
-    if not isinstance(data, __xml_etree.Element): raise _Xmlexportfile.xmlexportfile(__err_msg_etree, f"\nDATA:{repr(data)}")
-    if not isinstance(filename, str): raise _Xmlexportfile.xmlexportfile(__err_msg_str, f"\nFILE:{repr(filename)}")
+    if not isinstance(filename, str): raise XmlExportFile(__err_msg_str, f'\nFILE: "{filename}"')
+    if not isinstance(data, __xml_etree.Element): raise XmlExportFile(__err_msg_etree, f"\nDATA: {data}")
 
     # Export Data
     try:
         data = xmlexportstr(data)
         exportfile(filename, data)
-    except FileNotFoundError as __err_msg: raise _Xmlexportfile.xmlexportfile(__err_msg, f'\nFILE:"{filename}"')
+    except FileNotFoundError as __err_msg: raise XmlExportFile(__err_msg, f'\nFILE: "{filename}"')
