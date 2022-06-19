@@ -10,7 +10,7 @@ file_delay_timer = 0.5
 
 
 # 1. JSON Data Import from str - Importing json data from str and test attributes
-def test1_json_str_export():
+def test1_json_str_import():
     filename = '1_import_data_str.json'
     filepath = test_file_path + filename    
 
