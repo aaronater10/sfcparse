@@ -5,9 +5,7 @@ from typing import Any as __Any
 from ..error import SfcparseError
 
 # Exception for Module
-class _Exportfile: 
-    class exportfile(SfcparseError): __module__ = SfcparseError.set_module_name()
-
+class ExportFile(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Export Data to File
@@ -30,8 +28,8 @@ def exportfile(filename: str, *data: __Any, byte_data: bool=False):
     __err_msg_type_bytes = "Only bool is allowed for byte_data"
     __err_msg_type_str = "Only str is allowed for filename"
 
-    if not isinstance(byte_data, bool): raise _Exportfile.exportfile(__err_msg_type_bytes, f'\nDATA: {byte_data}')
-    if not isinstance(filename, str): raise _Exportfile.exportfile(__err_msg_type_str, f'\nFILE:"{filename}"')
+    if not isinstance(byte_data, bool): raise ExportFile(__err_msg_type_bytes, f'\nDATA: {byte_data}')
+    if not isinstance(filename, str): raise ExportFile(__err_msg_type_str, f'\nFILE: "{filename}"')
 
     # Export data to new file
 
@@ -41,13 +39,14 @@ def exportfile(filename: str, *data: __Any, byte_data: bool=False):
             with open(filename, 'w') as f:
                 for data_to_write in data:
                     f.writelines(str(data_to_write))
-        except FileNotFoundError as __err_msg: raise _Exportfile.exportfile(__err_msg, f'\nFILE:"{filename}"')
+        except FileNotFoundError as __err_msg: raise ExportFile(__err_msg, f'\nFILE: "{filename}"')
+    
     # Byte Data Converted to File
     if byte_data:
         for data_to_write in data:
-            if not isinstance(data_to_write, bytes): raise _Exportfile.exportfile(__err_msg_bytes, f'\nDATA: {data}')
+            if not isinstance(data_to_write, bytes): raise ExportFile(__err_msg_bytes, f'\nDATA: {data}')
         try:
             with open(filename, 'wb') as f:
                 for data_to_write in data:
                     f.write(data_to_write)
-        except FileNotFoundError as __err_msg: raise _Exportfile.exportfile(__err_msg, f'\nFILE:"{filename}"')
+        except FileNotFoundError as __err_msg: raise ExportFile(__err_msg, f'\nFILE: "{filename}"')

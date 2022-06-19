@@ -5,9 +5,7 @@ import xml.etree.ElementTree as __xml_etree
 from ..error import SfcparseError
 
 # Exception for Module
-class _Xmlimportstr: 
-    class xmlimportstr(SfcparseError): __module__ = SfcparseError.set_module_name()
-
+class XmlImportStr(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Import xml str
@@ -26,7 +24,7 @@ def xmlimportstr(data: str) -> __xml_etree.Element:
     """
     __err_msg_str = f"Only str is allowed for data"
 
-    if not isinstance(data, str): raise _Xmlimportstr.xmlimportstr(__err_msg_str, f'\nDATA: {repr(data)}')
+    if not isinstance(data, str): raise XmlImportStr(__err_msg_str, f'\nDATA: {repr(data)}')
     try:
         return __xml_etree.fromstring(str(data))
-    except __xml_etree.ParseError as __err_msg: raise _Xmlimportstr.xmlimportstr(__err_msg, f'\nDATA: {data}')
+    except __xml_etree.ParseError as __err_msg: raise XmlImportStr(__err_msg, f'\nDATA: {data}')

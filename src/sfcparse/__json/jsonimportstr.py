@@ -3,19 +3,18 @@
 # Imports
 import json as __json
 from ..error import SfcparseError
+from typing import Union
 
 # Exception for Module
-class _Jsonimportstr: 
-    class jsonimportstr(SfcparseError): __module__ = SfcparseError.set_module_name()
-
+class JsonImportStr(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Import json string
-def jsonimportstr(json_str_data: str) -> dict:
+def jsonimportstr(json_str_data: str) -> Union[list, dict, str, int, float, bool, None]:
     """
     Imports json data from a string
 
-    Returns a dict. Assign the output to var
+    Returns data with matching python data type. Assign the output to var
 
     Enter json string as str to import.
 
@@ -29,7 +28,7 @@ def jsonimportstr(json_str_data: str) -> dict:
     # Import json string    
     try:
         return __json.loads(json_str_data)
-    except __json.decoder.JSONDecodeError as __err_msg: raise _Jsonimportstr.jsonimportstr(__err_msg, f'\nDATA:"{json_str_data}"')
-    except TypeError as __err_msg: raise _Jsonimportstr.jsonimportstr(__err_msg, f'\nDATA:"{json_str_data}"')
-    except ValueError as __err_msg: raise _Jsonimportstr.jsonimportstr(__err_msg, f'\nDATA:"{json_str_data}"')
+    except __json.decoder.JSONDecodeError as __err_msg: raise JsonImportStr(__err_msg, f'\nDATA: {json_str_data}')
+    except TypeError as __err_msg: raise JsonImportStr(__err_msg, f'\nDATA: {json_str_data}')
+    except ValueError as __err_msg: raise JsonImportStr(__err_msg, f'\nDATA: {json_str_data}')
 

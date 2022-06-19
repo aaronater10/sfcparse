@@ -5,9 +5,7 @@ from typing import Union as __Union
 from ..error import SfcparseError
 
 # Exception for Module
-class _Cleanformat: 
-    class cleanformat(SfcparseError): __module__ = SfcparseError.set_module_name()
-
+class CleanFormat(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Format/Prep Dictionary, List, Tuple, or Set Data for Export
@@ -32,7 +30,7 @@ def cleanformat(datatype: __Union[dict,list,tuple,set], indent_level: int=1) -> 
 
     # Set indent level
     if not isinstance(indent_level, int):
-        raise _Cleanformat.cleanformat(__err_indent, f'"{indent_level}"')
+        raise CleanFormat(__err_indent, f'"{indent_level}"')
     indent_level = '\t'*indent_level
 
     # Format Data Type and Return as str
@@ -68,4 +66,4 @@ def cleanformat(datatype: __Union[dict,list,tuple,set], indent_level: int=1) -> 
 
     # Raise Error
     else:
-        raise _Cleanformat.cleanformat(__err_type, f'"{datatype}"')
+        raise CleanFormat(__err_type, f'"{datatype}"')

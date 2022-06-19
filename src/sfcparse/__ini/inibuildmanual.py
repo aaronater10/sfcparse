@@ -4,7 +4,6 @@
 from configparser import ConfigParser as __ConfigParser
 from configparser import ExtendedInterpolation as __ExtendedInterpolation
 
-
 #########################################################################################################
 # Build manual ini data
 def inibuildmanual() -> __ConfigParser:

@@ -5,9 +5,7 @@ from configparser import ConfigParser as __ConfigParser
 from ..error import SfcparseError
 
 # Exception for Module
-class _Iniexportfile: 
-    class iniexportfile(SfcparseError): __module__ = SfcparseError.set_module_name()
-
+class IniExportFile(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Export ini file
@@ -34,10 +32,10 @@ def iniexportfile(filename: str, data: __dummy_ini.ini_data) -> None:
     __err_msg_parser = f"Invalid data to export, type, or nothing specified"
         
     if not isinstance(data, __ConfigParser):
-        raise _Iniexportfile.iniexportfile(__err_msg_parser, f'\nFILE:"{filename}" \nDATA:{data}')
+        raise IniExportFile(__err_msg_parser, f'\nFILE: "{filename}" \nDATA: {data}')
     try:
         with open(filename, 'w') as f:
             data.write(f)
-    except TypeError as __err_msg: raise _Iniexportfile.iniexportfile(__err_msg, f'\nFILE:"{filename}" \nDATA:{data}')
-    except ValueError as __err_msg: raise _Iniexportfile.iniexportfile(__err_msg, f'\nFILE:"{filename}" \nDATA:{data}')
-    except FileNotFoundError as __err_msg: raise _Iniexportfile.iniexportfile(__err_msg, f'\nFILE:"{filename}"')
+    except TypeError as __err_msg: raise IniExportFile(__err_msg, f'\nFILE: "{filename}" \nDATA: {data}')
+    except ValueError as __err_msg: raise IniExportFile(__err_msg, f'\nFILE: "{filename}" \nDATA: {data}')
+    except FileNotFoundError as __err_msg: raise IniExportFile(__err_msg, f'\nFILE: "{filename}"')

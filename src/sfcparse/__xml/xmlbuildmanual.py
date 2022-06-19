@@ -3,7 +3,6 @@
 # Imports
 import xml.etree.ElementTree as __xml_etree
 
-
 #########################################################################################################
 # Build manual xml data
 def xmlbuildmanual() -> __xml_etree:

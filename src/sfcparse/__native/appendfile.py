@@ -6,9 +6,7 @@ from os import path as __path
 from ..error import SfcparseError
 
 # Exception for Module
-class _Appendfile: 
-    class appendfile(SfcparseError): __module__ = SfcparseError.set_module_name()
-
+class AppendFile(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Append Data to File
@@ -28,7 +26,7 @@ def appendfile(filename: str, *data: __Any):
     # Check if file empty. Throws error if file not found
     try: 
         if __path.getsize(filename) == 0: __new_line = ''
-    except FileNotFoundError as __err_msg: raise _Appendfile.appendfile(__err_msg, f'"{filename}"')
+    except FileNotFoundError as __err_msg: raise AppendFile(__err_msg, f'\nFILE: "{filename}"')
 
     with open(filename, 'a') as f:
         for data_to_write in data:

@@ -1,22 +1,20 @@
 # yamlimportfile
 #########################################################################################################
 # Imports
-from os import path as __path
+from typing import Any as __Any
 import yaml as __yaml
 from ..error import SfcparseError
 
 # Exception for Module
-class _Yamlimportfile: 
-    class yamlimportfile(SfcparseError): __module__ = SfcparseError.set_module_name()
-
+class YamlImportFile(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Import yaml file
-def yamlimportfile(filename: str) -> dict:
+def yamlimportfile(filename: str) -> __Any:
     """
     Imports yaml data from a file.
 
-    Returns a dict. Assign the output to var
+    Returns data with matching python data type. Assign the output to var
 
     Enter yaml file location as str to import.
 
@@ -31,12 +29,10 @@ def yamlimportfile(filename: str) -> dict:
     # Import yaml file
     try:
         with open(filename, 'r') as f:
-            # Check if file empty. Returns empty dict if empty
-            if __path.getsize(filename) == 0:                
-                return None
             return __yaml.safe_load(f)
-    except FileNotFoundError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'\nFILE: "{filename}"')
-    except OSError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'\nFILE: "{filename}"')
-    except __yaml.scanner.ScannerError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'\nFILE: "{filename}"')
-    except ValueError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'\nFILE: "{filename}"')
-    except TypeError as __err_msg: raise _Yamlimportfile.yamlimportfile(__err_msg, f'\nFILE: "{filename}"')
+    except FileNotFoundError as __err_msg: raise YamlImportFile(__err_msg, f'\nFILE: "{filename}"')
+    except OSError as __err_msg: raise YamlImportFile(__err_msg, f'\nFILE: "{filename}"')
+    except __yaml.scanner.ScannerError as __err_msg: raise YamlImportFile(__err_msg, f'\nFILE: "{filename}"')
+    except __yaml.parser.ParserError as __err_msg: raise YamlImportFile(__err_msg, f'\nFILE: "{filename}"')
+    except ValueError as __err_msg: raise YamlImportFile(__err_msg, f'\nFILE: "{filename}"')
+    except TypeError as __err_msg: raise YamlImportFile(__err_msg, f'\nFILE: "{filename}"')

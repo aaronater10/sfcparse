@@ -2,7 +2,7 @@
 Simple File Configuration Parse - by aaronater10
 More info: https://github.com/aaronater10/sfcparse
 
-Version 1.1.3
+Version 1.2.0
 
 The easy to use library for data and configuration files.
 
@@ -34,7 +34,9 @@ from .__json.jsonexportstr import jsonexportstr
 
 # YAML Lib
 from .__yaml.yamlimportfile import yamlimportfile
+from .__yaml.yamlimportstr import yamlimportstr
 from .__yaml.yamlexportfile import yamlexportfile
+from .__yaml.yamlexportstr import yamlexportstr
 
 # INI Lib
 from .__ini.iniimportfile import iniimportfile
