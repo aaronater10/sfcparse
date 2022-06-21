@@ -15,7 +15,7 @@ Import or Export **custom**, or **industry-common**, data, config, and save file
 
 **Use python data types for your data** (literally use python data types as stored values importing them securely vs just importing a .py file) **in any text file**.
 
-Additionally supports **json**, **yaml**, **ini**, **xml** using the common & native libraries.
+Additionally supports **json**, **yaml**, **ini**, **xml** using the common & native libraries with the idea of simpler abstraction.
 
 Use built-in features for easily formatting your data and other quick and easy tools like getting the hash of a file.
 
