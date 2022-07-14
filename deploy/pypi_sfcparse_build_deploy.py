@@ -38,9 +38,9 @@ try:
     # Build Wheel from Setup, then Publish to PyPI
     subprocess.run(f"python3 -B setup.py {SFCPARSE_VERSION} sdist bdist_wheel", shell=True)
     subprocess.run(f'python3 -B -m twine upload --repository "sfcparse" dist/* --verbose', shell=True)
-    subprocess.run('echo "SUCCESS: sfcparse deployment"')
+    subprocess.run('echo "SUCCESS: sfcparse deployment"', shell=True)
 except:
-    subprocess.run('echo "FAILED: sfcparse deployment"')
+    subprocess.run('echo "FAILED: sfcparse deployment"', shell=True)
 finally:
     # Cleanup PyPI Config with API Token
-    subprocess.run(f"rm -f {USER_PYPI_CFG_FILE}")
+    subprocess.run(f"rm -f {USER_PYPI_CFG_FILE}", shell=True)

@@ -11,7 +11,7 @@ MODULES_INSTALLED = [PIP_NAME]
 
 # Descriptions
 DESCRIPTION = 'The easy to use library for your data, configuration, and save files'
-with open('.\\README.md', 'r') as f:
+with open('./README.md', 'r') as f:
     LONG_DESCRIPTION = f.read()
 
 # Main Setup Params
