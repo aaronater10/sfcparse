@@ -14,6 +14,9 @@ DESCRIPTION = 'The easy to use library for your data, configuration, and save fi
 with open('./README.md', 'r') as f:
     LONG_DESCRIPTION = f.read()
 
+# Remove Custom Args
+sys.argv.remove(sys.argv[1])
+
 # Main Setup Params
 setup(
     name=PIP_NAME,
