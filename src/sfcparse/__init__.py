@@ -1,16 +1,16 @@
 """
 Simple File Configuration Parse - by aaronater10
-More info: https://github.com/aaronater10/sfcparse
 
-Version 1.2.0
+Version 1.2.1
 
-The easy to use library for data and configuration files.
+The easy to use library for your data, configuration, and save files.
 
-Import or Export industry-common, or custom, data and config files for your python program or script!
-
-Contains features for easily formatting data and other quick and easy tools like getting the hash of a file.
+Import or Export custom, or industry-common, data, config, and save files easily for
+your python program or script!
 
 See tutorials and docs here for more info: https://docs.sfcparse.org
+
+Source Code: https://github.com/aaronater10/sfcparse
 """
 #########################################################################################################
 # Imports

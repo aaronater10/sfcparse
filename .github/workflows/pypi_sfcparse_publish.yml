@@ -63,7 +63,7 @@ jobs:
       env:
         DEPLOY_TOKEN: ${{ secrets.SFCPARSE_DEPLOY_PYPI_API_TOKEN }}
       run: |
-        python3 -B -m deploy/pypi_sfcparse_deploy.py "${DEPLOY_TOKEN}"
+        python3 -B -m deploy/pypi_sfcparse_build_deploy.py "${DEPLOY_TOKEN}"
   
 
   # Tests FAIL
