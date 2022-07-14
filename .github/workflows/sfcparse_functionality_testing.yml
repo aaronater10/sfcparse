@@ -1,14 +1,30 @@
-# This workflow will install Python dependencies, and run tests with a variety of Python versions
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+# sfcparse: Functionality QA Tests
 
+# This workflow will install python and dependencies, and run tests with a range of supported Python versions against different operating systems.
+
+# Python versions being tested: 3.6 - 3.10
+# OSes being tested: Windows-Latest, MacOS-Latest, Ubuntu-Latest
+# Triggered by Push, PR, or Manual run against "main" repo
+
+
+### Workflow ###
+
+# Workflow Name
 name: Functionality-QA-Tests
 
+# Trigger on Push, PR, and Manual
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
+  workflow_dispatch:
+    branches:
+      - '**'
 
+# Build Test Environment, then Run Tests
 jobs:
   build:
 
@@ -21,15 +37,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
+
+    - name: Install Dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install -r "requirements-dev.txt"
-    - name: Test with pytest
+        python3 -m pip install --upgrade pip
+        python3 -m pip install -r "requirements-dev.txt"
+
+    - name: Test with pytest Framework
       run: |
-        python3 -m pytest
-        
+        python3 -B -m pytest tests/
