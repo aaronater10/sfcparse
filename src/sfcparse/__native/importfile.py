@@ -36,7 +36,7 @@ class FileData:
         __start_markers = ('[','{','(')
         __end_markers = (']','}',')')
         __skip_markers = ('',' ','#','\n')
-        __assignment_operator_markers = ('=', '$=', '==')
+        __assignment_operator_markers = ('=', '$=', '==', '$==')
         __eof_marker = f[-1]
 
         # Main File Loop
@@ -116,9 +116,14 @@ class FileData:
                         if (self.__attrib_name_dedup) and (hasattr(self, __var_token)):
                             raise ImportFile(__name_preexists_err_msg, f'\nFILE: "{filename}" \nATTRIB_NAME: {__var_token}')
                         
-                        # Check if Attr is a Reference to Another Attr for Assignment
+                        # Check if Attr is a Reference to Another Attr's Value for Assignment
                         if __current_assignment_operator == __assignment_operator_markers[2]:
                             setattr(self, __var_token, getattr(self, __value_token))
+                            continue
+                        # Check if Attr is a Reference to Another Attr's Value for Assignment and Locked from Re-Assignment
+                        if __current_assignment_operator == __assignment_operator_markers[3]:
+                            setattr(self, __var_token, getattr(self, __value_token))
+                            self.__assignment_locked_attribs.append(__var_token)
                             continue
 
                         # Assign Attr
