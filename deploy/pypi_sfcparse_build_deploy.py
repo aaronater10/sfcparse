@@ -3,7 +3,7 @@ import os
 import subprocess
 
 # Setup
-SFCPARSE_VERSION = "1.2.1"
+SFCPARSE_VERSION = "1.3.0"
 DEPLOY_API_TOKEN = f"{sys.argv[1]}"
 USER_HOMEPATH = os.getenv('HOME')
 USER_PYPI_CFG_FILE = f"{USER_HOMEPATH}/.pypirc"
