@@ -295,5 +295,12 @@ class TestImportFile(unittest.TestCase):
 
         with self.assertRaises(Exception): file_import.data_set = change_value
         self.assertEqual(file_import.data_set, {1,2,3})
+    
+    # 15. Mixed Attr/Regular Imports - Confirm Importing Attribute Locked and Regular Values in One File
+    def test15_attr_lock_mixed_imports(self):
+        filename = '15_attr_lock_mixed_imports.data'
+        filepath = test_file_path + filename
 
-        
+        # Test File Import
+        sfcparse.importfile(filepath)
+       
