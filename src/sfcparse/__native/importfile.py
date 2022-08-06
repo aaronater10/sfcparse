@@ -24,6 +24,7 @@ class FileData:
         # Syntax/Usage Error Messages
         __py_syntax_err_msg = "Must have valid Python data types to import, or file's syntax is not formatted correctly"
         __name_preexists_err_msg = "Name already preexists. Must give unique attribute names in file"
+        __name_reference_does_not_exist = "Name reference does not exist! Must reference attribute names in file that have been defined"
         self.__assignment_locked_atrribs_err_msg = "Value Locked! Attribute cannot be reassigned"
         
         # Data Build Setup and Switches        
@@ -70,8 +71,17 @@ class FileData:
                     try: __end_token = __file_data_line[0]
                     except IndexError: __end_token = ''
                 
+                # Verify Assignment Operator is Not Attr Reference for Multiline Build Check
+                is_attr_reference_operator = False
+                if (__current_assignment_operator == __assignment_operator_markers[2]) \
+                or (__current_assignment_operator == __assignment_operator_markers[3]):
+                    is_attr_reference_operator = True
+                
                 # START BUILD: Check if value in file line is only Start Marker. Check if Multiline or Single Line
-                if (__value_token_multi in __start_markers) and ((__last_token in __start_markers) or (__start_skip_token[0] in __skip_markers)) and (__is_building_data_sw == False):
+                if (__value_token_multi in __start_markers) \
+                and ((__last_token in __start_markers) or (__start_skip_token[0] in __skip_markers)) \
+                and (__is_building_data_sw == False) \
+                and not (is_attr_reference_operator):
                     
                     if (self.__attrib_name_dedup) and (hasattr(self, __var_token)):
                             raise ImportFile(__name_preexists_err_msg, f'\nFILE: "{filename}" \nATTRIB_NAME: {__var_token}')
@@ -116,13 +126,13 @@ class FileData:
                         if (self.__attrib_name_dedup) and (hasattr(self, __var_token)):
                             raise ImportFile(__name_preexists_err_msg, f'\nFILE: "{filename}" \nATTRIB_NAME: {__var_token}')
                         
-                        # Check if Attr is a Reference to Another Attr's Value for Assignment
+                        # Check if Attr is a Reference to Another Attr's Value for Assignment. Ignore Comments
                         if __current_assignment_operator == __assignment_operator_markers[2]:
-                            setattr(self, __var_token, getattr(self, __value_token))
+                            setattr(self, __var_token, getattr(self, f"{__value_token} "[:__value_token.find(__skip_markers[2])].rstrip()))
                             continue
-                        # Check if Attr is a Reference to Another Attr's Value for Assignment and Locked from Re-Assignment
+                        # Check if Attr is a Reference to Another Attr's Value for Assignment and Locked from Re-Assignment. Ignore Comments
                         if __current_assignment_operator == __assignment_operator_markers[3]:
-                            setattr(self, __var_token, getattr(self, __value_token))
+                            setattr(self, __var_token, getattr(self, f"{__value_token} "[:__value_token.find(__skip_markers[2])].rstrip()))
                             self.__assignment_locked_attribs.append(__var_token)
                             continue
 
@@ -134,6 +144,13 @@ class FileData:
                             self.__assignment_locked_attribs.append(__var_token)
                         
                     except ValueError: raise ImportFile(__py_syntax_err_msg, f'\nFILE: "{filename}"')
+                    except AttributeError:
+                        
+                        # REF_NAME: Ignores Comments to Display Attr Reference Name
+                        raise ImportFile(
+                            __name_reference_does_not_exist,
+                            f'\nFILE: "{filename}" \nATTRIB_NAME: {__var_token} \nREF_NAME: {f"{__value_token} "[:__value_token.find(__skip_markers[2])].rstrip()}'
+                        )
             
             else: raise ImportFile(__py_syntax_err_msg, f'\nFILE: "{filename}"')
     
