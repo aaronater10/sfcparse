@@ -106,7 +106,7 @@ class FileData:
                         if __current_assignment_operator == __assignment_operator_markers[1]:
                             self.__assignment_locked_attribs.append(__var_token)
 
-                    except SyntaxError: raise ImportFile(__py_syntax_err_msg, f'\nFILE: "{filename}"')
+                    except SyntaxError: raise ImportFile(__py_syntax_err_msg, f'\nFILE: "{filename}" \nATTRIB_NAME: {__var_token}')
 
                     # Turn OFF Data Build Switches
                     __is_building_data_sw = False
@@ -143,15 +143,15 @@ class FileData:
                         if __current_assignment_operator == __assignment_operator_markers[1]:
                             self.__assignment_locked_attribs.append(__var_token)
                         
-                    except ValueError: raise ImportFile(__py_syntax_err_msg, f'\nFILE: "{filename}"')
+                    except ValueError: raise ImportFile(__py_syntax_err_msg, f'\nFILE: "{filename}" \nATTRIB_NAME: {__var_token}')
                     except AttributeError:
-                        
                         # REF_NAME: Ignores Comments to Display Attr Reference Name
                         raise ImportFile(
                             __name_reference_does_not_exist,
                             f'\nFILE: "{filename}" \nATTRIB_NAME: {__var_token} \nREF_NAME: {f"{__value_token} "[:__value_token.find(__skip_markers[2])].rstrip()}'
                         )
-            
+                    except SyntaxError: raise ImportFile(__py_syntax_err_msg, f'\nFILE: "{filename}" \nATTRIB_NAME: {__var_token}')
+
             else: raise ImportFile(__py_syntax_err_msg, f'\nFILE: "{filename}"')
     
 
