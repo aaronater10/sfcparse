@@ -4,7 +4,7 @@ data_list_multi $= [
     2,
     3
 ]
-data_dict = {
+data_dict_multi = {
     'k1': 1,
     'k2': 2,
     'k3': 3
@@ -12,12 +12,12 @@ data_dict = {
 data_float $= 1.0
 data_bool $= True
 data_list = [1,2,3]
-data_tuple = (
+data_tuple_multi = (
     1,
     2,
     3
 )
-data_set $= {
+data_set_multi $= {
     1,
     2,
     3
