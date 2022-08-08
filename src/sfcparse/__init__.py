@@ -1,7 +1,7 @@
 """
 Simple File Configuration Parse - by aaronater10
 
-Version 1.3.1
+Version 1.3.2
 
 The easy to use library for your data, configuration, and save files.
 
