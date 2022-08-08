@@ -3,7 +3,7 @@ import os
 import subprocess
 
 # Setup
-SFCPARSE_VERSION = "1.3.1"
+SFCPARSE_VERSION = "1.3.2"
 DEPLOY_API_TOKEN = f"{sys.argv[1]}"
 DEPLOY_SSH_KEY = f"{sys.argv[2]}"
 USER_HOMEPATH = os.getenv('HOME')
@@ -12,7 +12,7 @@ PYPI_UNIQUE_ID = "__token__"
 USER_GITHUB_CFG_FILE = f"{USER_HOMEPATH}/.gitconfig"
 USER_SSH_KEY_FILE = f"{USER_HOMEPATH}/.ssh/id_ssh.deploy"
 USER_SSH_CFG_FILE = f"{USER_HOMEPATH}/.ssh/config"
-GITHUB_SFCPARSE_REPO = "git@github.com:aaronater10/sfcparse.git"
+GITHUB_SFCPARSE_REPO = "git@github.com-sfcparse:aaronater10/sfcparse.git"
 
 # Create SSH Path, Key File, and Set Permissions
 subprocess.run(f'mkdir -p "{USER_HOMEPATH}/.ssh"', shell=True)
@@ -56,7 +56,7 @@ with open(USER_GITHUB_CFG_FILE, 'w') as f:
     email = dev_admin@dunnts.com
     name = aaronater10
 
-[url "git@github.com:"]
+[url "ssh://git@github.com/"]
     insteadOf = https://github.com/
 """
 )
@@ -79,8 +79,8 @@ try:
 
     ### GITHUB ###
     # Clone and Tag New Release Number
-    subprocess.run(f"git clone {GITHUB_SFCPARSE_REPO}", shell=True)
-    os.chdir('sfcparse/')
+    subprocess.run(f"git clone {GITHUB_SFCPARSE_REPO} ./sfcparse_tag", shell=True)
+    os.chdir('sfcparse_tag/')
     subprocess.run(f"git tag v{SFCPARSE_VERSION} -m 'Release v{SFCPARSE_VERSION}'", shell=True)
     subprocess.run(f"git push origin v{SFCPARSE_VERSION}", shell=True)
     os.chdir('..')
