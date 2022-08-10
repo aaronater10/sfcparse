@@ -11,7 +11,7 @@ class ImportFile(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Import py Data from File
-class FileData:
+class SfcparseFileData:
     def __init__(self, filename: str, attrib_name_dedup: bool):
         # '__assignment_locked_attribs' MUST BE FIRST INIT ASSIGNMENT
         self.__assignment_locked_attribs = []
@@ -172,7 +172,7 @@ class FileData:
             raise ImportFile(self.__assignment_locked_atrribs_err_msg, f'\nATTRIB_NAME: "{_name}"')
 
 
-def importfile(filename: str, attrib_name_dedup: bool=True) -> 'FileData':
+def importfile(filename: str, attrib_name_dedup: bool=True) -> 'SfcparseFileData':
     """
     Imports saved python data from any text file.
 
@@ -201,4 +201,4 @@ def importfile(filename: str, attrib_name_dedup: bool=True) -> 'FileData':
     except FileNotFoundError as __err_msg: raise ImportFile(__err_msg, f'\nFILE: "{filename}"')
 
     # Return Final Import
-    return FileData(filename, attrib_name_dedup)
+    return SfcparseFileData(filename, attrib_name_dedup)
