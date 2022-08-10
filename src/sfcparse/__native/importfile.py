@@ -15,6 +15,7 @@ class SfcparseFileData:
     def __init__(self, filename: str, attrib_name_dedup: bool):
         # '__assignment_locked_attribs' MUST BE FIRST INIT ASSIGNMENT
         self.__assignment_locked_attribs = []
+        self.__assignment_reference_attribs = {}
         self.__attrib_name_dedup = attrib_name_dedup
 
         # Open and Import Config File into Class Object then return the object        
@@ -128,11 +129,15 @@ class SfcparseFileData:
                         
                         # Check if Attr is a Reference to Another Attr's Value for Assignment. Ignore Comments
                         if __current_assignment_operator == __assignment_operator_markers[2]:
-                            setattr(self, __var_token, getattr(self, f"{__value_token} "[:__value_token.find(__skip_markers[2])].rstrip()))
+                            __value_token = f"{__value_token} "[:__value_token.find(__skip_markers[2])].rstrip()
+                            self.__assignment_reference_attribs[__var_token] = __value_token
+                            setattr(self, __var_token, getattr(self, __value_token))
                             continue
                         # Check if Attr is a Reference to Another Attr's Value for Assignment and Locked from Re-Assignment. Ignore Comments
                         if __current_assignment_operator == __assignment_operator_markers[3]:
-                            setattr(self, __var_token, getattr(self, f"{__value_token} "[:__value_token.find(__skip_markers[2])].rstrip()))
+                            __value_token = f"{__value_token} "[:__value_token.find(__skip_markers[2])].rstrip()
+                            self.__assignment_reference_attribs[__var_token] = __value_token
+                            setattr(self, __var_token, getattr(self, __value_token))
                             self.__assignment_locked_attribs.append(__var_token)
                             continue
 
