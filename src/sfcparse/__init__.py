@@ -18,6 +18,7 @@ Source Code: https://github.com/aaronater10/sfcparse
 # Native Lib
 from .__native.importfile import importfile
 from .__native.importfileraw import importfileraw
+from .__native.importattrs import importattrs
 from .__native.exportfile import exportfile
 from .__native.appendfile import appendfile
 from .__native.cleanformat import cleanformat

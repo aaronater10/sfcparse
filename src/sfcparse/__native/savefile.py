@@ -2,7 +2,6 @@
 #########################################################################################################
 # Imports
 from ast import literal_eval as __literal_eval__
-from os import path as __path
 from typing import Union as __Union
 from ..error import SfcparseError
 from .importfile import SfcparseFileData as __SfcparseFileData
@@ -15,9 +14,12 @@ class SaveFile(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Save Data to File
+class __SfcparseDummy:
+    class Class: """dummy class for hinting"""
+
 def savefile(
     filename: str, 
-    data: __Union['__SfcparseFileData', dict], 
+    data: __Union['__SfcparseFileData', dict, '__SfcparseDummy.Class'], 
     write_mode: str = 'w',
     indent_level: int = 1,
     indentation_on: bool = True
@@ -33,7 +35,7 @@ def savefile(
     __locked_attr_list_key =  '_SfcparseFileData__assignment_locked_attribs'
     __reference_attr_list_key =  '_SfcparseFileData__assignment_reference_attribs'
 
-    # Check if SfcparseFileData
+    ### SFCPARSE FILE DATA: Check if SfcparseFileData ###
     if isinstance(data, __SfcparseFileData):
         # Build Data
         for key,value in data.__dict__.items():
@@ -62,7 +64,7 @@ def savefile(
                 else: __build_data_output += f'{key} {__assignment_operators[0]} {repr(value)}\n'
 
         # Strip Last \n Char
-        __build_data_output = __build_data_output[:-1]
+        __build_data_output = __build_data_output.rstrip()
 
         # Write New File Mode
         if write_mode == 'w':
@@ -73,7 +75,8 @@ def savefile(
 
         return None
 
-    # Check if dict
+
+    ### DICT: Check if dict ###
     if isinstance(data, dict):
         # Build Data
         for key,value in data.items():
@@ -87,7 +90,7 @@ def savefile(
             __build_data_output += f'{key} {__assignment_operators[0]} {repr(value)}\n'
 
         # Strip Last \n Char
-        __build_data_output = __build_data_output[:-1]
+        __build_data_output = __build_data_output.rstrip()
 
         # Write New File Mode
         if write_mode == 'w':
@@ -98,9 +101,46 @@ def savefile(
 
         return None
 
+
+    ### CLASS: Check if any Class Object with Attributes
+    if (not isinstance(data, str)) \
+    and (not isinstance(data, int)) \
+    and (not isinstance(data, float)) \
+    and (not isinstance(data, bool)) \
+    and (not isinstance(data, list)) \
+    and (not isinstance(data, tuple)) \
+    and (not isinstance(data, set)) \
+    and (not isinstance(data, type(None))) \
+    and (not isinstance(data, bytes)) \
+    and (not isinstance(data, complex)) \
+    and (not isinstance(data, range)) \
+    and (not isinstance(data, frozenset)) \
+    and (not isinstance(data, bytearray)) \
+    and (not isinstance(data, memoryview)):
+        # Build Data
+        for key,value in data.__dict__.items():            
+            # Normal Assignment
+            if __multiline_check(value) and indentation_on:
+                value = __cleanformat(value, indent_level)
+                __build_data_output += f'{key} {__assignment_operators[0]} {value}\n'
+            else: __build_data_output += f'{key} {__assignment_operators[0]} {repr(value)}\n'
+
+        # Strip Last \n Char
+        __build_data_output = __build_data_output.rstrip()
+
+        # Write New File Mode
+        if write_mode == 'w':
+            __exportfile(filename, __build_data_output)
+        # Append Append File Mode
+        if write_mode == 'a':
+            __appendfile(filename, __build_data_output)
+
+        return None
+
+
     # Report if required types not correct
 
-
+#########################################################################################################
 # Functions
 def __multiline_check(data: __Union[list, dict, tuple, set]) -> bool:
     if isinstance(data, list) \
