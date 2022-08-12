@@ -15,6 +15,10 @@ class SfcparseFileData:
         self.__assignment_reference_attribs = {}
         self.__attrib_name_dedup = attrib_name_dedup
 
+        # One Time Generated using UUID4 mode from UUID Library.
+        # This helps authenticity of SfcparseFileData Object for Development aid
+        self.__sfcparse_file_format_id__ = "a55acb6b-f87b-4f89-ad11-c9d23eb1307d-7797537e-fb5d-4c69-b84f-2b4da59c04c1"
+
         # Open and Import Config File into Class Object then return the object        
         with open(filename, 'r') as f:
             f = f.read().splitlines()

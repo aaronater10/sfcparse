@@ -37,18 +37,22 @@ def savefile(
     if not isinstance(indent_level, int): raise SaveFile(__err_msg_type_int_indent_level, f'\nFILE: "{filename}" \nDATA: {indent_level}')
     if not isinstance(indentation_on, bool): raise SaveFile(__err_msg_type_bool_indentation_on, f'\nFILE: "{filename}" \nDATA: {indentation_on}')
 
-    
+
     # Save Data to File
     __build_data_output = ""
     __assignment_operators = ('=', '$=', '==', '$==')
-    __skip_object_key = '_SfcparseFileData'
+    __skip_object_key = ('_SfcparseFileData', '__sfcparse_file_format_id')
     __locked_attr_list_key =  '_SfcparseFileData__assignment_locked_attribs'
     __reference_attr_list_key =  '_SfcparseFileData__assignment_reference_attribs'
+    __sfcparse_file_format_id_match = "a55acb6b-f87b-4f89-ad11-c9d23eb1307d-7797537e-fb5d-4c69-b84f-2b4da59c04c1"
+
 
     ### SFCPARSE FILE DATA: Check if SfcparseFileData ###
-    if isinstance(data, __SfcparseFileData):
-        # Build Data
+
+    # Build Out Data
+    if (isinstance(data, __SfcparseFileData)) and (data.__sfcparse_file_format_id__ == __sfcparse_file_format_id_match):
         for key,value in data.__dict__.items():
+            # If Match Prefixes, Skip
             if not key.startswith(__skip_object_key):
                 # Check Operator Type and Build Accordingly
 
@@ -154,6 +158,7 @@ def __multiline_check(data: __Union[list, dict, tuple, set]) -> bool:
     or isinstance(data, set):
         return True
     return False
+
 
 # Write File Data
 def __write_file_data(filename: str, data: __Any, write_mode: str) -> None:
