@@ -3,7 +3,8 @@
 # Imports
 from ast import literal_eval as __literal_eval__
 from typing import Union as __Union
-from ..error import SaveFile
+from typing import Any as __Any
+from ..error import SaveFile, ExportFile, AppendFile
 from .importfile import SfcparseFileData as __SfcparseFileData
 from .exportfile import exportfile as __exportfile
 from .appendfile import appendfile as __appendfile
@@ -24,6 +25,18 @@ def savefile(
     """
     savefile
     """
+    # Error Checks
+    __err_msg_general_error = "Error has occurred and cannot proceed"
+    __err_msg_type_str_filename = "Only str is allowed for filename"
+    __err_msg_type_str_write_mode = "Only str is allowed for write_mode"
+    __err_msg_type_int_indent_level = "Only int is allowed for indent_level"
+    __err_msg_type_bool_indentation_on = "Only bool is allowed for indentation_on"
+
+    if not isinstance(filename, str): raise SaveFile(__err_msg_type_str_filename, f'\nFILE: "{filename}"')
+    if not isinstance(write_mode, str): raise SaveFile(__err_msg_type_str_write_mode, f'\nFILE: "{filename}" \nDATA: {write_mode}')
+    if not isinstance(indent_level, int): raise SaveFile(__err_msg_type_int_indent_level, f'\nFILE: "{filename}" \nDATA: {indent_level}')
+    if not isinstance(indentation_on, bool): raise SaveFile(__err_msg_type_bool_indentation_on, f'\nFILE: "{filename}" \nDATA: {indentation_on}')
+
     
     # Save Data to File
     __build_data_output = ""
@@ -63,12 +76,8 @@ def savefile(
         # Strip Last \n Char
         __build_data_output = __build_data_output.rstrip()
 
-        # Write New File Mode
-        if write_mode == 'w':
-            __exportfile(filename, __build_data_output)
-        # Append Append File Mode
-        if write_mode == 'a':
-            __appendfile(filename, __build_data_output)
+        # Write File Data
+        __write_file_data(filename, __build_data_output, write_mode)
 
         return None
 
@@ -89,12 +98,8 @@ def savefile(
         # Strip Last \n Char
         __build_data_output = __build_data_output.rstrip()
 
-        # Write New File Mode
-        if write_mode == 'w':
-            __exportfile(filename, __build_data_output)
-        # Append Append File Mode
-        if write_mode == 'a':
-            __appendfile(filename, __build_data_output)
+        # Write File Data
+        __write_file_data(filename, __build_data_output, write_mode)
 
         return None
 
@@ -125,21 +130,24 @@ def savefile(
         # Strip Last \n Char
         __build_data_output = __build_data_output.rstrip()
 
-        # Write New File Mode
-        if write_mode == 'w':
-            __exportfile(filename, __build_data_output)
-        # Append Append File Mode
-        if write_mode == 'a':
-            __appendfile(filename, __build_data_output)
+        # Write File Data
+        __write_file_data(filename, __build_data_output, write_mode)
 
         return None
 
 
-    # Report if required types not correct
+    # Report if Error not Definable
+    raise SaveFile(__err_msg_general_error, f'\nDATA: {data}')
+
 
 #########################################################################################################
 # Functions
+
+# Multiline Check
 def __multiline_check(data: __Union[list, dict, tuple, set]) -> bool:
+    """
+    Check if Multiline Type to Assist for Indentation
+    """
     if isinstance(data, list) \
     or isinstance(data, dict) \
     or isinstance(data, tuple) \
@@ -147,3 +155,22 @@ def __multiline_check(data: __Union[list, dict, tuple, set]) -> bool:
         return True
     return False
 
+# Write File Data
+def __write_file_data(filename: str, data: __Any, write_mode: str) -> None:
+    """
+    Write New or Append Data to File
+    """
+    __err_msg_write_mode = 'Bad write mode'
+    __write_mode_allowed_list = ['w', 'a']
+    try:
+        # Write New File Mode
+        if write_mode == 'w':
+            __exportfile(filename, data)
+        # Append Append File Mode
+        if write_mode == 'a':
+            __appendfile(filename, data)        
+        # Raise Exception if No Match
+        if not write_mode in __write_mode_allowed_list:
+            raise SaveFile(__err_msg_write_mode, f'\nFILE: "{filename}" \nDATA: {write_mode}')
+    except ExportFile as __err: raise SaveFile(__err, '')
+    except AppendFile as __err: raise SaveFile(__err, '')
