@@ -15,6 +15,9 @@ Source Code: https://github.com/aaronater10/sfcparse
 #########################################################################################################
 # Imports
 
+# Base Exceptions
+from . import error
+
 # Native Lib
 from .__native.importfile import importfile
 from .__native.importfileraw import importfileraw

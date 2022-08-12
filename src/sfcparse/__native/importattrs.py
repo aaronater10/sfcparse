@@ -1,11 +1,8 @@
 # importattrs
 #########################################################################################################
 # Imports
-from ..error import SfcparseError
+from ..error import ImportAttrs
 from .importfile import importfile as __importfile
-
-# Exception for Module
-class ImportAttrs(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Import Attributes from File

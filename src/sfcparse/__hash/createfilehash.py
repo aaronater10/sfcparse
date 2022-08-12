@@ -5,10 +5,7 @@ from ..__native.importfileraw import importfileraw
 from ..__native.exportfile import exportfile
 from typing import Union as __Union
 import hashlib as __hashlib
-from ..error import SfcparseError
-
-# Exception for Module
-class CreateFileHash(SfcparseError): __module__ = SfcparseError.set_module_name()
+from ..error import CreateFileHash
 
 #########################################################################################################
 # Create file hash

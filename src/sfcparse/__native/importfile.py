@@ -4,10 +4,7 @@
 from ast import literal_eval as __literal_eval__
 from os import path as __path
 from typing import Any as _Any
-from ..error import SfcparseError
-
-# Exception for Module
-class ImportFile(SfcparseError): __module__ = SfcparseError.set_module_name()
+from ..error import ImportFile
 
 #########################################################################################################
 # Import py Data from File

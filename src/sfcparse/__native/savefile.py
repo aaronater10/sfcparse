@@ -3,14 +3,11 @@
 # Imports
 from ast import literal_eval as __literal_eval__
 from typing import Union as __Union
-from ..error import SfcparseError
+from ..error import SaveFile
 from .importfile import SfcparseFileData as __SfcparseFileData
 from .exportfile import exportfile as __exportfile
 from .appendfile import appendfile as __appendfile
 from .cleanformat import cleanformat as __cleanformat
-
-# Exception for Module
-class SaveFile(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Save Data to File

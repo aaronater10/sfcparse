@@ -3,10 +3,7 @@
 # Imports
 from configparser import ConfigParser as __ConfigParser
 from configparser import ExtendedInterpolation as __ExtendedInterpolation
-from ..error import SfcparseError
-
-# Exception for Module
-class IniBuildAuto(SfcparseError): __module__ = SfcparseError.set_module_name()
+from ..error import IniBuildAuto
 
 #########################################################################################################
 # Auto Build ini data

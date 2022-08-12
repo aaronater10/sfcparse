@@ -2,10 +2,7 @@
 #########################################################################################################
 # Imports
 from typing import Any as __Any
-from ..error import SfcparseError
-
-# Exception for Module
-class ExportFile(SfcparseError): __module__ = SfcparseError.set_module_name()
+from ..error import ExportFile
 
 #########################################################################################################
 # Export Data to File

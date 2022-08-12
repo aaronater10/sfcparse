@@ -2,10 +2,7 @@
 #########################################################################################################
 # Imports
 import xml.etree.ElementTree as __xml_etree
-from ..error import SfcparseError
-
-# Exception for Module
-class XmlExportStr(SfcparseError): __module__ = SfcparseError.set_module_name()
+from ..error import XmlExportStr
 
 #########################################################################################################
 # Export xml str
