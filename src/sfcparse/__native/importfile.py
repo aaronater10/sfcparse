@@ -131,14 +131,14 @@ class SfcparseFileData:
                         # Check if Attr is a Reference to Another Attr's Value for Assignment. Ignore Comments
                         if __current_assignment_operator == __assignment_operator_markers[2]:
                             __value_token = f"{__value_token} "[:__value_token.find(__skip_markers[2])].rstrip()
-                            self.__assignment_reference_attribs[__var_token] = __value_token
                             setattr(self, __var_token, getattr(self, __value_token))
+                            self.__assignment_reference_attribs[__var_token] = __value_token
                             continue
                         # Check if Attr is a Reference to Another Attr's Value for Assignment and Locked from Re-Assignment. Ignore Comments
                         if __current_assignment_operator == __assignment_operator_markers[3]:
                             __value_token = f"{__value_token} "[:__value_token.find(__skip_markers[2])].rstrip()
-                            self.__assignment_reference_attribs[__var_token] = __value_token
                             setattr(self, __var_token, getattr(self, __value_token))
+                            self.__assignment_reference_attribs[__var_token] = __value_token
                             self.__assignment_locked_attribs.append(__var_token)
                             continue
 
@@ -166,6 +166,10 @@ class SfcparseFileData:
         if _name in self.__dict__:
             _orig_value = self.__dict__.get(_name)
             
+        # Release Attribute Reference if Name is Re-Assigned
+        if _name in self.__dict__:
+            self.__reference_deletion_check(_name)
+
         # Always Assign Value 
         self.__dict__[_name] = _new_value
 
@@ -212,10 +216,20 @@ class SfcparseFileData:
         if not self.__dict__.get(attr_name): raise GeneralError(__err_msg_attr_name_exist, f'\nATTR_NAME: "{attr_name}"')
         if not self.__dict__.get(reference_name): raise GeneralError(__err_msg_reference_name_exist, f'\nATTR_NAME: "{reference_name}"')
 
-        # Assign Attr Name to Reference Name in Reference Dict
-        self.__assignment_reference_attribs[attr_name] = reference_name
         # Set Value to Reference Value
         setattr(self, attr_name, getattr(self, reference_name))
+    
+        # Assign Attr Name to Reference Name in Reference Dict
+        self.__assignment_reference_attribs[attr_name] = reference_name
+
+
+    def __reference_deletion_check(self, _name: str):
+        """
+        Internal method: check if reference requires deletion from reference list
+        if attribute is attempted to be re-assigned
+        """
+        if _name in self.__assignment_reference_attribs.keys():
+            self.__assignment_reference_attribs.pop(_name, None)
 
 
 def importfile(filename: str, attrib_name_dedup: bool=True) -> 'SfcparseFileData':
