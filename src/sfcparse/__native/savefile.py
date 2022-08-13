@@ -55,6 +55,7 @@ def savefile(
     """
     # Error Checks
     __err_msg_general_error = "Error has occurred and cannot proceed"
+    __err_msg_no_attrs_found = "Cannot save file. No attributes found in the object passed"
     __err_msg_type_str_filename = "Only str is allowed for filename"
     __err_msg_type_str_write_mode = "Only str is allowed for write_mode"
     __err_msg_type_int_indent_level = "Only int is allowed for indent_level"
@@ -173,6 +174,9 @@ def savefile(
 
         return None
 
+    # Report if no __dict__ Attribute
+    if not hasattr(data, '__dict__'):
+        raise SaveFile(__err_msg_no_attrs_found, f'\nFILE: "{filename}" \nDATA: {data}')
 
     # Report if Error not Definable
     raise SaveFile(__err_msg_general_error, f'\nDATA: {data}')
