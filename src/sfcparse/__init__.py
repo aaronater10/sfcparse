@@ -26,6 +26,7 @@ from .__native.exportfile import exportfile
 from .__native.appendfile import appendfile
 from .__native.cleanformat import cleanformat
 from .__native.savefile import savefile
+from .__native.builddata import builddata
 
 # Hash Lib
 from .__hash.createfilehash import createfilehash

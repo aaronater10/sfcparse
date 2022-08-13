@@ -9,7 +9,7 @@ from ..error import ImportFile, GeneralError
 #########################################################################################################
 # Import py Data from File
 class SfcparseFileData:
-    def __init__(self, filename: str, attrib_name_dedup: bool):
+    def __init__(self, filename: str, attrib_name_dedup: bool, __is_build_request: bool = False):
         # '__assignment_locked_attribs' MUST BE FIRST INIT ASSIGNMENT
         self.__assignment_locked_attribs = []
         self.__assignment_reference_attribs = {}
@@ -19,15 +19,19 @@ class SfcparseFileData:
         # This helps authenticity of SfcparseFileData Object for Development aid
         self.__sfcparse_file_format_id__ = "a55acb6b-f87b-4f89-ad11-c9d23eb1307d-7797537e-fb5d-4c69-b84f-2b4da59c04c1"
 
-        # Open and Import Config File into Class Object then return the object        
-        with open(filename, 'r') as f:
-            f = f.read().splitlines()
-
         # Syntax/Usage Error Messages
         __py_syntax_err_msg = "Must have valid Python data types to import, or file's syntax is not formatted correctly"
         __name_preexists_err_msg = "Name already preexists. Must give unique attribute names in file"
         __name_reference_does_not_exist = "Name reference does not exist! Must reference attribute names in file that have been defined"
         self.__assignment_locked_atrribs_err_msg = "Value Locked! Attribute cannot be reassigned"
+
+        # BUILD REQUEST: If this is a object build request,
+        # then end the INIT here with above self.attributes intact
+        if __is_build_request: return None
+
+        # Open and Import Config File into Class Object then return the object        
+        with open(filename, 'r') as f:
+            f = f.read().splitlines()
         
         # Data Build Setup and Switches        
         __is_building_data_sw = False
@@ -191,7 +195,7 @@ class SfcparseFileData:
         __err_msg_attr_name_exist = "Locked attribute name does not exist! Must be created first to lock"
 
         if not isinstance(attr_name, str): raise GeneralError(__err_msg_attr_name_str, f'\nATTR_NAME: "{attr_name}"')
-        if not self.__dict__.get(attr_name): raise GeneralError(__err_msg_attr_name_exist, f'\nATTR_NAME: "{attr_name}"')
+        if not attr_name in self.__dict__: raise GeneralError(__err_msg_attr_name_exist, f'\nATTR_NAME: "{attr_name}"')
 
         # Assign Attr to Locked List
         self.__assignment_locked_attribs.append(attr_name)
@@ -207,7 +211,7 @@ class SfcparseFileData:
         __err_msg_attr_name_exist_unlock = "Unlock attribute name does not exist in lock! Could not find name to unlock"
 
         if not isinstance(attr_name, str): raise GeneralError(__err_msg_attr_name_str, f'\nATTR_NAME: "{attr_name}"')
-        if not self.__dict__.get(attr_name): raise GeneralError(__err_msg_attr_name_exist, f'\nATTR_NAME: "{attr_name}"')
+        if not attr_name in self.__dict__: raise GeneralError(__err_msg_attr_name_exist, f'\nATTR_NAME: "{attr_name}"')
 
         # Remove Attr from Locked List
         try: self.__assignment_locked_attribs.remove(attr_name)
@@ -219,6 +223,8 @@ class SfcparseFileData:
         Create reference of class attribute name to another attribute name value from this object
 
         This will also assign the value of the reference name to the attribute
+
+        Useful to maintain name references stored to a file
         """
         # Error Checks
         __err_msg_attr_name_str = "Only str is allowed for attr_name"
@@ -230,8 +236,8 @@ class SfcparseFileData:
         if not isinstance(reference_name, str): raise GeneralError(__err_msg_reference_name_str, f'\nATTR_NAME: "{reference_name}"')
 
         # Look up if Attr or Reference Name Exists
-        if not self.__dict__.get(attr_name): raise GeneralError(__err_msg_attr_name_exist, f'\nATTR_NAME: "{attr_name}"')
-        if not self.__dict__.get(reference_name): raise GeneralError(__err_msg_reference_name_exist, f'\nATTR_NAME: "{reference_name}"')
+        if not attr_name in self.__dict__: raise GeneralError(__err_msg_attr_name_exist, f'\nATTR_NAME: "{attr_name}"')
+        if not reference_name in self.__dict__: raise GeneralError(__err_msg_reference_name_exist, f'\nATTR_NAME: "{reference_name}"')
 
         # Set Value to Reference Value
         setattr(self, attr_name, getattr(self, reference_name))
