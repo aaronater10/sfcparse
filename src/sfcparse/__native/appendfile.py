@@ -3,10 +3,7 @@
 # Imports
 from typing import Any as __Any
 from os import path as __path
-from ..error import SfcparseError
-
-# Exception for Module
-class AppendFile(SfcparseError): __module__ = SfcparseError.set_module_name()
+from ..error import AppendFile
 
 #########################################################################################################
 # Append Data to File

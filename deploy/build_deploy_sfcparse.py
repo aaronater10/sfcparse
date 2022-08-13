@@ -3,7 +3,7 @@ import os
 import subprocess
 
 # Setup
-SFCPARSE_VERSION = "1.3.2"
+SFCPARSE_VERSION = "2.0.0"
 DEPLOY_API_TOKEN = f"{sys.argv[1]}"
 DEPLOY_SSH_KEY = f"{sys.argv[2]}"
 USER_HOMEPATH = os.getenv('HOME')

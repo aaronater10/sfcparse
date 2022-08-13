@@ -1,7 +1,7 @@
 """
 Simple File Configuration Parse - by aaronater10
 
-Version 1.3.2
+Version 2.0.0
 
 The easy to use library for your data, configuration, and save files.
 
@@ -15,12 +15,18 @@ Source Code: https://github.com/aaronater10/sfcparse
 #########################################################################################################
 # Imports
 
+# Base Exceptions
+from . import error
+
 # Native Lib
 from .__native.importfile import importfile
 from .__native.importfileraw import importfileraw
+from .__native.importattrs import importattrs
 from .__native.exportfile import exportfile
 from .__native.appendfile import appendfile
 from .__native.cleanformat import cleanformat
+from .__native.savefile import savefile
+from .__native.builddata import builddata
 
 # Hash Lib
 from .__hash.createfilehash import createfilehash

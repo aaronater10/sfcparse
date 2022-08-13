@@ -7,7 +7,7 @@ import xml.etree.ElementTree as __xml_etree
 # Build manual xml data
 def xmlbuildmanual() -> __xml_etree:
     """
-    Returns a empty xml ElementTree obj to build/work with xml data
+    Returns an empty xml ElementTree obj to build/work with xml data
     
     Assign the output to var
 

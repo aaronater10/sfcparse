@@ -2,10 +2,7 @@
 #########################################################################################################
 # Imports
 from os import path as __path
-from ..error import SfcparseError
-
-# Exception for Module
-class ImportFileRaw(SfcparseError): __module__ = SfcparseError.set_module_name()
+from ..error import ImportFileRaw
 
 #########################################################################################################
 # Import raw data from file

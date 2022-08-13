@@ -3,10 +3,7 @@
 # Imports
 from typing import Any as __Any
 import yaml as __yaml
-from ..error import SfcparseError
-
-# Exception for Module
-class YamlExportStr(SfcparseError): __module__ = SfcparseError.set_module_name()
+from ..error import YamlExportStr
 
 #########################################################################################################
 # Export yaml str

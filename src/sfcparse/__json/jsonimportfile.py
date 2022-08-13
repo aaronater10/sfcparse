@@ -2,11 +2,8 @@
 #########################################################################################################
 # Imports
 import json as __json
-from ..error import SfcparseError
+from ..error import JsonImportFile
 from typing import Union
-
-# Exception for Module
-class JsonImportFile(SfcparseError): __module__ = SfcparseError.set_module_name()
 
 #########################################################################################################
 # Import json file

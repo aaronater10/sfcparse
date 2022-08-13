@@ -3,10 +3,7 @@
 # Imports
 from .createfilehash import createfilehash
 from ..__native.importfile import importfile
-from ..error import SfcparseError
-
-# Exception for Module
-class CompareFileHash(SfcparseError): __module__ = SfcparseError.set_module_name()
+from ..error import CompareFileHash
 
 #########################################################################################################
 # Compare file hashes

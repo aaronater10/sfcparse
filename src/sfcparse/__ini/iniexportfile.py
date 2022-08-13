@@ -2,10 +2,7 @@
 #########################################################################################################
 # Imports
 from configparser import ConfigParser as __ConfigParser
-from ..error import SfcparseError
-
-# Exception for Module
-class IniExportFile(SfcparseError): __module__ = SfcparseError.set_module_name()
+from ..error import IniExportFile
 
 #########################################################################################################
 # Export ini file

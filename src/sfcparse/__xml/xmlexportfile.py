@@ -4,10 +4,7 @@
 from ..__native.exportfile import exportfile
 from .xmlexportstr import xmlexportstr
 import xml.etree.ElementTree as __xml_etree
-from ..error import SfcparseError
-
-# Exception for Module
-class XmlExportFile(SfcparseError): __module__ = SfcparseError.set_module_name()
+from ..error import XmlExportFile
 
 #########################################################################################################
 # Export xml file

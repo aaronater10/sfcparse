@@ -2,10 +2,7 @@
 #########################################################################################################
 # Imports
 from typing import Union as __Union
-from ..error import SfcparseError
-
-# Exception for Module
-class CleanFormat(SfcparseError): __module__ = SfcparseError.set_module_name()
+from ..error import CleanFormat
 
 #########################################################################################################
 # Format/Prep Dictionary, List, Tuple, or Set Data for Export
