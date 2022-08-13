@@ -26,7 +26,7 @@ def savefile(
     """
     Saves your Attr or Key/Value pair data to a file with the new data.
 
-    Enter filename as str, Pass SfcparseFileData, dict, or custom data type for output to file.
+    Enter filename as str, Pass SfcparseFileData, dict, or custom class data type for output to file.
 
     [Importing Data Back] Functions:
 
@@ -59,7 +59,7 @@ def savefile(
     __err_msg_type_str_write_mode = "Only str is allowed for write_mode"
     __err_msg_type_int_indent_level = "Only int is allowed for indent_level"
     __err_msg_type_bool_indentation_on = "Only bool is allowed for indentation_on"
-    __err_msg_class_instance_error = "Seeing internal built-in names to save. Normally due to a class not being instantiated"
+    __err_msg_class_instance_error = "Seeing internal built-in names to save. Normally due to a class not being instantiated. If intentional, turn off check with 'verify_if_class_instantiated = False'"
 
     if not isinstance(filename, str): raise SaveFile(__err_msg_type_str_filename, f'\nFILE: "{filename}"')
     if not isinstance(write_mode, str): raise SaveFile(__err_msg_type_str_write_mode, f'\nFILE: "{filename}" \nDATA: {write_mode}')
