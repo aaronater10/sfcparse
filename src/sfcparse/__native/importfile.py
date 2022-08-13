@@ -195,8 +195,25 @@ class SfcparseFileData:
 
         # Assign Attr to Locked List
         self.__assignment_locked_attribs.append(attr_name)
-    
-    
+
+
+    def unlock_attr(self, attr_name: str) -> None:
+        """
+        Unlocks a class attribute name from locked re-assignment
+        """
+        # Error Checks
+        __err_msg_attr_name_str = "Only str is allowed for attr_name"
+        __err_msg_attr_name_exist = "Attribute name does not exist! Must be created first to lock"
+        __err_msg_attr_name_exist_unlock = "Attribute name does not exist! Could not find name to unlock"
+
+        if not isinstance(attr_name, str): raise GeneralError(__err_msg_attr_name_str, f'\nATTR_NAME: "{attr_name}"')
+        if not self.__dict__.get(attr_name): raise GeneralError(__err_msg_attr_name_exist, f'\nATTR_NAME: "{attr_name}"')
+
+        # Remove Attr from Locked List
+        try: self.__assignment_locked_attribs.remove(attr_name)
+        except ValueError: raise GeneralError(__err_msg_attr_name_exist_unlock, f'\nATTR_NAME: "{attr_name}"')
+
+
     def reference_attr(self, attr_name: str, reference_name: str) -> None:
         """
         Create reference of class attribute name to another attribute name value from this object
