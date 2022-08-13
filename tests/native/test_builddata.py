@@ -55,7 +55,7 @@ class TestBuildData(unittest.TestCase):
 
     # 2. Build Data - Testing raw data build and method concepts, storing to file and importing method retention
     def test2_build_data_methods_sfcparse(self):
-        filename = '2_build_data_methods.data'
+        filename = '2_build_data_methods_sfcparse.data'
         filepath = test_file_path + filename
 
         # Build Data
