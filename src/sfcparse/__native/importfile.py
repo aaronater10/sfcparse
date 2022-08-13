@@ -188,7 +188,7 @@ class SfcparseFileData:
         """
         # Error Checks
         __err_msg_attr_name_str = "Only str is allowed for attr_name"
-        __err_msg_attr_name_exist = "Attribute name does not exist! Must be created first to lock"
+        __err_msg_attr_name_exist = "Locked attribute name does not exist! Must be created first to lock"
 
         if not isinstance(attr_name, str): raise GeneralError(__err_msg_attr_name_str, f'\nATTR_NAME: "{attr_name}"')
         if not self.__dict__.get(attr_name): raise GeneralError(__err_msg_attr_name_exist, f'\nATTR_NAME: "{attr_name}"')
@@ -203,8 +203,8 @@ class SfcparseFileData:
         """
         # Error Checks
         __err_msg_attr_name_str = "Only str is allowed for attr_name"
-        __err_msg_attr_name_exist = "Attribute name does not exist! Must be created first to lock"
-        __err_msg_attr_name_exist_unlock = "Attribute name does not exist! Could not find name to unlock"
+        __err_msg_attr_name_exist = "Unlock attribute name does not exist"
+        __err_msg_attr_name_exist_unlock = "Unlock attribute name does not exist in lock! Could not find name to unlock"
 
         if not isinstance(attr_name, str): raise GeneralError(__err_msg_attr_name_str, f'\nATTR_NAME: "{attr_name}"')
         if not self.__dict__.get(attr_name): raise GeneralError(__err_msg_attr_name_exist, f'\nATTR_NAME: "{attr_name}"')
