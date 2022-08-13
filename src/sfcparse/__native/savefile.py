@@ -20,7 +20,8 @@ def savefile(
     data: __Union['__SfcparseFileData', dict, '__SfcparseDummy.Class'], 
     write_mode: str = 'w',
     indent_level: int = 1,
-    indentation_on: bool = True
+    indentation_on: bool = True,
+    verify_if_class_instantiated = True
     ) -> None:
     """
     Saves your Attr or Key/Value pair data to a file with the new data.
@@ -58,6 +59,7 @@ def savefile(
     __err_msg_type_str_write_mode = "Only str is allowed for write_mode"
     __err_msg_type_int_indent_level = "Only int is allowed for indent_level"
     __err_msg_type_bool_indentation_on = "Only bool is allowed for indentation_on"
+    __err_msg_class_instance_error = "Seeing internal built-in names to save. Normally due to a class not being instantiated"
 
     if not isinstance(filename, str): raise SaveFile(__err_msg_type_str_filename, f'\nFILE: "{filename}"')
     if not isinstance(write_mode, str): raise SaveFile(__err_msg_type_str_write_mode, f'\nFILE: "{filename}" \nDATA: {write_mode}')
@@ -69,6 +71,7 @@ def savefile(
     __build_data_output = ""
     __assignment_operators = ('=', '$=', '==', '$==')
     __skip_object_key = ('_SfcparseFileData', '__sfcparse_file_format_id')
+    __non_instance_names = ['__module__', '__init__']
     __locked_attr_list_key =  '_SfcparseFileData__assignment_locked_attribs'
     __reference_attr_list_key =  '_SfcparseFileData__assignment_reference_attribs'
     __sfcparse_file_format_id_match = "a55acb6b-f87b-4f89-ad11-c9d23eb1307d-7797537e-fb5d-4c69-b84f-2b4da59c04c1"
@@ -151,7 +154,11 @@ def savefile(
     and (not isinstance(data, bytearray)) \
     and (not isinstance(data, memoryview)):
         # Build Data
-        for key,value in data.__dict__.items():            
+        for key,value in data.__dict__.items():
+            # Verify Class is Instantiated
+            if verify_if_class_instantiated:
+                if key in __non_instance_names:
+                    raise SaveFile(__err_msg_class_instance_error, f'\nFILE: "{filename}" \nCLASS: {data} \nATTR_NAME: {key}')
             # Normal Assignment
             if __multiline_check(value) and indentation_on:
                 value = __cleanformat(value, indent_level)
