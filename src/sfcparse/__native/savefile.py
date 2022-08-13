@@ -23,7 +23,34 @@ def savefile(
     indentation_on: bool = True
     ) -> None:
     """
-    savefile
+    Saves your Attr or Key/Value pair data to a file with the new data.
+
+    Enter filename as str, Pass SfcparseFileData, dict, or custom data type for output to file.
+
+    [Importing Data Back] Functions:
+
+    importfile: Import data back returning a class of attributes with Sfcparse features
+
+    importattrs: Import attributes back into a custom class. This is done in-place
+
+    [Options]
+
+    write_mode:
+
+    'w' = write new file with new data (Default)
+
+    'a' = append new data to existing file
+
+    indent_level: set indent level for types list, dict, tuple, set (Default 1)
+
+    indentation_on: set to False to turn OFF indentation on types list, dict, tuple, set (Default ON)
+
+    [Example Use]
+    Normal: savefile('path/of/filename', 'data')
+
+    Append to File: savefile('path/of/filename', 'data', write_mode='a')
+
+    Indent OFF: savefile('path/of/filename', 'data', indentation_on=False)
     """
     # Error Checks
     __err_msg_general_error = "Error has occurred and cannot proceed"

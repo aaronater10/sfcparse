@@ -12,7 +12,13 @@ class __SfcparseDummy:
 
 def importattrs(filename: str, class_object: '__SfcparseDummy.Class') -> None:
     """
-    importattrs - done in-place
+    Import saved attributes from file back into a custom class. This is done in-place
+
+    Enter filename as str, Pass custom class object.
+
+    [Example Use]
+
+    importattrs('path/of/filename', 'class_object')
     """
     # Error Checks
     __err_msg_type_str_filename = "Only str is allowed for filename"
