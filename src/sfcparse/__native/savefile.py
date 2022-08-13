@@ -177,5 +177,5 @@ def __write_file_data(filename: str, data: __Any, write_mode: str) -> None:
         # Raise Exception if No Match
         if not write_mode in __write_mode_allowed_list:
             raise SaveFile(__err_msg_write_mode, f'\nFILE: "{filename}" \nDATA: {write_mode}')
-    except ExportFile as __err: raise SaveFile(__err, '')
-    except AppendFile as __err: raise SaveFile(__err, '')
+    except ExportFile as __err_msg: raise SaveFile(__err_msg, '')
+    except AppendFile as __err_msg: raise SaveFile(__err_msg, '')
