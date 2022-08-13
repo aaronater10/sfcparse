@@ -4,7 +4,7 @@
 from ast import literal_eval as __literal_eval__
 from os import path as __path
 from typing import Any as _Any
-from ..error import ImportFile
+from ..error import ImportFile, GeneralError
 
 #########################################################################################################
 # Import py Data from File
@@ -176,6 +176,46 @@ class SfcparseFileData:
             self.__dict__[_name] = _orig_value
             # RAISE EXCEPTION
             raise ImportFile(self.__assignment_locked_atrribs_err_msg, f'\nATTRIB_NAME: "{_name}"')
+
+
+    def lock_attr(self, attr_name: str) -> None:
+        """
+        Lock's a class attribute name from re-assignment
+        """
+        # Error Checks
+        __err_msg_attr_name_str = "Only str is allowed for attr_name"
+        __err_msg_attr_name_exist = "Attribute name does not exist! Must be created first to lock"
+
+        if not isinstance(attr_name, str): raise GeneralError(__err_msg_attr_name_str, f'\nATTR_NAME: "{attr_name}"')
+        if not self.__dict__.get(attr_name): raise GeneralError(__err_msg_attr_name_exist, f'\nATTR_NAME: "{attr_name}"')
+
+        # Assign Attr to Locked List
+        self.__assignment_locked_attribs.append(attr_name)
+    
+    
+    def reference_attr(self, attr_name: str, reference_name: str) -> None:
+        """
+        Create reference of class attribute name to another attribute name value from this object
+
+        This will also assign the value of the reference name to the attribute
+        """
+        # Error Checks
+        __err_msg_attr_name_str = "Only str is allowed for attr_name"
+        __err_msg_reference_name_str = "Only str is allowed for reference_name"
+        __err_msg_attr_name_exist = "Source attribute name does not exist! Must be created first to assign reference"
+        __err_msg_reference_name_exist = "Reference attribute name does not exist! Cannot assign value reference"
+
+        if not isinstance(attr_name, str): raise GeneralError(__err_msg_attr_name_str, f'\nATTR_NAME: "{attr_name}"')
+        if not isinstance(reference_name, str): raise GeneralError(__err_msg_reference_name_str, f'\nATTR_NAME: "{reference_name}"')
+
+        # Look up if Attr or Reference Name Exists
+        if not self.__dict__.get(attr_name): raise GeneralError(__err_msg_attr_name_exist, f'\nATTR_NAME: "{attr_name}"')
+        if not self.__dict__.get(reference_name): raise GeneralError(__err_msg_reference_name_exist, f'\nATTR_NAME: "{reference_name}"')
+
+        # Assign Attr Name to Reference Name in Reference Dict
+        self.__assignment_reference_attribs[attr_name] = reference_name
+        # Set Value to Reference Value
+        setattr(self, attr_name, getattr(self, reference_name))
 
 
 def importfile(filename: str, attrib_name_dedup: bool=True) -> 'SfcparseFileData':

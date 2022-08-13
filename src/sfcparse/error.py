@@ -15,6 +15,9 @@ class SfcparseError(Exception):
 
 # Module Exceptions
 
+# General Error
+class GeneralError(SfcparseError): __module__ = 'sfcparse.error'
+
 # Native
 class ImportFile(SfcparseError): __module__ = 'sfcparse.error'
 class ImportFileRaw(SfcparseError): __module__ = 'sfcparse.error'
