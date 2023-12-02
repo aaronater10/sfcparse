@@ -1,11 +1,16 @@
 [![Docs](https://raw.githubusercontent.com/aaronater10/sfcparse/main/ext/sfcparse_cover.png)](https://docs.sfcparse.org/)
 
+# [DEPRECATED]
+This project is no longer supported and unmaintained, and has been re-branded to a new version of this project. Any current package releases will remain on pypi.
+
+**For newer and further support, please start using: [maci](https://github.com/aaronater10/maci)**
+
 # sfcparse
 The easy to use library for your data, configuration, and save files
 
 [![Functionality-QA-Tests](https://github.com/aaronater10/sfcparse/actions/workflows/sfcparse_functionality_testing.yml/badge.svg)](https://github.com/aaronater10/sfcparse/actions/workflows/sfcparse_functionality_testing.yml)
 
-##### Latest Version: 2.0.0
+##### Last Version: 2.0.0
 
 #
 
